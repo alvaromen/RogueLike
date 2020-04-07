@@ -34,8 +34,8 @@ public class RoomCreator : MonoBehaviour
     //variables which are going to define the room
 
     //dimensions of the room
-    public int columns = Random.Range(8, 16);
-    public int rows = Random.Range(8, 16);
+    public int columns;
+    public int rows;
 
     public Count wallCount = new Count(5, 9); //limits of the random number of walls per room
     public Count enemiesCount = new Count(1, 5); //limits of the random number of enemies per room
@@ -130,6 +130,8 @@ public class RoomCreator : MonoBehaviour
      */
     public void SetupRoom()
     {
+        columns = Random.Range(8, 16);
+        rows = Random.Range(8, 16);
         BoardSetup();
         InitialiseList();
     }
