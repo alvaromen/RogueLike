@@ -7,13 +7,21 @@ using Random = UnityEngine.Random;
 public class RoomCreator : MonoBehaviour
 {
 
-    public enum RoomType{
+    public enum RoomType
+    {
         initial,
         normal,
         boss
     }
 
+    public enum Conexions
+    {
+        T, B, L, R, TB, TL, TR, BL, BR, LR, TBL, TBR, TLR, BLR, TBLR
+    }
+
     private RoomType roomType;
+
+    private Conexions conexions;
 
     /**
      * Serializable class to indicate the minimum and maximum of an object in the room
@@ -41,7 +49,7 @@ public class RoomCreator : MonoBehaviour
     public Count enemiesCount = new Count(1, 5); //limits of the random number of enemies per room
     public GameObject exitLevel;
     //Arrays of prefabs
-    public GameObject[] exit;
+    public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] enemyTiles;
@@ -72,7 +80,8 @@ public class RoomCreator : MonoBehaviour
     void BoardSetup()
     {
         boardHolder = new GameObject("Board").transform;
-        for(int i = -1; i < (columns + 1); i++)
+        GameObject instance;
+        for (int i = -1; i < (columns + 1); i++)
         {
             for(int j = -1; j < (rows + 1); j++)
             {
@@ -88,9 +97,199 @@ public class RoomCreator : MonoBehaviour
                 }
                 Quaternion q = Quaternion.identity;
                 q.z = n * 90;
-                GameObject instance = Instantiate(toInstantiate, new Vector3(i, j, 0f), q);
+                instance = Instantiate(toInstantiate, new Vector3(i, j, 0f), q);
                 instance.transform.SetParent(boardHolder);
             }
+        }
+
+        switch (conexions)
+        {
+            case Conexions.T:
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.B:
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.L:
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.R:
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TB:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TL:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TR:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.BL:
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.BR:
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.LR:
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TBL:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TBR:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TLR:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.BLR:
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
+            case Conexions.TBLR:
+                //T
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, rows, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //B
+                instance = Instantiate(exit, new Vector3(columns / 2 - 1, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns / 2, -1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //L
+                instance = Instantiate(exit, new Vector3(-1, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(-1, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                //R
+                instance = Instantiate(exit, new Vector3(columns, rows / 2 - 1, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                instance = Instantiate(exit, new Vector3(columns, rows / 2, 0f), Quaternion.identity);
+                instance.transform.SetParent(boardHolder);
+                break;
         }
     }
 
@@ -125,13 +324,25 @@ public class RoomCreator : MonoBehaviour
         roomType = type;
     }
 
+    public void setConexions(Conexions conex)
+    {
+        conexions = conex;
+    }
+
     /**
-     * Generates a random room
-     */
+    * Generates a random room
+    */
     public void SetupRoom()
     {
-        columns = Random.Range(8, 16);
-        rows = Random.Range(8, 16);
+        conexions = Conexions.TBR;
+        do
+        {
+            columns = Random.Range(8, 16);
+        } while (columns % 2 != 0);
+        do
+        {
+            rows = Random.Range(8, 16);
+        } while (rows % 2 != 0);
         BoardSetup();
         InitialiseList();
     }

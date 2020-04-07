@@ -256,7 +256,7 @@ MonoBehaviour:
     minimum: 0
     maximum: 0
   exitLevel: {fileID: 0}
-  exit: []
+  exit: {fileID: 0}
   floorTiles:
   - {fileID: 3481470804946756404, guid: 5ec19a2c7734dd14da0a8fd070ed1519, type: 3}
   - {fileID: 7723966126088747915, guid: cc7b9e4740075c64f9053f618f1c1187, type: 3}
@@ -267,7 +267,7 @@ MonoBehaviour:
   wallTiles: []
   enemyTiles: []
   outerWallTiles:
-  - {fileID: 6229230660195408634, guid: a7ecd2786b1f5724d845e2723affe8f0, type: 3}
+  - {fileID: 6805991391091305766, guid: 77890fe700b3f424aad04c40f8e536de, type: 3}
   - {fileID: 6805991391091305766, guid: 77890fe700b3f424aad04c40f8e536de, type: 3}
   - {fileID: 6805991391091305766, guid: 77890fe700b3f424aad04c40f8e536de, type: 3}
   - {fileID: 6805991391091305766, guid: 77890fe700b3f424aad04c40f8e536de, type: 3}
