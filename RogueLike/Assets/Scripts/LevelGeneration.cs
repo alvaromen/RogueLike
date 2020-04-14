@@ -17,15 +17,17 @@ public class LevelGeneration : MonoBehaviour {
     public float startTimeBtwSpawn;
 
     public LayerMask whatIsRoom;
-    
+
+    Transform boardHolder;
 
     private void Start()
     {
-       
+        boardHolder = new GameObject("Board").transform;
+
         int randStartingPos = Random.Range(0, startingPositions.Length);
         transform.position = startingPositions[randStartingPos].position;
-        Instantiate(rooms[1], transform.position, Quaternion.identity);
-
+        Instantiate(rooms[1], transform.position, Quaternion.identity).transform.SetParent(boardHolder);
+       
         direction = Random.Range(1, 6);
     }
 
@@ -59,7 +61,7 @@ public class LevelGeneration : MonoBehaviour {
                 transform.position = pos;
 
                 int randRoom = Random.Range(1, 4);
-                Instantiate(rooms[randRoom], transform.position, Quaternion.identity);
+                Instantiate(rooms[randRoom], transform.position, Quaternion.identity).transform.SetParent(boardHolder);
 
                 // Makes sure the level generator doesn't move left !
                 direction = Random.Range(1, 6);
@@ -86,7 +88,7 @@ public class LevelGeneration : MonoBehaviour {
                 transform.position = pos;
 
                 int randRoom = Random.Range(1, 4);
-                Instantiate(rooms[randRoom], transform.position, Quaternion.identity);
+                Instantiate(rooms[randRoom], transform.position, Quaternion.identity).transform.SetParent(boardHolder);
 
                 direction = Random.Range(3, 6);
             }
@@ -112,7 +114,7 @@ public class LevelGeneration : MonoBehaviour {
                     if (downCounter >= 2)
                     {
                         previousRoom.GetComponent<Room>().RoomDestruction();
-                        Instantiate(rooms[4], transform.position, Quaternion.identity);
+                        Instantiate(rooms[4], transform.position, Quaternion.identity).transform.SetParent(boardHolder);
                     }
                     else
                     {
@@ -122,7 +124,7 @@ public class LevelGeneration : MonoBehaviour {
                         {
                             randRoomDownOpening = 2;
                         }
-                        Instantiate(rooms[randRoomDownOpening], transform.position, Quaternion.identity);
+                        Instantiate(rooms[randRoomDownOpening], transform.position, Quaternion.identity).transform.SetParent(boardHolder);
                     }
 
                 }
@@ -134,7 +136,7 @@ public class LevelGeneration : MonoBehaviour {
 
                 // Makes sure the room we drop into has a TOP opening !
                 int randRoom = Random.Range(3, 5);
-                Instantiate(rooms[randRoom], transform.position, Quaternion.identity);
+                Instantiate(rooms[randRoom], transform.position, Quaternion.identity).transform.SetParent(boardHolder);
 
                 direction = Random.Range(1, 6);
             }

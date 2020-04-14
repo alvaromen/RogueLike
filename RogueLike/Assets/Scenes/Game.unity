@@ -176,7 +176,7 @@ MonoBehaviour:
   - {fileID: 1711888464712350, guid: 8228f2f5ddd024e45ae49e9e046cf675, type: 3}
   - {fileID: 1942163711769760, guid: e8b739a65aefeaf4196add5273203e16, type: 3}
   moveIncrement: 10
-  startTimeBtwSpawn: 0.1
+  startTimeBtwSpawn: 0
   whatIsRoom:
     serializedVersion: 2
     m_Bits: 256
