@@ -72,8 +72,8 @@ public class LevelGenerator : MonoBehaviour
 
 	void CreateRooms()
 	{
-		int maxRooms = 20;
-		int maxTries = 30;
+		int maxRooms = 30;
+		int maxTries = 50;
 		for (int r = 0; r < maxRooms; r++)
 		{
 			int x;
@@ -91,12 +91,12 @@ public class LevelGenerator : MonoBehaviour
 				numTries++;
 				do
 				{
-					x = Random.Range(0, floorWidth - 2);
-					y = Random.Range(0, floorHeight - 2);
+					x = Random.Range(5, floorWidth - 5);
+					y = Random.Range(5, floorHeight - 5);
 				} while (grid[x, y] != GridSpace.empty);
 				
-				maxRoomWidth = Random.Range(5, 10);
-				maxRoomHeight = Random.Range(5, 10);
+				maxRoomWidth = Random.Range(5, 15);
+				maxRoomHeight = Random.Range(5, 15);
 
 				currRoom.init = new Vector2(x, y);
 				currRoom.dims = new Vector2(maxRoomWidth, maxRoomHeight);
@@ -105,8 +105,8 @@ public class LevelGenerator : MonoBehaviour
 				{
 					foreach (Room room in rooms)
 					{
-						bool ovv = doOverlap(currRoom, room, 5);
-						print(ovv + ": " + currRoom.init + " | " + (currRoom.init + currRoom.dims) + " || " + room.init + " | " + (room.init + room.dims));
+						bool ovv = doOverlap(currRoom, room, 2);
+						//print(ovv + ": " + currRoom.init + " | " + (currRoom.init + currRoom.dims) + " || " + room.init + " | " + (room.init + room.dims));
 						if (ovv)
 						{
 							overlap = true;
@@ -117,7 +117,8 @@ public class LevelGenerator : MonoBehaviour
 			} while (overlap && (numTries <= maxTries));
 
 			//print(numTries + ", " + maxTries);
-			if (!overlap) {
+			if (!overlap)
+			{
 				rooms.Add(currRoom);
 
 				for (int i = x; i < x + maxRoomWidth; i++)
@@ -136,6 +137,8 @@ public class LevelGenerator : MonoBehaviour
 					}
 				}
 			}
+			else
+				print("Room failed");
 		}
 	}
 
@@ -147,7 +150,9 @@ public class LevelGenerator : MonoBehaviour
 		Vector2 l2 = room2.init;
 		Vector2 r2 = room2.init + room2.dims;
 
-		if(r1.x + margin < l2.x || r1.y + margin < l2.y || l1.x - margin > r2.x || r1.y - margin > r2.y)
+		
+
+		if(r1.x + margin < l2.x || r1.y + margin < l2.y || l1.x - margin > r2.x || l1.y - margin > r2.y)
 		{
 			return false;
 		}
