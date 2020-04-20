@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
 	//enum GridSpace { empty, floor, floorAlt1, floorAlt2, floorAlt3, wallLeft, wallRight, corner1, corner2, corner3, corner4 };
-	enum GridSpace {empty, floor, wall, init};
+	enum GridSpace {empty, floor, wall, init, passage};
 
 	Dictionary<GridSpace, GameObject> mapValues;
 	
@@ -13,7 +14,20 @@ public class LevelGenerator : MonoBehaviour
 	int floorHeight, floorWidth;
 	Vector2 roomSizeWorldUnits;
 	float worldUnitsInOneGridCell = 1;
+
+
+	struct Walker
+	{
+		public Vector2 dir;
+		public Vector2 pos;
+	}
+
+	//public float percentToFill = .6f;
 	
+	public int maxPathways = 40;
+	public int maxRooms = 100;
+	public int maxTries = 50;
+
 
 	struct Room
 	{
@@ -23,7 +37,7 @@ public class LevelGenerator : MonoBehaviour
 
 	List<Room> rooms;
 
-	public GameObject wallObj, floorObj, emptyObj;
+	public GameObject wallObj, floorObj, pathObj, emptyObj;
 
 	Transform boardHolder;
 
@@ -31,13 +45,22 @@ public class LevelGenerator : MonoBehaviour
 	{
 		Setup();
 		CreateRooms();
+		CreateWalkWays();
 		SpawnLevel();
+	}
+
+	private void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			SceneManager.LoadScene(0);
+		}
 	}
 
 	void Setup()
 	{
-		roomSizeWorldUnits = new Vector2(Random.Range(30, 100), Random.Range(30, 100));
-		
+		roomSizeWorldUnits = new Vector2(Random.Range(100, 200), Random.Range(100, 200));
+
 		boardHolder = new GameObject("Board").transform;
 
 		//find grid size
@@ -65,6 +88,7 @@ public class LevelGenerator : MonoBehaviour
 		mapValues = new Dictionary<GridSpace, GameObject>();
 
 		mapValues[GridSpace.floor] = floorObj;
+		mapValues[GridSpace.passage] = pathObj;
 		mapValues[GridSpace.wall] = emptyObj;
 		mapValues[GridSpace.empty] = emptyObj;
 		mapValues[GridSpace.init] = wallObj;
@@ -72,8 +96,6 @@ public class LevelGenerator : MonoBehaviour
 
 	void CreateRooms()
 	{
-		int maxRooms = 30;
-		int maxTries = 50;
 		for (int r = 0; r < maxRooms; r++)
 		{
 			int x;
@@ -106,7 +128,6 @@ public class LevelGenerator : MonoBehaviour
 					foreach (Room room in rooms)
 					{
 						bool ovv = doOverlap(currRoom, room, 2);
-						//print(ovv + ": " + currRoom.init + " | " + (currRoom.init + currRoom.dims) + " || " + room.init + " | " + (room.init + room.dims));
 						if (ovv)
 						{
 							overlap = true;
@@ -116,7 +137,6 @@ public class LevelGenerator : MonoBehaviour
 				}
 			} while (overlap && (numTries <= maxTries));
 
-			//print(numTries + ", " + maxTries);
 			if (!overlap)
 			{
 				rooms.Add(currRoom);
@@ -137,8 +157,69 @@ public class LevelGenerator : MonoBehaviour
 					}
 				}
 			}
-			else
-				print("Room failed");
+		}
+	}
+
+	void CreateWalkWays()
+	{
+		for (int i = 0; i < maxPathways; i++)
+		{
+			int randInitIndex = Random.Range(0, rooms.Count - 1);
+			int randEndIndex;
+
+			do
+			{
+				randEndIndex = Random.Range(0, rooms.Count - 1);
+			} while (randEndIndex == randInitIndex);
+
+			// we have our starting and ending rooms
+			Room initialRoom = rooms[randInitIndex];
+			Room finalRoom = rooms[randEndIndex];
+
+			// more precisely, we have our starting and ending points
+			int randInitX = Random.Range((int)initialRoom.init.x, (int)(initialRoom.init.x + initialRoom.dims.x));
+			int randInitY = Random.Range((int)initialRoom.init.y, (int)(initialRoom.init.y + initialRoom.dims.y));
+
+			int randEndX = Random.Range((int)finalRoom.init.x, (int)(finalRoom.init.x + finalRoom.dims.x));
+			int randEndY = Random.Range((int)finalRoom.init.y, (int)(finalRoom.init.y + finalRoom.dims.y));
+
+			print("init: " + randInitX + ", " + randInitY + ". end: " + randEndX + ", " + randEndY);
+
+			// we spawn at the beginning
+			Vector2 spawnPos = new Vector2(randInitX, randInitY);
+			Walker walker = new Walker
+			{
+				pos = spawnPos
+			};
+
+			int diffX = (int)walker.pos.x - randEndX;
+			int diffY = (int)walker.pos.y - randEndY;
+
+			while (Mathf.Abs(diffX) > 0) //difference is growing instead of diminishing, FIX
+			{
+				print("going for x");
+				int xInRange = (int)Mathf.Clamp(walker.pos.x, 1, floorWidth - 2);
+				int yInRange = (int)Mathf.Clamp(walker.pos.y, 1, floorHeight - 2);
+				if (grid[xInRange, yInRange] != GridSpace.floor)
+				{
+					grid[xInRange, yInRange] = GridSpace.passage;
+				}
+				walker.pos.x -= Mathf.Sign(diffX);
+				diffX = (int)walker.pos.x - randEndX;
+			}
+
+			while (Mathf.Abs(diffY) > 0)
+			{
+				print("going for y");
+				int xInRange = (int)Mathf.Clamp(walker.pos.x, 1, floorWidth - 2);
+				int yInRange = (int)Mathf.Clamp(walker.pos.y, 1, floorHeight - 2);
+				if (grid[xInRange, yInRange] != GridSpace.floor)
+				{
+					grid[xInRange, yInRange] = GridSpace.passage;
+				}
+				walker.pos.y -= Mathf.Sign(diffY);
+				diffY = (int)walker.pos.y - randEndY;
+			}
 		}
 	}
 
@@ -158,6 +239,37 @@ public class LevelGenerator : MonoBehaviour
 		}
 
 		return true;
+	}
+
+	int NumberOfFloors()
+	{
+		int count = 0;
+		foreach (GridSpace space in grid)
+		{
+			if (space == GridSpace.floor)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+
+	Vector2 RandomDirection()
+	{
+		//pick random int between 0 and 3
+		int choice = Mathf.FloorToInt(Random.value * 3.99f);
+		//use that int to chose a direction
+		switch (choice)
+		{
+			case 0:
+				return Vector2.down;
+			case 1:
+				return Vector2.left;
+			case 2:
+				return Vector2.up;
+			default:
+				return Vector2.right;
+		}
 	}
 
 	void SpawnLevel()

@@ -233,14 +233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6a65f681d846c42b5d0afe266fb2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceWalkerChangeDir: 0.017
-  chanceWalkerSpawn: 0.151
-  chanceWalkerDestoy: 0.289
-  maxWalkers: 80
-  percentToFill: 0.498
+  maxPathways: 14
+  maxRooms: 100
+  maxTries: 100
   wallObj: {fileID: 1059517145776296, guid: 789cb061bf280cd4a9e7a6e7f610341f, type: 3}
   floorObj: {fileID: 5072702484885607002, guid: afb6bb868b6c7f148b99eee42bb82974,
     type: 3}
+  pathObj: {fileID: 6024957741770896377, guid: 9991c29d943239945b364a2350a29902, type: 3}
   emptyObj: {fileID: 8361172563762408077, guid: 8a4720728b13180429b1ed39608a29f0,
     type: 3}
 --- !u!4 &2099509076
