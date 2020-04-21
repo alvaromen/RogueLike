@@ -6,6 +6,8 @@ public class RoomViewer : MonoBehaviour
 {
 
     public RoomCreator roomScript;
+    public RoomCreator.Conexions conexion = RoomCreator.Conexions.TBLR;
+    public Vector2 position = new Vector2(0, 0);
 
     // Awake is called before Start
     void Awake()
@@ -16,7 +18,7 @@ public class RoomViewer : MonoBehaviour
 
     void InitGame()
     {
-        roomScript.SetupRoom();
+        roomScript.SetupRoom(conexion, position);
     }
 
     // Start is called before the first frame update

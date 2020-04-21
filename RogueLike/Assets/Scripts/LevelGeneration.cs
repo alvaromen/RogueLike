@@ -11,6 +11,7 @@ public class LevelGeneration : MonoBehaviour {
     private int direction;
     private bool stopGeneration;
     private int downCounter;
+    private int upCounter;
 
     public float moveIncrement;
     private float timeBtwSpawn;
@@ -26,7 +27,7 @@ public class LevelGeneration : MonoBehaviour {
         transform.position = startingPositions[randStartingPos].position;
         Instantiate(rooms[1], transform.position, Quaternion.identity);
 
-        direction = Random.Range(1, 6);
+        direction = Random.Range(1, 7);
     }
 
     private void Update()
@@ -51,10 +52,11 @@ public class LevelGeneration : MonoBehaviour {
 
         if (direction == 1 || direction == 2)
         { // Move right !
-          
-            if (transform.position.x < 25)
+
+            if (transform.position.x < 35)
             {
                 downCounter = 0;
+                upCounter = 0;
                 Vector2 pos = new Vector2(transform.position.x + moveIncrement, transform.position.y);
                 transform.position = pos;
 
@@ -62,7 +64,7 @@ public class LevelGeneration : MonoBehaviour {
                 Instantiate(rooms[randRoom], transform.position, Quaternion.identity);
 
                 // Makes sure the level generator doesn't move left !
-                direction = Random.Range(1, 6);
+                direction = Random.Range(1, 7);
                 if (direction == 3)
                 {
                     direction = 1;
@@ -72,33 +74,37 @@ public class LevelGeneration : MonoBehaviour {
                     direction = 5;
                 }
             }
-            else {
-                direction = 5;
+            else
+            {
+                stopGeneration = true;
             }
         }
         else if (direction == 3 || direction == 4)
         { // Move left !
-           
-            if (transform.position.x > 0)
+
+            if (transform.position.x > -15)
             {
                 downCounter = 0;
+                upCounter = 0;
                 Vector2 pos = new Vector2(transform.position.x - moveIncrement, transform.position.y);
                 transform.position = pos;
 
                 int randRoom = Random.Range(1, 4);
                 Instantiate(rooms[randRoom], transform.position, Quaternion.identity);
 
-                direction = Random.Range(3, 6);
+                direction = Random.Range(3, 7);
             }
-            else {
-                direction = 5;
+            else
+            {
+                stopGeneration = true;
             }
-           
+
         }
         else if (direction == 5)
         { // MoveDown
             downCounter++;
-            if (transform.position.y > -25)
+            upCounter = 0;
+            if (transform.position.y > -35)
             {
                 // Now I must replace the room BEFORE going down with a room that has a DOWN opening, so type 3 or 5
                 Collider2D previousRoom = Physics2D.OverlapCircle(transform.position, 1, whatIsRoom);
@@ -126,9 +132,9 @@ public class LevelGeneration : MonoBehaviour {
                     }
 
                 }
-                
-               
-  
+
+
+
                 Vector2 pos = new Vector2(transform.position.x, transform.position.y - moveIncrement);
                 transform.position = pos;
 
@@ -138,10 +144,66 @@ public class LevelGeneration : MonoBehaviour {
 
                 direction = Random.Range(1, 6);
             }
-            else {
+            else
+            {
                 stopGeneration = true;
             }
-            
+        }
+        else if (direction == 6)
+        {// MoveUp
+            upCounter++;
+            downCounter = 0;
+            if (transform.position.y < 15)
+            {
+                // Now I must replace the room BEFORE going down with a room that has a DOWN opening, so type 3 or 5
+                Collider2D previousRoom = Physics2D.OverlapCircle(transform.position, 1, whatIsRoom);
+                Debug.Log(previousRoom);
+                if (previousRoom.GetComponent<Room>().roomType != 4 && previousRoom.GetComponent<Room>().roomType != 3)
+                {
+
+                    // My problem : if the level generation goes down TWICE in a row, there's a chance that the previous room is just 
+                    // a LRB, meaning there's no TOP opening for the other room ! 
+
+                    if (upCounter >= 2)
+                    {
+                        previousRoom.GetComponent<Room>().RoomDestruction();
+                        Instantiate(rooms[4], transform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        previousRoom.GetComponent<Room>().RoomDestruction();
+                        int randRoomDownOpening = Random.Range(2, 5);
+                        if (randRoomDownOpening == 3)
+                        {
+                            randRoomDownOpening = 2;
+                        }
+                        Instantiate(rooms[randRoomDownOpening], transform.position, Quaternion.identity);
+                    }
+
+                }
+
+
+
+                Vector2 pos = new Vector2(transform.position.x, transform.position.y + moveIncrement);
+                transform.position = pos;
+
+                // Makes sure the room we drop into has a DOWN opening !
+                int randRoom;
+                do
+                {
+                    randRoom = Random.Range(2, 5);
+                } while (randRoom == 3);
+                Instantiate(rooms[randRoom], transform.position, Quaternion.identity);
+
+                do
+                {
+                    direction = Random.Range(1, 7);
+                } while (direction == 5);
+            }
+            else
+            {
+                stopGeneration = true;
+            }
         }
     }
 }
