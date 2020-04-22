@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class LevelGenerator : MonoBehaviour
 {
 	//enum GridSpace { empty, floor, floorAlt1, floorAlt2, floorAlt3, wallLeft, wallRight, corner1, corner2, corner3, corner4 };
-	enum GridSpace {empty, floor, wall, init, passage};
+	enum GridSpace { empty, floor, wall, init, passage };
 
 	Dictionary<GridSpace, GameObject> mapValues;
-	
+
 	GridSpace[,] grid;
 	int floorHeight, floorWidth;
 	Vector2 roomSizeWorldUnits;
@@ -23,7 +23,7 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//public float percentToFill = .6f;
-	
+
 	public int maxPathways = 40;
 	public int maxRooms = 100;
 	public int maxTries = 50;
@@ -51,7 +51,7 @@ public class LevelGenerator : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			SceneManager.LoadScene(0);
 		}
@@ -116,7 +116,7 @@ public class LevelGenerator : MonoBehaviour
 					x = Random.Range(5, floorWidth - 5);
 					y = Random.Range(5, floorHeight - 5);
 				} while (grid[x, y] != GridSpace.empty);
-				
+
 				maxRoomWidth = Random.Range(5, 15);
 				maxRoomHeight = Random.Range(5, 15);
 
@@ -195,7 +195,7 @@ public class LevelGenerator : MonoBehaviour
 			int diffX = (int)walker.pos.x - randEndX;
 			int diffY = (int)walker.pos.y - randEndY;
 
-			while (Mathf.Abs(diffX) > 0) //difference is growing instead of diminishing, FIX
+			while (Mathf.Abs(diffX) > 0)
 			{
 				print("going for x");
 				int xInRange = (int)Mathf.Clamp(walker.pos.x, 1, floorWidth - 2);
@@ -231,27 +231,14 @@ public class LevelGenerator : MonoBehaviour
 		Vector2 l2 = room2.init;
 		Vector2 r2 = room2.init + room2.dims;
 
-		
 
-		if(r1.x + margin < l2.x || r1.y + margin < l2.y || l1.x - margin > r2.x || l1.y - margin > r2.y)
+
+		if (r1.x + margin < l2.x || r1.y + margin < l2.y || l1.x - margin > r2.x || l1.y - margin > r2.y)
 		{
 			return false;
 		}
 
 		return true;
-	}
-
-	int NumberOfFloors()
-	{
-		int count = 0;
-		foreach (GridSpace space in grid)
-		{
-			if (space == GridSpace.floor)
-			{
-				count++;
-			}
-		}
-		return count;
 	}
 
 	Vector2 RandomDirection()
@@ -282,7 +269,7 @@ public class LevelGenerator : MonoBehaviour
 			}
 		}
 	}
-	
+
 	void Spawn(float x, float y, GameObject toSpawn)
 	{
 		//find the position to spawn
@@ -291,3 +278,5 @@ public class LevelGenerator : MonoBehaviour
 		//spawn object
 		Instantiate(toSpawn, spawnPos, Quaternion.identity).transform.SetParent(boardHolder);
 	}
+
+}

@@ -157,7 +157,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.2171591, g: 0.2750112, b: 0.754717, a: 0}
+  m_BackGroundColor: {r: 0.7607844, g: 0.7607844, b: 0.7607844, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -355,11 +355,12 @@ MonoBehaviour:
   maxPathways: 40
   maxRooms: 100
   maxTries: 50
-  wallObj: {fileID: 0}
+  wallObj: {fileID: 8361172563762408077, guid: 8a4720728b13180429b1ed39608a29f0, type: 3}
   floorObj: {fileID: 5072702484885607002, guid: afb6bb868b6c7f148b99eee42bb82974,
     type: 3}
   pathObj: {fileID: 6024957741770896377, guid: 9991c29d943239945b364a2350a29902, type: 3}
-  emptyObj: {fileID: 0}
+  emptyObj: {fileID: 8361172563762408077, guid: 8a4720728b13180429b1ed39608a29f0,
+    type: 3}
 --- !u!4 &2099509076
 Transform:
   m_ObjectHideFlags: 0
