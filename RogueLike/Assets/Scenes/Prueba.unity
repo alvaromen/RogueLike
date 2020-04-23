@@ -172,8 +172,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 22.6
+  orthographic: 0
   orthographic size: 100
   m_Depth: -1
   m_CullingMask:
@@ -223,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1813413599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &2099509074
 GameObject:
@@ -347,19 +347,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099509074}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac6a65f681d846c42b5d0afe266fb2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPathways: 40
-  maxRooms: 100
-  maxTries: 50
+  chanceWalkerChangeDir: 0.5
+  chanceWalkerSpawn: 0.05
+  chanceWalkerDestoy: 0.05
+  maxWalkers: 10
+  percentToFill: 0.25
   wallObj: {fileID: 8361172563762408077, guid: 8a4720728b13180429b1ed39608a29f0, type: 3}
   floorObj: {fileID: 5072702484885607002, guid: afb6bb868b6c7f148b99eee42bb82974,
-    type: 3}
-  pathObj: {fileID: 6024957741770896377, guid: 9991c29d943239945b364a2350a29902, type: 3}
-  emptyObj: {fileID: 8361172563762408077, guid: 8a4720728b13180429b1ed39608a29f0,
     type: 3}
 --- !u!4 &2099509076
 Transform:
@@ -373,5 +372,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

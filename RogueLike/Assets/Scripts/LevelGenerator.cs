@@ -3,49 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/**
+ * 
+ * Dictionary<GridSpace, GameObject> mapValues;
+ * 
+ * void InitMapValues()
+	{
+		mapValues = new Dictionary<GridSpace, GameObject>();
+
+		mapValues[GridSpace.floor] = floorObj;
+		mapValues[GridSpace.passage] = pathObj;
+		mapValues[GridSpace.wall] = emptyObj;
+		mapValues[GridSpace.empty] = emptyObj;
+		mapValues[GridSpace.init] = wallObj;
+	}
+ * 
+ * 	void SpawnLevel()
+	{
+		for (int x = 0; x < floorWidth; x++)
+		{
+			for (int y = 0; y < floorHeight; y++)
+			{
+				Spawn(x, y, mapValues[grid[x, y]]);
+			}
+		}
+	}
+ * 
+
 public class LevelGenerator : MonoBehaviour
 {
-	//enum GridSpace { empty, floor, floorAlt1, floorAlt2, floorAlt3, wallLeft, wallRight, corner1, corner2, corner3, corner4 };
-	enum GridSpace { empty, floor, wall, init, passage };
-
-	Dictionary<GridSpace, GameObject> mapValues;
-
-	GridSpace[,] grid;
-	int floorHeight, floorWidth;
-	Vector2 roomSizeWorldUnits;
+	enum gridSpace { empty, floor, wall };
+	gridSpace[,] grid;
+	int roomHeight, roomWidth;
+	Vector2 roomSizeWorldUnits = new Vector2(60, 60);
 	float worldUnitsInOneGridCell = 1;
-
-
-	struct Walker
+	struct walker
 	{
 		public Vector2 dir;
 		public Vector2 pos;
 	}
-
-	//public float percentToFill = .6f;
-
-	public int maxPathways = 40;
-	public int maxRooms = 100;
-	public int maxTries = 50;
-
-
-	struct Room
-	{
-		public Vector2 init;
-		public Vector2 dims;
-	}
-
-	List<Room> rooms;
-
-	public GameObject wallObj, floorObj, pathObj, emptyObj;
-
-	Transform boardHolder;
-
+	List<walker> walkers;
+	public float chanceWalkerChangeDir = 0.5f, chanceWalkerSpawn = 0.05f;
+	public float chanceWalkerDestoy = 0.05f;
+	public int maxWalkers = 10;
+	public float percentToFill = 0.2f;
+	public GameObject wallObj, floorObj;
 	void Start()
 	{
 		Setup();
-		CreateRooms();
-		CreateWalkWays();
+		CreateFloors();
+		CreateWalls();
+		RemoveSingleWalls();
 		SpawnLevel();
 	}
 
@@ -56,191 +65,197 @@ public class LevelGenerator : MonoBehaviour
 			SceneManager.LoadScene(0);
 		}
 	}
-
 	void Setup()
 	{
-		roomSizeWorldUnits = new Vector2(Random.Range(100, 200), Random.Range(100, 200));
-
-		boardHolder = new GameObject("Board").transform;
-
 		//find grid size
-		floorHeight = Mathf.RoundToInt(roomSizeWorldUnits.x / worldUnitsInOneGridCell);
-		floorWidth = Mathf.RoundToInt(roomSizeWorldUnits.y / worldUnitsInOneGridCell);
+		roomHeight = Mathf.RoundToInt(roomSizeWorldUnits.x / worldUnitsInOneGridCell);
+		roomWidth = Mathf.RoundToInt(roomSizeWorldUnits.y / worldUnitsInOneGridCell);
 		//create grid
-		grid = new GridSpace[floorWidth, floorHeight];
+		grid = new gridSpace[roomWidth, roomHeight];
 		//set grid's default state
-		for (int x = 0; x < floorWidth - 1; x++)
+		for (int x = 0; x < roomWidth - 1; x++)
 		{
-			for (int y = 0; y < floorHeight - 1; y++)
+			for (int y = 0; y < roomHeight - 1; y++)
 			{
 				//make every cell "empty"
-				grid[x, y] = GridSpace.empty;
+				grid[x, y] = gridSpace.empty;
 			}
 		}
-
-		rooms = new List<Room>();
-
-		InitMapValues();
+		//set first walker
+		//init list
+		walkers = new List<walker>();
+		//create a walker 
+		walker newWalker = new walker();
+		newWalker.dir = RandomDirection();
+		//find center of grid
+		Vector2 spawnPos = new Vector2(Mathf.RoundToInt(roomWidth / 2.0f),
+										Mathf.RoundToInt(roomHeight / 2.0f));
+		newWalker.pos = spawnPos;
+		//add walker to list
+		walkers.Add(newWalker);
 	}
-
-	void InitMapValues()
+	void CreateFloors()
 	{
-		mapValues = new Dictionary<GridSpace, GameObject>();
-
-		mapValues[GridSpace.floor] = floorObj;
-		mapValues[GridSpace.passage] = pathObj;
-		mapValues[GridSpace.wall] = emptyObj;
-		mapValues[GridSpace.empty] = emptyObj;
-		mapValues[GridSpace.init] = wallObj;
-	}
-
-	void CreateRooms()
-	{
-		for (int r = 0; r < maxRooms; r++)
+		int iterations = 0;//loop will not run forever
+		do
 		{
-			int x;
-			int y;
-
-			int maxRoomWidth;
-			int maxRoomHeight;
-
-			Room currRoom = new Room();
-
-			bool overlap = false;
-			int numTries = 0;
-			do
+			//create floor at position of every walker
+			foreach (walker myWalker in walkers)
 			{
-				numTries++;
-				do
+				grid[(int)myWalker.pos.x, (int)myWalker.pos.y] = gridSpace.floor;
+			}
+			//chance: destroy walker
+			int numberChecks = walkers.Count; //might modify count while in this loop
+			for (int i = 0; i < numberChecks; i++)
+			{
+				//only if its not the only one, and at a low chance
+				if (Random.value < chanceWalkerDestoy && walkers.Count > 1)
 				{
-					x = Random.Range(5, floorWidth - 5);
-					y = Random.Range(5, floorHeight - 5);
-				} while (grid[x, y] != GridSpace.empty);
-
-				maxRoomWidth = Random.Range(5, 15);
-				maxRoomHeight = Random.Range(5, 15);
-
-				currRoom.init = new Vector2(x, y);
-				currRoom.dims = new Vector2(maxRoomWidth, maxRoomHeight);
-
-				if (rooms.Count > 0)
+					walkers.RemoveAt(i);
+					break; //only destroy one per iteration
+				}
+			}
+			//chance: walker pick new direction
+			for (int i = 0; i < walkers.Count; i++)
+			{
+				if (Random.value < chanceWalkerChangeDir)
 				{
-					foreach (Room room in rooms)
+					walker thisWalker = walkers[i];
+					thisWalker.dir = RandomDirection();
+					walkers[i] = thisWalker;
+				}
+			}
+			//chance: spawn new walker
+			numberChecks = walkers.Count; //might modify count while in this loop
+			for (int i = 0; i < numberChecks; i++)
+			{
+				//only if # of walkers < max, and at a low chance
+				if (Random.value < chanceWalkerSpawn && walkers.Count < maxWalkers)
+				{
+					//create a walker 
+					walker newWalker = new walker();
+					newWalker.dir = RandomDirection();
+					newWalker.pos = walkers[i].pos;
+					walkers.Add(newWalker);
+				}
+			}
+			//move walkers
+			for (int i = 0; i < walkers.Count; i++)
+			{
+				walker thisWalker = walkers[i];
+				thisWalker.pos += thisWalker.dir;
+				walkers[i] = thisWalker;
+			}
+			//avoid boarder of grid
+			for (int i = 0; i < walkers.Count; i++)
+			{
+				walker thisWalker = walkers[i];
+				//clamp x,y to leave a 1 space boarder: leave room for walls
+				thisWalker.pos.x = Mathf.Clamp(thisWalker.pos.x, 1, roomWidth - 2);
+				thisWalker.pos.y = Mathf.Clamp(thisWalker.pos.y, 1, roomHeight - 2);
+				walkers[i] = thisWalker;
+			}
+			//check to exit loop
+			if ((float)NumberOfFloors() / (float)grid.Length > percentToFill)
+			{
+				break;
+			}
+			iterations++;
+		} while (iterations < 100000);
+	}
+	void CreateWalls()
+	{
+		//loop though every grid space
+		for (int x = 0; x < roomWidth - 1; x++)
+		{
+			for (int y = 0; y < roomHeight - 1; y++)
+			{
+				//if theres a floor, check the spaces around it
+				if (grid[x, y] == gridSpace.floor)
+				{
+					//if any surrounding spaces are empty, place a wall
+					if (grid[x, y + 1] == gridSpace.empty)
 					{
-						bool ovv = doOverlap(currRoom, room, 2);
-						if (ovv)
+						grid[x, y + 1] = gridSpace.wall;
+					}
+					if (grid[x, y - 1] == gridSpace.empty)
+					{
+						grid[x, y - 1] = gridSpace.wall;
+					}
+					if (grid[x + 1, y] == gridSpace.empty)
+					{
+						grid[x + 1, y] = gridSpace.wall;
+					}
+					if (grid[x - 1, y] == gridSpace.empty)
+					{
+						grid[x - 1, y] = gridSpace.wall;
+					}
+				}
+			}
+		}
+	}
+	void RemoveSingleWalls()
+	{
+		//loop though every grid space
+		for (int x = 0; x < roomWidth - 1; x++)
+		{
+			for (int y = 0; y < roomHeight - 1; y++)
+			{
+				//if theres a wall, check the spaces around it
+				if (grid[x, y] == gridSpace.wall)
+				{
+					//assume all space around wall are floors
+					bool allFloors = true;
+					//check each side to see if they are all floors
+					for (int checkX = -1; checkX <= 1; checkX++)
+					{
+						for (int checkY = -1; checkY <= 1; checkY++)
 						{
-							overlap = true;
-							break;
+							if (x + checkX < 0 || x + checkX > roomWidth - 1 ||
+								y + checkY < 0 || y + checkY > roomHeight - 1)
+							{
+								//skip checks that are out of range
+								continue;
+							}
+							if ((checkX != 0 && checkY != 0) || (checkX == 0 && checkY == 0))
+							{
+								//skip corners and center
+								continue;
+							}
+							if (grid[x + checkX, y + checkY] != gridSpace.floor)
+							{
+								allFloors = false;
+							}
 						}
 					}
-				}
-			} while (overlap && (numTries <= maxTries));
-
-			if (!overlap)
-			{
-				rooms.Add(currRoom);
-
-				for (int i = x; i < x + maxRoomWidth; i++)
-				{
-					for (int j = y; j < y + maxRoomHeight; j++)
+					if (allFloors)
 					{
-						int iInRange = Mathf.Clamp(i, 1, floorWidth - 3);
-						int jInRange = Mathf.Clamp(j, 1, floorHeight - 3);
-
-						if (!(grid[iInRange, jInRange] == GridSpace.floor))
-							grid[iInRange, jInRange] = GridSpace.floor;
-						else
-							grid[iInRange, jInRange] = GridSpace.empty;
-
-						grid[x, y] = GridSpace.init;
+						grid[x, y] = gridSpace.floor;
 					}
 				}
 			}
 		}
 	}
-
-	void CreateWalkWays()
+	void SpawnLevel()
 	{
-		for (int i = 0; i < maxPathways; i++)
+		for (int x = 0; x < roomWidth; x++)
 		{
-			int randInitIndex = Random.Range(0, rooms.Count - 1);
-			int randEndIndex;
-
-			do
+			for (int y = 0; y < roomHeight; y++)
 			{
-				randEndIndex = Random.Range(0, rooms.Count - 1);
-			} while (randEndIndex == randInitIndex);
-
-			// we have our starting and ending rooms
-			Room initialRoom = rooms[randInitIndex];
-			Room finalRoom = rooms[randEndIndex];
-
-			// more precisely, we have our starting and ending points
-			int randInitX = Random.Range((int)initialRoom.init.x, (int)(initialRoom.init.x + initialRoom.dims.x));
-			int randInitY = Random.Range((int)initialRoom.init.y, (int)(initialRoom.init.y + initialRoom.dims.y));
-
-			int randEndX = Random.Range((int)finalRoom.init.x, (int)(finalRoom.init.x + finalRoom.dims.x));
-			int randEndY = Random.Range((int)finalRoom.init.y, (int)(finalRoom.init.y + finalRoom.dims.y));
-
-			print("init: " + randInitX + ", " + randInitY + ". end: " + randEndX + ", " + randEndY);
-
-			// we spawn at the beginning
-			Vector2 spawnPos = new Vector2(randInitX, randInitY);
-			Walker walker = new Walker
-			{
-				pos = spawnPos
-			};
-
-			int diffX = (int)walker.pos.x - randEndX;
-			int diffY = (int)walker.pos.y - randEndY;
-
-			while (Mathf.Abs(diffX) > 0)
-			{
-				print("going for x");
-				int xInRange = (int)Mathf.Clamp(walker.pos.x, 1, floorWidth - 2);
-				int yInRange = (int)Mathf.Clamp(walker.pos.y, 1, floorHeight - 2);
-				if (grid[xInRange, yInRange] != GridSpace.floor)
+				switch (grid[x, y])
 				{
-					grid[xInRange, yInRange] = GridSpace.passage;
+					case gridSpace.empty:
+						break;
+					case gridSpace.floor:
+						Spawn(x, y, floorObj);
+						break;
+					case gridSpace.wall:
+						Spawn(x, y, wallObj);
+						break;
 				}
-				walker.pos.x -= Mathf.Sign(diffX);
-				diffX = (int)walker.pos.x - randEndX;
-			}
-
-			while (Mathf.Abs(diffY) > 0)
-			{
-				print("going for y");
-				int xInRange = (int)Mathf.Clamp(walker.pos.x, 1, floorWidth - 2);
-				int yInRange = (int)Mathf.Clamp(walker.pos.y, 1, floorHeight - 2);
-				if (grid[xInRange, yInRange] != GridSpace.floor)
-				{
-					grid[xInRange, yInRange] = GridSpace.passage;
-				}
-				walker.pos.y -= Mathf.Sign(diffY);
-				diffY = (int)walker.pos.y - randEndY;
 			}
 		}
 	}
-
-	bool doOverlap(Room room1, Room room2, int margin)
-	{
-		Vector2 l1 = room1.init;
-		Vector2 r1 = room1.init + room1.dims;
-
-		Vector2 l2 = room2.init;
-		Vector2 r2 = room2.init + room2.dims;
-
-
-
-		if (r1.x + margin < l2.x || r1.y + margin < l2.y || l1.x - margin > r2.x || l1.y - margin > r2.y)
-		{
-			return false;
-		}
-
-		return true;
-	}
-
 	Vector2 RandomDirection()
 	{
 		//pick random int between 0 and 3
@@ -258,25 +273,26 @@ public class LevelGenerator : MonoBehaviour
 				return Vector2.right;
 		}
 	}
-
-	void SpawnLevel()
+	int NumberOfFloors()
 	{
-		for (int x = 0; x < floorWidth; x++)
+		int count = 0;
+		foreach (gridSpace space in grid)
 		{
-			for (int y = 0; y < floorHeight; y++)
+			if (space == gridSpace.floor)
 			{
-				Spawn(x, y, mapValues[grid[x, y]]);
+				count++;
 			}
 		}
+		return count;
 	}
-
 	void Spawn(float x, float y, GameObject toSpawn)
 	{
 		//find the position to spawn
 		Vector2 offset = roomSizeWorldUnits / 2.0f;
 		Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
 		//spawn object
-		Instantiate(toSpawn, spawnPos, Quaternion.identity).transform.SetParent(boardHolder);
+		Instantiate(toSpawn, spawnPos, Quaternion.identity);
 	}
-
 }
+
+
