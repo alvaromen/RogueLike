@@ -55,7 +55,11 @@ public class RoomCreator : MonoBehaviour
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] enemyTiles;
-    public GameObject[] outerWallTiles;
+    public GameObject[] outerWallTilesTop;
+    public GameObject[] outerWallTilesBot;
+    public GameObject[] outerWallTilesLeft;
+    public GameObject[] outerWallTilesRight;
+    public GameObject[] outerWallTilesCorner;
 
     private Transform boardHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
     private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place titles
@@ -86,26 +90,41 @@ public class RoomCreator : MonoBehaviour
     {
         boardHolder = new GameObject("Board").transform;
         GameObject instance;
-        for (int i = 0; i < columns; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < rows; j++)
+            for (int j = 0; j < columns; j++)
             {
-                GameObject toInstantiate;
+                GameObject toInstantiate = outerWallTilesTop[Random.Range(0, outerWallTilesTop.Length)];
                 int n = 0;
-                if (i == 0 || i == (columns - 1) || j == 0 || j == (rows - 1))
+                if (i == 0 || i == (rows - 1) || j == 0 || j == (columns - 1))
                 {
-                    toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+                    if (j == (columns - 1) && (i != 0 && i != (rows - 1)))
+                        toInstantiate = outerWallTilesTop[Random.Range(0, outerWallTilesTop.Length)];
+                    if (j == 0 && (i != 0 && i != (rows - 1)))
+                        toInstantiate = outerWallTilesBot[Random.Range(0, outerWallTilesBot.Length)];
+                    if (i == 0 && (j != 0 && j != (columns - 1)))
+                        toInstantiate = outerWallTilesLeft[Random.Range(0, outerWallTilesLeft.Length)];
+                    if (i == (rows - 1) && (j != 0 && j != (columns - 1)))
+                        toInstantiate = outerWallTilesRight[Random.Range(0, outerWallTilesRight.Length)];
+                    if (i == 0 && j == (columns - 1))
+                        toInstantiate = outerWallTilesCorner[0];
+                    if (i == (rows - 1) && j == (columns - 1))
+                        toInstantiate = outerWallTilesCorner[1];
+                    if (i == 0 && j == 0)
+                        toInstantiate = outerWallTilesCorner[2];
+                    if (i == (rows - 1) && j == 0)
+                        toInstantiate = outerWallTilesCorner[3];
                     if (conexions.ToString().Contains("T"))
-                        if ((i == (columns / 2 - 1) && j == (rows - 1)) || (i == (columns / 2) && j == (rows - 1)))
+                        if ((i == (rows / 2 - 1) && j == (columns - 1)) || (i == (rows / 2) && j == (columns - 1)))
                             toInstantiate = exit;
                     if (conexions.ToString().Contains("B"))
-                        if ((i == (columns / 2 - 1) && j == 0) || (i == (columns / 2) && j == 0))
+                        if ((i == (rows / 2 - 1) && j == 0) || (i == (rows / 2) && j == 0))
                             toInstantiate = exit;
                     if (conexions.ToString().Contains("L"))
-                        if ((i == 0 && j == (rows / 2 - 1)) || (i == 0 && j == (rows / 2)))
+                        if ((i == 0 && j == (columns / 2 - 1)) || (i == 0 && j == (columns / 2)))
                             toInstantiate = exit;
                     if (conexions.ToString().Contains("R"))
-                        if ((i == (columns - 1) && j == (rows / 2 - 1)) || (i == (columns - 1) && j == (rows / 2)))
+                        if ((i == (rows - 1) && j == (columns / 2 - 1)) || (i == (rows - 1) && j == (columns / 2)))
                             toInstantiate = exit;
                 }
                 else
@@ -114,7 +133,6 @@ public class RoomCreator : MonoBehaviour
                     n = (int)Random.Range(0, 4);
                 }
                 Quaternion q = Quaternion.identity;
-                q.z = n * 90;
                 instance = Instantiate(toInstantiate, new Vector3(position.x + i, position.y + j, 0f), q);
                 instance.transform.SetParent(boardHolder);
             }
