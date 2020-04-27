@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         isShooting = false;
         fireRate = 0.5f;
 
-        bulletsHolder = new GameObject("Board").transform;
+        bulletsHolder = new GameObject("PlayerBullets").transform;
     }
 
     private void Update()

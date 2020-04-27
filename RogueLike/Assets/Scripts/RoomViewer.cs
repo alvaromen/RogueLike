@@ -18,18 +18,18 @@ public class RoomViewer : MonoBehaviour
 
     void InitGame()
     {
-        roomScript.SetupRoom(conexion, position);
+        //roomScript.SetupRoom(conexion, position);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

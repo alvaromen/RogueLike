@@ -79,6 +79,9 @@ public class RoomCreator : MonoBehaviour
     /**
      * Sets up the outer wall and the floor of the game board
      */
+    /**
+     * Sets up the outer wall and the floor of the game board
+     */
     void BoardSetup()
     {
         boardHolder = new GameObject("Board").transform;
@@ -92,6 +95,18 @@ public class RoomCreator : MonoBehaviour
                 if (i == 0 || i == (columns - 1) || j == 0 || j == (rows - 1))
                 {
                     toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+                    if (conexions.ToString().Contains("T"))
+                        if ((i == (columns / 2 - 1) && j == (rows - 1)) || (i == (columns / 2) && j == (rows - 1)))
+                            toInstantiate = exit;
+                    if (conexions.ToString().Contains("B"))
+                        if ((i == (columns / 2 - 1) && j == 0) || (i == (columns / 2) && j == 0))
+                            toInstantiate = exit;
+                    if (conexions.ToString().Contains("L"))
+                        if ((i == 0 && j == (rows / 2 - 1)) || (i == 0 && j == (rows / 2)))
+                            toInstantiate = exit;
+                    if (conexions.ToString().Contains("R"))
+                        if ((i == (columns - 1) && j == (rows / 2 - 1)) || (i == (columns - 1) && j == (rows / 2)))
+                            toInstantiate = exit;
                 }
                 else
                 {
@@ -103,37 +118,6 @@ public class RoomCreator : MonoBehaviour
                 instance = Instantiate(toInstantiate, new Vector3(position.x + i, position.y + j, 0f), q);
                 instance.transform.SetParent(boardHolder);
             }
-        }
-        if (conexions.ToString().Contains("T"))
-        {
-            instance = Instantiate(exit, new Vector3(position.x + (columns / 2 - 1), position.y + rows - 1, 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-            instance = Instantiate(exit, new Vector3(position.x + columns / 2, position.y + rows - 1, 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-        }
-
-        if (conexions.ToString().Contains("B"))
-        {
-            instance = Instantiate(exit, new Vector3(position.x + (columns / 2 - 1), position.y, 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-            instance = Instantiate(exit, new Vector3(position.x + columns / 2, position.y, 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-        }
-
-        if (conexions.ToString().Contains("L"))
-        {
-            instance = Instantiate(exit, new Vector3(position.x, position.y + (rows / 2 - 1), 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-            instance = Instantiate(exit, new Vector3(position.x, position.y + rows / 2, 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-        }
-
-        if (conexions.ToString().Contains("R"))
-        {
-            instance = Instantiate(exit, new Vector3(position.x + columns - 1, position.y + (rows / 2 - 1), 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-            instance = Instantiate(exit, new Vector3(position.x + columns - 1, position.y + rows / 2, 0f), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
         }
     }
 
@@ -176,10 +160,11 @@ public class RoomCreator : MonoBehaviour
     /**
     * Generates a random room
     */
-    public void SetupRoom(Conexions conexion, Vector2 pos)
+    public void SetupRoom(Conexions conexion, Vector2 pos, RoomType type)
     {
         conexions = conexion;
         position = pos;
+        roomType = type;
         /*
         do
         {
