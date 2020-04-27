@@ -29,7 +29,7 @@ using UnityEngine.SceneManagement;
 			}
 		}
 	}
- * 
+ * */
 
 public class LevelGenerator : MonoBehaviour
 {
