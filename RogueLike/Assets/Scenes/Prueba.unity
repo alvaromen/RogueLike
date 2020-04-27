@@ -121,82 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &352767937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 352767940}
-  - component: {fileID: 352767939}
-  - component: {fileID: 352767938}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &352767938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352767937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b89d73dbe45ee4a9726190dc566123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {x: 0, y: 0}
-  columns: 0
-  rows: 0
-  wallCount:
-    minimum: 5
-    maximum: 9
-  enemiesCount:
-    minimum: 1
-    maximum: 5
-  exitLevel: {fileID: 2896129187062970607, guid: 96d6b58ac3aeb7349b421cf1f195a76a,
-    type: 3}
-  exit: {fileID: 2896129187062970607, guid: 96d6b58ac3aeb7349b421cf1f195a76a, type: 3}
-  floorTiles:
-  - {fileID: 2808585178632681854, guid: 44992d0ca86a2b54bbe6697c51a4657f, type: 3}
-  wallTiles: []
-  enemyTiles: []
-  outerWallTiles:
-  - {fileID: 5208442911539343410, guid: 77890fe700b3f424aad04c40f8e536de, type: 3}
---- !u!114 &352767939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352767937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a0852c8bfbc87c418933e9e4fd69825, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conexion: 14
-  position: {x: 0, y: 0}
---- !u!4 &352767940
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352767937}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06847703, y: 0.4573999, z: -11.335659}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1163425148
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +132,7 @@ GameObject:
   - component: {fileID: 1163425151}
   - component: {fileID: 1163425150}
   - component: {fileID: 1163425149}
+  - component: {fileID: 1163425152}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -280,6 +205,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1163425152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163425148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9082838087dce544a0fc69936010012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1462188562}
+  smoothSpeed: 0.86
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1462188559
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +308,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1462188562
@@ -383,7 +323,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1462188563
 BoxCollider2D:
@@ -421,7 +361,7 @@ Animator:
   m_GameObject: {fileID: 1462188559}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f373e32cbc7cc8a40800b691dc2b3ca4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 405800fb037e45a4dba7824381e6ba71, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -461,6 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2099509076}
   - component: {fileID: 2099509075}
+  - component: {fileID: 2099509077}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -480,7 +421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6a65f681d846c42b5d0afe266fb2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceWalkerChangeDir: 0.5
+  conexion: 0
+  chanceWalkerChangeDir: 0.62
   chanceWalkerSpawn: 0.05
   chanceWalkerDestoy: 0.05
   maxWalkers: 10
@@ -502,3 +444,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2099509077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099509074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b89d73dbe45ee4a9726190dc566123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  columns: 0
+  rows: 0
+  wallCount:
+    minimum: 5
+    maximum: 9
+  enemiesCount:
+    minimum: 1
+    maximum: 5
+  exitLevel: {fileID: 2896129187062970607, guid: 96d6b58ac3aeb7349b421cf1f195a76a,
+    type: 3}
+  exit: {fileID: 240990293749256850, guid: f7b31be7ce1789344b6312e853cdae39, type: 3}
+  floorTiles:
+  - {fileID: 3229479393781015422, guid: c77c137dfe3ff384385f4a79179bd49a, type: 3}
+  - {fileID: 1336919156387333036, guid: aaeb482f586c1b0499ee9c1b70934149, type: 3}
+  - {fileID: 7965150381037661981, guid: f2c537f40ffb208469e9ef13fe0afd4a, type: 3}
+  - {fileID: 7909418144303013195, guid: c274c8f4324d96d4ba115ff9c70333af, type: 3}
+  - {fileID: 6329767745778038647, guid: 6a12f8d016977a841b3d35e49495f401, type: 3}
+  - {fileID: 539200262034287024, guid: 90010c0269231b44c97884725010b8df, type: 3}
+  - {fileID: 1400476934798558337, guid: a9e275cf57769a34b944e6384e6a28c5, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  wallTiles: []
+  enemyTiles: []
+  outerWallTilesTop:
+  - {fileID: 3908910098543078581, guid: 902b066eab550484587bcdc37f42a6be, type: 3}
+  - {fileID: 6285939552540396074, guid: d96d62d206396034cac5ee0a7c552183, type: 3}
+  outerWallTilesBot:
+  - {fileID: 888708790264778017, guid: 46f40d8057602b445b4fbbc328ad6196, type: 3}
+  - {fileID: 7900318886601783643, guid: 8a904633ef278114385ee9e207943662, type: 3}
+  outerWallTilesLeft:
+  - {fileID: 5088633088051411657, guid: 0ae64ecb51fcd024a9dd1d99ff6301df, type: 3}
+  - {fileID: 7058734504085588908, guid: 745a3bc2cd4c1d949bf33b82e71d96cb, type: 3}
+  - {fileID: 5114702751249629162, guid: 0d78cb320fe35a04ba6608ee9f71310e, type: 3}
+  outerWallTilesRight:
+  - {fileID: 5242371741039714980, guid: b596a793f2101f84fb8f8add543e8516, type: 3}
+  - {fileID: 8496042616278020327, guid: 7929f2f5d387b4a4293e048c988d7315, type: 3}
+  outerWallTilesCorner:
+  - {fileID: 8461687591968706606, guid: 87c69c6c4cb7da74c969243142140ed2, type: 3}
+  - {fileID: 3109367527935656045, guid: b7364575491f8ab4083a99dee6874115, type: 3}
+  - {fileID: 5586287123373332196, guid: e5c911525c404a1499a93bbdc4ecb43c, type: 3}
+  - {fileID: 7929380446121983581, guid: d0adb11582ca0ea4fa16172b35fb799c, type: 3}

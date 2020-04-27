@@ -1,40 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-/**
- * 
- * Dictionary<GridSpace, GameObject> mapValues;
- * 
- * void InitMapValues()
-	{
-		mapValues = new Dictionary<GridSpace, GameObject>();
-
-		mapValues[GridSpace.floor] = floorObj;
-		mapValues[GridSpace.passage] = pathObj;
-		mapValues[GridSpace.wall] = emptyObj;
-		mapValues[GridSpace.empty] = emptyObj;
-		mapValues[GridSpace.init] = wallObj;
-	}
- * 
- * 	void SpawnLevel()
-	{
-		for (int x = 0; x < floorWidth; x++)
-		{
-			for (int y = 0; y < floorHeight; y++)
-			{
-				Spawn(x, y, mapValues[grid[x, y]]);
-			}
-		}
-	}
- * */
-
 public class LevelGenerator : MonoBehaviour
 {
+
+	private RoomCreator roomScript;
+	public RoomCreator.Conexions conexion;
+
+	int roomSize = 16;
+
 	enum gridSpace { empty, floor, wall };
-	gridSpace[,] grid;
+	
+	bool[,] grid;
+	string[,] names;
+	List<Vector2> possibleBoss;
+
 	int roomHeight, roomWidth;
 	Vector2 roomSizeWorldUnits = new Vector2(60, 60);
 	float worldUnitsInOneGridCell = 1;
@@ -52,9 +36,8 @@ public class LevelGenerator : MonoBehaviour
 	void Start()
 	{
 		Setup();
-		CreateFloors();
-		CreateWalls();
-		RemoveSingleWalls();
+		CreateRooms();
+		NameRooms();
 		SpawnLevel();
 	}
 
@@ -71,16 +54,22 @@ public class LevelGenerator : MonoBehaviour
 		roomHeight = Mathf.RoundToInt(roomSizeWorldUnits.x / worldUnitsInOneGridCell);
 		roomWidth = Mathf.RoundToInt(roomSizeWorldUnits.y / worldUnitsInOneGridCell);
 		//create grid
-		grid = new gridSpace[roomWidth, roomHeight];
+		grid = new bool[roomWidth, roomHeight];
+		names = new string[roomWidth, roomHeight];
+		possibleBoss = new List<Vector2>();
 		//set grid's default state
 		for (int x = 0; x < roomWidth - 1; x++)
 		{
 			for (int y = 0; y < roomHeight - 1; y++)
 			{
 				//make every cell "empty"
-				grid[x, y] = gridSpace.empty;
+				grid[x, y] = false;
+				names[x, y] = "";
 			}
 		}
+
+		roomScript = GetComponent<RoomCreator>();
+
 		//set first walker
 		//init list
 		walkers = new List<walker>();
@@ -94,7 +83,7 @@ public class LevelGenerator : MonoBehaviour
 		//add walker to list
 		walkers.Add(newWalker);
 	}
-	void CreateFloors()
+	void CreateRooms()
 	{
 		int iterations = 0;//loop will not run forever
 		do
@@ -102,14 +91,14 @@ public class LevelGenerator : MonoBehaviour
 			//create floor at position of every walker
 			foreach (walker myWalker in walkers)
 			{
-				grid[(int)myWalker.pos.x, (int)myWalker.pos.y] = gridSpace.floor;
+				grid[(int)myWalker.pos.x, (int)myWalker.pos.y] = true;
 			}
 			//chance: destroy walker
 			int numberChecks = walkers.Count; //might modify count while in this loop
 			for (int i = 0; i < numberChecks; i++)
 			{
 				//only if its not the only one, and at a low chance
-				if (Random.value < chanceWalkerDestoy && walkers.Count > 1)
+				if (UnityEngine.Random.value < chanceWalkerDestoy && walkers.Count > 1)
 				{
 					walkers.RemoveAt(i);
 					break; //only destroy one per iteration
@@ -118,7 +107,7 @@ public class LevelGenerator : MonoBehaviour
 			//chance: walker pick new direction
 			for (int i = 0; i < walkers.Count; i++)
 			{
-				if (Random.value < chanceWalkerChangeDir)
+				if (UnityEngine.Random.value < chanceWalkerChangeDir)
 				{
 					walker thisWalker = walkers[i];
 					thisWalker.dir = RandomDirection();
@@ -130,7 +119,7 @@ public class LevelGenerator : MonoBehaviour
 			for (int i = 0; i < numberChecks; i++)
 			{
 				//only if # of walkers < max, and at a low chance
-				if (Random.value < chanceWalkerSpawn && walkers.Count < maxWalkers)
+				if (UnityEngine.Random.value < chanceWalkerSpawn && walkers.Count < maxWalkers)
 				{
 					//create a walker 
 					walker newWalker = new walker();
@@ -155,111 +144,62 @@ public class LevelGenerator : MonoBehaviour
 				thisWalker.pos.y = Mathf.Clamp(thisWalker.pos.y, 1, roomHeight - 2);
 				walkers[i] = thisWalker;
 			}
-			//check to exit loop
-			if ((float)NumberOfFloors() / (float)grid.Length > percentToFill)
-			{
-				break;
-			}
+			
 			iterations++;
-		} while (iterations < 100000);
+		} while (iterations < 30);
 	}
-	void CreateWalls()
+
+	void NameRooms()
 	{
-		//loop though every grid space
-		for (int x = 0; x < roomWidth - 1; x++)
+		
+		for (int x = 0; x < roomWidth; x++)
 		{
-			for (int y = 0; y < roomHeight - 1; y++)
+			for (int y = 0; y < roomHeight; y++)
 			{
-				//if theres a floor, check the spaces around it
-				if (grid[x, y] == gridSpace.floor)
-				{
-					//if any surrounding spaces are empty, place a wall
-					if (grid[x, y + 1] == gridSpace.empty)
-					{
-						grid[x, y + 1] = gridSpace.wall;
-					}
-					if (grid[x, y - 1] == gridSpace.empty)
-					{
-						grid[x, y - 1] = gridSpace.wall;
-					}
-					if (grid[x + 1, y] == gridSpace.empty)
-					{
-						grid[x + 1, y] = gridSpace.wall;
-					}
-					if (grid[x - 1, y] == gridSpace.empty)
-					{
-						grid[x - 1, y] = gridSpace.wall;
-					}
-				}
-			}
-		}
-	}
-	void RemoveSingleWalls()
-	{
-		//loop though every grid space
-		for (int x = 0; x < roomWidth - 1; x++)
-		{
-			for (int y = 0; y < roomHeight - 1; y++)
-			{
-				//if theres a wall, check the spaces around it
-				if (grid[x, y] == gridSpace.wall)
-				{
-					//assume all space around wall are floors
-					bool allFloors = true;
-					//check each side to see if they are all floors
-					for (int checkX = -1; checkX <= 1; checkX++)
-					{
-						for (int checkY = -1; checkY <= 1; checkY++)
-						{
-							if (x + checkX < 0 || x + checkX > roomWidth - 1 ||
-								y + checkY < 0 || y + checkY > roomHeight - 1)
-							{
-								//skip checks that are out of range
-								continue;
-							}
-							if ((checkX != 0 && checkY != 0) || (checkX == 0 && checkY == 0))
-							{
-								//skip corners and center
-								continue;
-							}
-							if (grid[x + checkX, y + checkY] != gridSpace.floor)
-							{
-								allFloors = false;
-							}
-						}
-					}
-					if (allFloors)
-					{
-						grid[x, y] = gridSpace.floor;
-					}
-				}
+				
+				string result = "";
+				if (y + 1 < roomHeight)
+					if (grid[x, y + 1])
+						result += "T";
+				if (y - 1 >= 0)
+					if (grid[x, y - 1])
+						result += "B";
+				if (x - 1 >= 0)
+					if (grid[x - 1, y])
+						result += "L";
+				if (x + 1 < roomWidth)
+					if (grid[x + 1, y])
+						result += "R";
+
+				if (result.Length == 1)
+					possibleBoss.Add(new Vector2(x, y));
+
+				names[x, y] = result;
 			}
 		}
 	}
 	void SpawnLevel()
 	{
+		int i = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
 		for (int x = 0; x < roomWidth; x++)
 		{
 			for (int y = 0; y < roomHeight; y++)
 			{
-				switch (grid[x, y])
+				if (grid[x, y])
 				{
-					case gridSpace.empty:
-						break;
-					case gridSpace.floor:
-						Spawn(x, y, floorObj);
-						break;
-					case gridSpace.wall:
-						Spawn(x, y, wallObj);
-						break;
+					RoomCreator.RoomType type = RoomCreator.RoomType.normal;
+					if (possibleBoss[i] == new Vector2(x, y))
+						type = RoomCreator.RoomType.boss;
+					print(x * roomSize + " " + y * roomSize);
+					Spawn(x * roomSize, y * roomSize, names[x, y], type);
 				}
 			}
 		}
 	}
 	Vector2 RandomDirection()
 	{
-		//pick random int between 0 and 3
-		int choice = Mathf.FloorToInt(Random.value * 3.99f);
+		//pick UnityEngine.Random int between 0 and 3
+		int choice = Mathf.FloorToInt(UnityEngine.Random.value * 3.99f);
 		//use that int to chose a direction
 		switch (choice)
 		{
@@ -276,22 +216,21 @@ public class LevelGenerator : MonoBehaviour
 	int NumberOfFloors()
 	{
 		int count = 0;
-		foreach (gridSpace space in grid)
+		foreach (bool space in grid)
 		{
-			if (space == gridSpace.floor)
+			if (space == true)
 			{
 				count++;
 			}
 		}
 		return count;
 	}
-	void Spawn(float x, float y, GameObject toSpawn)
+	void Spawn(float x, float y, string conexions, RoomCreator.RoomType type)
 	{
-		//find the position to spawn
-		Vector2 offset = roomSizeWorldUnits / 2.0f;
-		Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
-		//spawn object
-		Instantiate(toSpawn, spawnPos, Quaternion.identity);
+		Vector2 spawnPos = new Vector2(x, y);
+
+		RoomCreator.Conexions nameEnum = (RoomCreator.Conexions)Enum.Parse(typeof(RoomCreator.Conexions), conexions);
+		roomScript.SetupRoom(nameEnum, spawnPos, type);
 	}
 }
 
