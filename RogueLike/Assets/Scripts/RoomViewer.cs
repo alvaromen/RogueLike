@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoomViewer : MonoBehaviour
 {
 
-    public RoomCreator roomScript;
+    private RoomCreator roomScript;
     public RoomCreator.Conexions conexion = RoomCreator.Conexions.TBLR;
     public Vector2 position = new Vector2(0, 0);
 

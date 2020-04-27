@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private float hp;
     private float lastAngle;
 
+    private Transform bulletsHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
+
     private void Start()
     {
         //anim = GetComponent<Animator>();
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
         isShooting = false;
         fireRate = 0.5f;
+
+        bulletsHolder = new GameObject("Board").transform;
     }
 
     private void Update()
@@ -117,7 +121,7 @@ public class PlayerController : MonoBehaviour
             if (!isShooting)
             {
                 transform.eulerAngles = new Vector3(0, 0, 180);
-                lastAngle = 0;
+                lastAngle = 180;
                 isShooting = true;
                 StartCoroutine(Shoot("down"));
             }
@@ -127,7 +131,7 @@ public class PlayerController : MonoBehaviour
             if (!isShooting)
             {
                 transform.eulerAngles = new Vector3(0, 0, 90);
-                lastAngle = 0;
+                lastAngle = 90;
                 isShooting = true;
                 StartCoroutine(Shoot("left"));
             }
@@ -137,7 +141,7 @@ public class PlayerController : MonoBehaviour
             if (!isShooting)
             {
                 transform.eulerAngles = new Vector3(0, 0, -90);
-                lastAngle = 0;
+                lastAngle = -90;
                 isShooting = true;
                 StartCoroutine(Shoot("right"));
             }
@@ -191,6 +195,7 @@ public class PlayerController : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
+        bullet.transform.SetParent(bulletsHolder);
 
         yield return new WaitForSeconds(fireRate);
 
