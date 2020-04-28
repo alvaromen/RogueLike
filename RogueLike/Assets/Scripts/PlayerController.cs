@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         float moveInputX = Input.GetAxisRaw("Horizontal");
         float moveInputY = Input.GetAxisRaw("Vertical");
 
+
         rb.velocity = new Vector2(moveInputX * speed, moveInputY * speed);
         /*
         if (moveInputX != 0 || moveInputY != 0)
@@ -200,6 +201,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
 
         isShooting = false;
+    }
+
+    public void setPosition(Vector2 pos)
+    {
+        transform.position = pos;
     }
     
 }

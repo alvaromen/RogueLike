@@ -173,7 +173,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 39
+  field of view: 42.6
   orthographic: 0
   orthographic size: 100
   m_Depth: -1
@@ -231,9 +231,9 @@ GameObject:
   - component: {fileID: 1462188562}
   - component: {fileID: 1462188561}
   - component: {fileID: 1462188560}
-  - component: {fileID: 1462188564}
   - component: {fileID: 1462188563}
   - component: {fileID: 1462188565}
+  - component: {fileID: 1462188564}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -299,16 +299,16 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7273476824337092710, guid: 553d28e2f2f454348a4b4faea118ce3b,
+  m_Sprite: {fileID: 7691294901476699688, guid: c8c29dbc53d78ee4bb7b564da94e2874,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1462188562
@@ -319,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462188559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.52, y: 3.504, z: -1.5269405}
+  m_LocalPosition: {x: 4.52, y: 3.504, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -342,8 +342,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -361,7 +361,7 @@ Animator:
   m_GameObject: {fileID: 1462188559}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 405800fb037e45a4dba7824381e6ba71, type: 2}
+  m_Controller: {fileID: 9100000, guid: 98fe2ea6a899d0546904c1802197d7ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -469,10 +469,10 @@ MonoBehaviour:
     type: 3}
   exit: {fileID: 240990293749256850, guid: f7b31be7ce1789344b6312e853cdae39, type: 3}
   floorTiles:
-  - {fileID: 3229479393781015422, guid: c77c137dfe3ff384385f4a79179bd49a, type: 3}
-  - {fileID: 1336919156387333036, guid: aaeb482f586c1b0499ee9c1b70934149, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
   - {fileID: 7965150381037661981, guid: f2c537f40ffb208469e9ef13fe0afd4a, type: 3}
-  - {fileID: 7909418144303013195, guid: c274c8f4324d96d4ba115ff9c70333af, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
   - {fileID: 6329767745778038647, guid: 6a12f8d016977a841b3d35e49495f401, type: 3}
   - {fileID: 539200262034287024, guid: 90010c0269231b44c97884725010b8df, type: 3}
   - {fileID: 1400476934798558337, guid: a9e275cf57769a34b944e6384e6a28c5, type: 3}

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
-
 	private RoomCreator roomScript;
 	public RoomCreator.Conexions conexion;
 
@@ -146,7 +145,7 @@ public class LevelGenerator : MonoBehaviour
 			}
 			
 			iterations++;
-		} while (iterations < 30);
+		} while (iterations < 10);
 	}
 
 	void NameRooms()
@@ -181,6 +180,7 @@ public class LevelGenerator : MonoBehaviour
 	void SpawnLevel()
 	{
 		int i = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
+		bool playerPosition = false;
 		for (int x = 0; x < roomWidth; x++)
 		{
 			for (int y = 0; y < roomHeight; y++)
@@ -190,7 +190,14 @@ public class LevelGenerator : MonoBehaviour
 					RoomCreator.RoomType type = RoomCreator.RoomType.normal;
 					if (possibleBoss[i] == new Vector2(x, y))
 						type = RoomCreator.RoomType.boss;
-					print(x * roomSize + " " + y * roomSize);
+
+					if (!playerPosition && UnityEngine.Random.Range(0, 1) < 0.4)
+					{
+						playerPosition = true;
+						GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(x * roomSize, y * roomSize) + Vector2.one * 8;
+						GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector2(x * roomSize, y * roomSize) + Vector2.one * 8;
+					}
+
 					Spawn(x * roomSize, y * roomSize, names[x, y], type);
 				}
 			}

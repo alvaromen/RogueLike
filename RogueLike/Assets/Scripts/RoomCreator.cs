@@ -62,7 +62,7 @@ public class RoomCreator : MonoBehaviour
     public GameObject[] outerWallTilesCorner;
 
     private Transform boardHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
-    private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place titles
+    private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place tiles
 
     /**
      * Clears the gridPositions and then generates a new list of possible positions where spawning objects
@@ -133,7 +133,7 @@ public class RoomCreator : MonoBehaviour
                     n = (int)Random.Range(0, 4);
                 }
                 Quaternion q = Quaternion.identity;
-                instance = Instantiate(toInstantiate, new Vector3(position.x + i, position.y + j, 0f), q);
+                instance = Instantiate(toInstantiate, new Vector3(position.x + i, position.y + j, 1f), q);
                 instance.transform.SetParent(boardHolder);
             }
         }
