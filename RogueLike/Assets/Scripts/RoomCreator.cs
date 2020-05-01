@@ -44,8 +44,8 @@ public class RoomCreator : MonoBehaviour
     //variables which are going to define the room
 
     //dimensions of the room
-    public int columns;
-    public int rows;
+    int columns;
+    int rows;
 
     public Count enemiesCount = new Count(1, 5); //limits of the random number of enemies per room
     //Arrays of prefabs
@@ -100,7 +100,6 @@ public class RoomCreator : MonoBehaviour
         GameObject[] corners;
 
         if(roomType == RoomType.boss){
-            print("BOSS");
             floors = bossFloorTiles;
             outerTop = bossOuterWallTilesTop;
             outerBot = bossOuterWallTilesBot;

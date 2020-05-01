@@ -14,6 +14,7 @@ public class LevelGenerator : MonoBehaviour
 	bool[,] grid;
 	string[,] names;
 	List<Vector2> possibleBoss;
+	List<Vector2> possibleInit;
 
 	int roomHeight, roomWidth;
 	Vector2 roomSizeWorldUnits = new Vector2(60, 60);
@@ -55,7 +56,9 @@ public class LevelGenerator : MonoBehaviour
 		//create grid
 		grid = new bool[roomWidth, roomHeight];
 		names = new string[roomWidth, roomHeight];
+
 		possibleBoss = new List<Vector2>();
+		possibleInit = new List<Vector2>();
 		//set grid's default state
 		for (int x = 0; x < roomWidth - 1; x++)
 		{
@@ -172,6 +175,10 @@ public class LevelGenerator : MonoBehaviour
 					if (result.Length == 1){
 						possibleBoss.Add(new Vector2(x, y));
 					}
+
+					if (result.Length == 4){
+						possibleInit.Add(new Vector2(x, y));
+					}
 					names[x, y] = result;
 				}
 			}
@@ -179,9 +186,12 @@ public class LevelGenerator : MonoBehaviour
 	}
 	void SpawnLevel()
 	{
-		int i = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
-		print(possibleBoss.Count);
-		bool playerPosition = false;
+		int bossRoom = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
+		Vector2 playerRoom = possibleInit[(int)UnityEngine.Random.Range(0, possibleInit.Count)];
+
+		GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
+		GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
+
 		for (int x = 0; x < roomWidth; x++)
 		{
 			for (int y = 0; y < roomHeight; y++)
@@ -189,16 +199,8 @@ public class LevelGenerator : MonoBehaviour
 				if (grid[x, y])
 				{
 					RoomCreator.RoomType type = RoomCreator.RoomType.normal;
-					if (possibleBoss[i] == new Vector2(x, y)){
+					if (possibleBoss[bossRoom] == new Vector2(x, y)){
 						type = RoomCreator.RoomType.boss;
-					}
-
-					// TODO: position of player should be calculated in any other place
-					if (!playerPosition && UnityEngine.Random.Range(0, 1) < 0.4)
-					{
-						playerPosition = true;
-						GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(x * roomSize, y * roomSize) + Vector2.one * 8;
-						GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector2(x * roomSize, y * roomSize) + Vector2.one * 8;
 					}
 
 					Spawn(x * roomSize, y * roomSize, names[x, y], type);
