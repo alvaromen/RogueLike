@@ -8,11 +8,8 @@ using UnityEngine.SceneManagement;
 public class LevelGenerator : MonoBehaviour
 {
 	private RoomCreator roomScript;
-	public RoomCreator.Conexions conexion;
 
 	int roomSize = 16;
-
-	enum gridSpace { empty, floor, wall };
 	
 	bool[,] grid;
 	string[,] names;
@@ -27,10 +24,13 @@ public class LevelGenerator : MonoBehaviour
 		public Vector2 pos;
 	}
 	List<walker> walkers;
-	public float chanceWalkerChangeDir = 0.5f, chanceWalkerSpawn = 0.05f;
-	public float chanceWalkerDestoy = 0.05f;
-	public int maxWalkers = 10;
-	public float percentToFill = 0.2f;
+
+	[Range(0, 1)]
+	public float chanceWalkerChangeDir = 0.5f, chanceWalkerSpawn = 0.05f, chanceWalkerDestroy = 0.05f;
+
+	[Range(0, 50)]
+	public int maxWalkers = 10, numIterations = 10;
+
 	public GameObject wallObj, floorObj;
 	void Start()
 	{
@@ -97,7 +97,7 @@ public class LevelGenerator : MonoBehaviour
 			for (int i = 0; i < numberChecks; i++)
 			{
 				//only if its not the only one, and at a low chance
-				if (UnityEngine.Random.value < chanceWalkerDestoy && walkers.Count > 1)
+				if (UnityEngine.Random.value < chanceWalkerDestroy && walkers.Count > 1)
 				{
 					walkers.RemoveAt(i);
 					break; //only destroy one per iteration
@@ -145,7 +145,7 @@ public class LevelGenerator : MonoBehaviour
 			}
 			
 			iterations++;
-		} while (iterations < 10);
+		} while (iterations < numIterations);
 	}
 
 	void NameRooms()
@@ -154,26 +154,26 @@ public class LevelGenerator : MonoBehaviour
 		{
 			for (int y = 0; y < roomHeight; y++)
 			{
-				
-				string result = "";
-				if (y + 1 < roomHeight)
-					if (grid[x, y + 1])
-						result += "T";
-				if (y - 1 >= 0)
-					if (grid[x, y - 1])
-						result += "B";
-				if (x - 1 >= 0)
-					if (grid[x - 1, y])
-						result += "L";
-				if (x + 1 < roomWidth)
-					if (grid[x + 1, y])
-						result += "R";
+				if(grid[x, y]){
+					string result = "";
+					if (y + 1 < roomHeight)
+						if (grid[x, y + 1])
+							result += "T";
+					if (y - 1 >= 0)
+						if (grid[x, y - 1])
+							result += "B";
+					if (x - 1 >= 0)
+						if (grid[x - 1, y])
+							result += "L";
+					if (x + 1 < roomWidth)
+						if (grid[x + 1, y])
+							result += "R";
 
-				if (result.Length == 1){
-					possibleBoss.Add(new Vector2(x, y));
-					print("RESULT: " + result);
+					if (result.Length == 1){
+						possibleBoss.Add(new Vector2(x, y));
+					}
+					names[x, y] = result;
 				}
-				names[x, y] = result;
 			}
 		}
 	}
@@ -190,10 +190,10 @@ public class LevelGenerator : MonoBehaviour
 				{
 					RoomCreator.RoomType type = RoomCreator.RoomType.normal;
 					if (possibleBoss[i] == new Vector2(x, y)){
-						print("Boss in level generator " + possibleBoss);
 						type = RoomCreator.RoomType.boss;
 					}
 
+					// TODO: position of player should be calculated in any other place
 					if (!playerPosition && UnityEngine.Random.Range(0, 1) < 0.4)
 					{
 						playerPosition = true;

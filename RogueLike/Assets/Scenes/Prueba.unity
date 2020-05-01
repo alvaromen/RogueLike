@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1462188562}
-  smoothSpeed: 4.08
+  smoothSpeed: 8
   offset: {x: 0, y: 0, z: -10}
 --- !u!1 &1462188559
 GameObject:
@@ -407,7 +407,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &2099509075
 MonoBehaviour:
@@ -459,14 +459,9 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   columns: 0
   rows: 0
-  wallCount:
-    minimum: 5
-    maximum: 9
   enemiesCount:
     minimum: 1
     maximum: 5
-  exitLevel: {fileID: 2896129187062970607, guid: 96d6b58ac3aeb7349b421cf1f195a76a,
-    type: 3}
   exit: {fileID: 240990293749256850, guid: f7b31be7ce1789344b6312e853cdae39, type: 3}
   floorTiles:
   - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
@@ -484,8 +479,6 @@ MonoBehaviour:
   - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
   - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
   - {fileID: 6329767745778038647, guid: 6a12f8d016977a841b3d35e49495f401, type: 3}
-  wallTiles: []
-  enemyTiles: []
   outerWallTilesTop:
   - {fileID: 3908910098543078581, guid: 902b066eab550484587bcdc37f42a6be, type: 3}
   - {fileID: 6285939552540396074, guid: d96d62d206396034cac5ee0a7c552183, type: 3}
@@ -504,3 +497,38 @@ MonoBehaviour:
   - {fileID: 3109367527935656045, guid: b7364575491f8ab4083a99dee6874115, type: 3}
   - {fileID: 5586287123373332196, guid: e5c911525c404a1499a93bbdc4ecb43c, type: 3}
   - {fileID: 7929380446121983581, guid: d0adb11582ca0ea4fa16172b35fb799c, type: 3}
+  bossFloorTiles:
+  - {fileID: 6709882655553754785, guid: b2457556f87793f429ca9abcdb64c0b6, type: 3}
+  - {fileID: 6329767745778038647, guid: 634fec8760fecdc4dbc6c4cb2712f3a7, type: 3}
+  - {fileID: 7909418144303013195, guid: d3bc0afba2082e54ebfe178caa3199db, type: 3}
+  - {fileID: 7965150381037661981, guid: fd4f2b1865e73764491561b6ebaa0129, type: 3}
+  - {fileID: 1336919156387333036, guid: 2a4e975897798c5448c20e7ea7954575, type: 3}
+  - {fileID: 6709882655553754785, guid: b2457556f87793f429ca9abcdb64c0b6, type: 3}
+  - {fileID: 6329767745778038647, guid: 634fec8760fecdc4dbc6c4cb2712f3a7, type: 3}
+  - {fileID: 7909418144303013195, guid: d3bc0afba2082e54ebfe178caa3199db, type: 3}
+  - {fileID: 7965150381037661981, guid: fd4f2b1865e73764491561b6ebaa0129, type: 3}
+  - {fileID: 1336919156387333036, guid: 2a4e975897798c5448c20e7ea7954575, type: 3}
+  - {fileID: 6709882655553754785, guid: b2457556f87793f429ca9abcdb64c0b6, type: 3}
+  - {fileID: 6329767745778038647, guid: 634fec8760fecdc4dbc6c4cb2712f3a7, type: 3}
+  - {fileID: 7909418144303013195, guid: d3bc0afba2082e54ebfe178caa3199db, type: 3}
+  - {fileID: 7965150381037661981, guid: fd4f2b1865e73764491561b6ebaa0129, type: 3}
+  - {fileID: 1336919156387333036, guid: 2a4e975897798c5448c20e7ea7954575, type: 3}
+  - {fileID: 539200262034287024, guid: 6f3dcc4b59fa4e949a05b0dec3805ace, type: 3}
+  bossOuterWallTilesTop:
+  - {fileID: 3908910098543078581, guid: df7b41d6af25c584eb90fd407681f321, type: 3}
+  - {fileID: 6285939552540396074, guid: d97e78d373576554ba9e65b41d752dd0, type: 3}
+  bossOuterWallTilesBot:
+  - {fileID: 888708790264778017, guid: 9846373825a63b54393f1a767a864d35, type: 3}
+  - {fileID: 7900318886601783643, guid: b1219d9cc84e8d9419996415a4537774, type: 3}
+  bossOuterWallTilesLeft:
+  - {fileID: 5114702751249629162, guid: c4a16c06700a33847809a6129a61c056, type: 3}
+  - {fileID: 7058734504085588908, guid: 345d0b3734d4d494096b34e9fa514ac5, type: 3}
+  - {fileID: 5088633088051411657, guid: 12608427ae742674ab083c6dc4132b9c, type: 3}
+  bossOuterWallTilesRight:
+  - {fileID: 5242371741039714980, guid: 6281f58fc13e15b4b927f09175d27810, type: 3}
+  - {fileID: 8496042616278020327, guid: 43189274854833447a8f078b656cb947, type: 3}
+  bossOuterWallTilesCorner:
+  - {fileID: 8461687591968706606, guid: 30e728079f9a1b44fabe2a67ada0989a, type: 3}
+  - {fileID: 3109367527935656045, guid: 4449d4fc2d17c2e46a54508d7b7add46, type: 3}
+  - {fileID: 5586287123373332196, guid: 22799d43be1233f4c86a86c7c5402bbc, type: 3}
+  - {fileID: 7929380446121983581, guid: c7efb2850cf33e1429cb73a1ce81eb37, type: 3}
