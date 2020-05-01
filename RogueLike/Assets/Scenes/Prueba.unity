@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1462188562}
-  smoothSpeed: 0.86
-  offset: {x: 0, y: 0, z: 0}
+  smoothSpeed: 4.08
+  offset: {x: 0, y: 0, z: -10}
 --- !u!1 &1462188559
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +477,13 @@ MonoBehaviour:
   - {fileID: 539200262034287024, guid: 90010c0269231b44c97884725010b8df, type: 3}
   - {fileID: 1400476934798558337, guid: a9e275cf57769a34b944e6384e6a28c5, type: 3}
   - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  - {fileID: 7909418144303013195, guid: c274c8f4324d96d4ba115ff9c70333af, type: 3}
+  - {fileID: 7909418144303013195, guid: c274c8f4324d96d4ba115ff9c70333af, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
+  - {fileID: 6329767745778038647, guid: 6a12f8d016977a841b3d35e49495f401, type: 3}
   wallTiles: []
   enemyTiles: []
   outerWallTilesTop:

@@ -150,7 +150,6 @@ public class LevelGenerator : MonoBehaviour
 
 	void NameRooms()
 	{
-		
 		for (int x = 0; x < roomWidth; x++)
 		{
 			for (int y = 0; y < roomHeight; y++)
@@ -170,9 +169,10 @@ public class LevelGenerator : MonoBehaviour
 					if (grid[x + 1, y])
 						result += "R";
 
-				if (result.Length == 1)
+				if (result.Length == 1){
 					possibleBoss.Add(new Vector2(x, y));
-
+					print("RESULT: " + result);
+				}
 				names[x, y] = result;
 			}
 		}
@@ -180,6 +180,7 @@ public class LevelGenerator : MonoBehaviour
 	void SpawnLevel()
 	{
 		int i = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
+		print(possibleBoss.Count);
 		bool playerPosition = false;
 		for (int x = 0; x < roomWidth; x++)
 		{
@@ -188,8 +189,10 @@ public class LevelGenerator : MonoBehaviour
 				if (grid[x, y])
 				{
 					RoomCreator.RoomType type = RoomCreator.RoomType.normal;
-					if (possibleBoss[i] == new Vector2(x, y))
+					if (possibleBoss[i] == new Vector2(x, y)){
+						print("Boss in level generator " + possibleBoss);
 						type = RoomCreator.RoomType.boss;
+					}
 
 					if (!playerPosition && UnityEngine.Random.Range(0, 1) < 0.4)
 					{

@@ -47,19 +47,21 @@ public class RoomCreator : MonoBehaviour
     public int columns;
     public int rows;
 
-    public Count wallCount = new Count(5, 9); //limits of the random number of walls per room
     public Count enemiesCount = new Count(1, 5); //limits of the random number of enemies per room
-    public GameObject exitLevel;
     //Arrays of prefabs
     public GameObject exit;
     public GameObject[] floorTiles;
-    public GameObject[] wallTiles;
-    public GameObject[] enemyTiles;
     public GameObject[] outerWallTilesTop;
     public GameObject[] outerWallTilesBot;
     public GameObject[] outerWallTilesLeft;
     public GameObject[] outerWallTilesRight;
     public GameObject[] outerWallTilesCorner;
+    public GameObject[] bossFloorTiles;
+    public GameObject[] bossOuterWallTilesTop;
+    public GameObject[] bossOuterWallTilesBot;
+    public GameObject[] bossOuterWallTilesLeft;
+    public GameObject[] bossOuterWallTilesRight;
+    public GameObject[] bossOuterWallTilesCorner;
 
     private Transform boardHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
     private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place tiles
@@ -89,47 +91,84 @@ public class RoomCreator : MonoBehaviour
     void BoardSetup()
     {
         boardHolder = new GameObject("Board").transform;
+        
+        GameObject[] floors;
+        GameObject[] outerTop;
+        GameObject[] outerBot;
+        GameObject[] outerLeft;
+        GameObject[] outerRight;
+        GameObject[] corners;
+
+        if(roomType == RoomType.boss){
+            print("BOSS");
+            floors = bossFloorTiles;
+            outerTop = bossOuterWallTilesTop;
+            outerBot = bossOuterWallTilesBot;
+            outerLeft = bossOuterWallTilesLeft;
+            outerRight = bossOuterWallTilesRight;
+            corners = bossOuterWallTilesCorner;
+        }else{
+            floors = floorTiles;
+            outerTop = outerWallTilesTop;
+            outerBot = outerWallTilesBot;
+            outerLeft = outerWallTilesLeft;
+            outerRight = outerWallTilesRight;
+            corners = outerWallTilesCorner;
+        }
+
         GameObject instance;
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
-                GameObject toInstantiate = outerWallTilesTop[Random.Range(0, outerWallTilesTop.Length)];
+                GameObject toInstantiate = outerTop[Random.Range(0, outerTop.Length)];
                 int n = 0;
                 if (i == 0 || i == (rows - 1) || j == 0 || j == (columns - 1))
                 {
                     if (j == (columns - 1) && (i != 0 && i != (rows - 1)))
-                        toInstantiate = outerWallTilesTop[Random.Range(0, outerWallTilesTop.Length)];
+                        toInstantiate = outerTop[Random.Range(0, outerTop.Length)];
+
                     if (j == 0 && (i != 0 && i != (rows - 1)))
-                        toInstantiate = outerWallTilesBot[Random.Range(0, outerWallTilesBot.Length)];
+                        toInstantiate = outerBot[Random.Range(0, outerBot.Length)];
+
                     if (i == 0 && (j != 0 && j != (columns - 1)))
-                        toInstantiate = outerWallTilesLeft[Random.Range(0, outerWallTilesLeft.Length)];
+                        toInstantiate = outerLeft[Random.Range(0, outerLeft.Length)];
+
                     if (i == (rows - 1) && (j != 0 && j != (columns - 1)))
-                        toInstantiate = outerWallTilesRight[Random.Range(0, outerWallTilesRight.Length)];
+                        toInstantiate = outerRight[Random.Range(0, outerRight.Length)];
+
                     if (i == 0 && j == (columns - 1))
-                        toInstantiate = outerWallTilesCorner[0];
+                        toInstantiate = corners[0];
+
                     if (i == (rows - 1) && j == (columns - 1))
-                        toInstantiate = outerWallTilesCorner[1];
+                        toInstantiate = corners[1];
+
                     if (i == 0 && j == 0)
-                        toInstantiate = outerWallTilesCorner[2];
+                        toInstantiate = corners[2];
+
                     if (i == (rows - 1) && j == 0)
-                        toInstantiate = outerWallTilesCorner[3];
+                        toInstantiate = corners[3];
+
                     if (conexions.ToString().Contains("T"))
                         if ((i == (rows / 2 - 1) && j == (columns - 1)) || (i == (rows / 2) && j == (columns - 1)))
                             toInstantiate = exit;
+
                     if (conexions.ToString().Contains("B"))
                         if ((i == (rows / 2 - 1) && j == 0) || (i == (rows / 2) && j == 0))
                             toInstantiate = exit;
+
                     if (conexions.ToString().Contains("L"))
                         if ((i == 0 && j == (columns / 2 - 1)) || (i == 0 && j == (columns / 2)))
                             toInstantiate = exit;
+
                     if (conexions.ToString().Contains("R"))
                         if ((i == (rows - 1) && j == (columns / 2 - 1)) || (i == (rows - 1) && j == (columns / 2)))
                             toInstantiate = exit;
+
                 }
                 else
                 {
-                    toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                    toInstantiate = floors[Random.Range(0, floors.Length)];
                     n = (int)Random.Range(0, 4);
                 }
                 Quaternion q = Quaternion.identity;
@@ -183,16 +222,6 @@ public class RoomCreator : MonoBehaviour
         conexions = conexion;
         position = pos;
         roomType = type;
-        /*
-        do
-        {
-            columns = Random.Range(8, 16);
-        } while (columns % 2 != 0);
-        do
-        {
-            rows = Random.Range(8, 16);
-        } while (rows % 2 != 0);
-        */
         columns = 16;
         rows = 16;
         BoardSetup();
