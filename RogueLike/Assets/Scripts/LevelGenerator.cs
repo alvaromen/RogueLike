@@ -17,8 +17,7 @@ public class LevelGenerator : MonoBehaviour
 	List<Vector2> possibleInit;
 
 	int roomHeight, roomWidth;
-	Vector2 roomSizeWorldUnits = new Vector2(60, 60);
-	float worldUnitsInOneGridCell = 1;
+	Vector2 roomSizeWorldUnits = new Vector2(30, 30);
 	struct walker
 	{
 		public Vector2 dir;
@@ -51,8 +50,8 @@ public class LevelGenerator : MonoBehaviour
 	void Setup()
 	{
 		//find grid size
-		roomHeight = Mathf.RoundToInt(roomSizeWorldUnits.x / worldUnitsInOneGridCell);
-		roomWidth = Mathf.RoundToInt(roomSizeWorldUnits.y / worldUnitsInOneGridCell);
+		roomHeight = Mathf.RoundToInt(roomSizeWorldUnits.x);
+		roomWidth = Mathf.RoundToInt(roomSizeWorldUnits.y);
 		//create grid
 		grid = new bool[roomWidth, roomHeight];
 		names = new string[roomWidth, roomHeight];

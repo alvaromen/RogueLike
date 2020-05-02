@@ -44,8 +44,8 @@ public class RoomCreator : MonoBehaviour
     //variables which are going to define the room
 
     //dimensions of the room
-    int columns;
-    int rows;
+    public int columns;
+    public int rows;
 
     public Count enemiesCount = new Count(1, 5); //limits of the random number of enemies per room
     //Arrays of prefabs
