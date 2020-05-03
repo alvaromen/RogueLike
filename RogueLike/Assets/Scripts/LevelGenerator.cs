@@ -17,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
 	List<Vector2> possibleInit;
 
 	int roomHeight, roomWidth;
-	Vector2 roomSizeWorldUnits = new Vector2(30, 30);
+	Vector2 roomSizeWorldUnits = new Vector2(15, 15);
 	struct walker
 	{
 		public Vector2 dir;
@@ -63,7 +63,7 @@ public class LevelGenerator : MonoBehaviour
 		{
 			for (int y = 0; y < roomHeight - 1; y++)
 			{
-				//make every cell "empty"
+				
 				grid[x, y] = false;
 				names[x, y] = "";
 			}
@@ -175,7 +175,7 @@ public class LevelGenerator : MonoBehaviour
 						possibleBoss.Add(new Vector2(x, y));
 					}
 
-					if (result.Length == 4){
+					if (result.Length > 2){
 						possibleInit.Add(new Vector2(x, y));
 					}
 					names[x, y] = result;
@@ -186,10 +186,13 @@ public class LevelGenerator : MonoBehaviour
 	void SpawnLevel()
 	{
 		int bossRoom = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
-		Vector2 playerRoom = possibleInit[(int)UnityEngine.Random.Range(0, possibleInit.Count)];
 
-		GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
-		GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
+		if(possibleInit.Count > 0){
+			Vector2 playerRoom = possibleInit[(int)UnityEngine.Random.Range(0, possibleInit.Count)];
+
+			GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
+			GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
+		}
 
 		for (int x = 0; x < roomWidth; x++)
 		{
@@ -198,7 +201,8 @@ public class LevelGenerator : MonoBehaviour
 				if (grid[x, y])
 				{
 					RoomCreator.RoomType type = RoomCreator.RoomType.normal;
-					if (possibleBoss[bossRoom] == new Vector2(x, y)){
+					
+					if (possibleBoss.Count > 0 && possibleBoss[bossRoom] == new Vector2(x, y)){
 						type = RoomCreator.RoomType.boss;
 					}
 

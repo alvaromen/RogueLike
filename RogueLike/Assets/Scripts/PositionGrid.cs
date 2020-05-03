@@ -5,7 +5,6 @@ using UnityEngine;
 public class PositionGrid : MonoBehaviour
 {
     float steps;
-    
     private void Start(){
 
         Mesh planeMesh = GetComponent<MeshFilter>().mesh;
@@ -13,13 +12,12 @@ public class PositionGrid : MonoBehaviour
         // size in pixels
         steps = transform.localScale.x * bounds.size.x;
 
-        print("STEPS: "+steps);
     }
 
     private void LateUpdate(){
         Vector2 player = GameObject.FindGameObjectWithTag("Player").transform.position;
-        int xGrid = Mathf.FloorToInt(player.x / 16);
-        int yGrid = Mathf.FloorToInt(player.y / 16);
+        int xGrid = Mathf.FloorToInt(player.x) / 16;
+        int yGrid = Mathf.FloorToInt(player.y) / 16;
 
 
         transform.position = new Vector2(xGrid, yGrid) * steps;
