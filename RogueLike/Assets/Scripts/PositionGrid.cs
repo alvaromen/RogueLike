@@ -20,7 +20,7 @@ public class PositionGrid : MonoBehaviour
         int yGrid = Mathf.FloorToInt(player.y) / 16;
 
 
-        transform.position = new Vector2(xGrid, yGrid) * steps;
+        transform.position = new Vector2(xGrid, yGrid) * (steps + 2);
 
     }
 
