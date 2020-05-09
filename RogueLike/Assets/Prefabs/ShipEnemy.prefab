@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6384104342520430538}
   m_Layer: 0
   m_Name: ShipEnemy
-  m_TagString: Door
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,5 +141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f2b10d05871a84cb5841c90ec52a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3335270410007030643, guid: 0b491672dd8fdac47ac1177e6fb62aaa,
+  bulletPrefab: {fileID: 9116916179048070181, guid: ff161c675441f4149b1a7f5da380309a,
     type: 3}

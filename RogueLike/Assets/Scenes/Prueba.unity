@@ -948,7 +948,7 @@ MonoBehaviour:
   floorObj: {fileID: 5072702484885607002, guid: afb6bb868b6c7f148b99eee42bb82974,
     type: 3}
   enemiesPrefabs:
-  - {fileID: 3971346120245336597, guid: 376ff7dc5167d2240b2c7192ba7868bd, type: 3}
+  - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
 --- !u!4 &2099509076
 Transform:
   m_ObjectHideFlags: 0

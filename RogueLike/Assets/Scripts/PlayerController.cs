@@ -173,17 +173,17 @@ public class PlayerController : Character
         {
             //The quaternion for the prefab is taking into account that the bullet originally is looking to the right
             case "up":
-                //q[2] = 90;
+                q[1] = 90;
                 pos.y += 0.07f; // displace the bullet a little bit to appear above of the player
                 vel.y = bulletSpeed;
                 break;
             case "down":
-                //q[2] = -90;
+                q[1] = 270;
                 pos.y += -0.07f; // displace the bullet a little bit to appear below of the player
                 vel.y = -bulletSpeed;
                 break;
             case "left":
-                //q[2] = 180;
+                q[2] = 180;
                 pos.x += -0.07f; // displace the bullet a little bit to appear at the left of the player
                 vel.x = -bulletSpeed;
                 break;

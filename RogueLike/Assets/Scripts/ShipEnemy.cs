@@ -19,6 +19,8 @@ public class ShipEnemy : Enemy
         damage = 1;
         hp = 3;
         isShooting = false;
+
+        bulletsHolder = new GameObject("EnemyBullets").transform;
     }
 
     // Update is called once per frame
@@ -27,6 +29,7 @@ public class ShipEnemy : Enemy
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (!isShooting)
         {
+            isShooting = true;
             StartCoroutine(Shoot(player.transform.position));
         }
     }
@@ -38,11 +41,11 @@ public class ShipEnemy : Enemy
 
         Vector3 direction = transform.position - destiny;
         float angle = Mathf.Atan(direction.x / direction.y);
-        pos.x += 0.2f + Mathf.Cos(angle);
-        pos.y += 0.2f + Mathf.Sin(angle);
-        q[2] = angle;
+        pos.x += Mathf.Sin(angle);
+        pos.y += Mathf.Cos(angle);
+        q[2] = 90 - angle;
         
-        Vector3 vel = new Vector3(10 * Mathf.Cos(angle), 10 * Mathf.Sin(angle), 0);
+        Vector3 vel = new Vector3(10 * Mathf.Sin(angle), 10 * Mathf.Cos(angle), 0);
 
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
