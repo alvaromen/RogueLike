@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 260901276667902977}
   - component: {fileID: 260901276667902988}
   - component: {fileID: 260901276667902991}
-  - component: {fileID: 6384104342520430538}
+  - component: {fileID: 5395945089151490322}
+  - component: {fileID: 1106562202291105136}
   m_Layer: 0
   m_Name: ShipEnemy
   m_TagString: Enemy
@@ -129,7 +130,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6384104342520430538
+--- !u!50 &5395945089151490322
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260901276667902976}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1106562202291105136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 260901276667902976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f2b10d05871a84cb5841c90ec52a02, type: 3}
+  m_Script: {fileID: 11500000, guid: c06122b045ebf2648b6c490bcd9a9755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 9116916179048070181, guid: ff161c675441f4149b1a7f5da380309a,

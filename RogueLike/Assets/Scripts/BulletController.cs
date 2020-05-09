@@ -34,6 +34,13 @@ public class BulletController : MonoBehaviour
                 other.GetComponent<PlayerController>().GetHurt(damage);
             }
         }
-        Destroy(this);
+        if (!(tag.Contains("Bullet") && other.tag.Contains("Bullet"))){
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetDamage(int dmg)
+    {
+        damage = dmg;
     }
 }

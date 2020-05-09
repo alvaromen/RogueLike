@@ -64,15 +64,18 @@ public class Room : MonoBehaviour{
 
     private void SpawnEnemies()
     {
-        int n = Random.Range(2, 5);
-        for (int i = 0; i < n; i++)
+        Debug.Log("AAAAAAA");
+        nEnemies = Random.Range(2, 5);
+        for (int i = 0; i < nEnemies; i++)
         {
             Vector3 position = GameObject.FindGameObjectWithTag("Player").transform.position;
             float xmin = position.x - position.x % 16;
             float ymin = position.y - position.y % 16;
             Vector3 randomPosition = new Vector3(xmin + (int)Random.Range(3, 12), ymin + (int)Random.Range(3, 12), 0f);
             GameObject objectChoice = enemiesPrefabs[Random.Range(0, enemiesPrefabs.Length)]; //choose a random tile from the array of game objects tileArray
-            enemies.Add(Instantiate(objectChoice, randomPosition, Quaternion.identity));
+            GameObject enemy = Object.Instantiate(objectChoice, randomPosition, Quaternion.identity);
+            enemy.GetComponent<Enemy>().SetRoom(this);
+            enemies.Add(enemy);
         }
     }
 
@@ -81,10 +84,9 @@ public class Room : MonoBehaviour{
         return status;
     }
 
-    public void EnemyDown(GameObject enemy)
+    public void EnemyDown()
     {
         nEnemies--;
-        enemies.Remove(enemy);
         if(nEnemies <= 0)
         {
             status = Status.cleared;

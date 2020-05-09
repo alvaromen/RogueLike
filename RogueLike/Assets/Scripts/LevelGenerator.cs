@@ -194,9 +194,11 @@ public class LevelGenerator : MonoBehaviour
 		if(possibleInit.Count > 0){
 			Vector2 playerRoom = possibleInit[(int)UnityEngine.Random.Range(0, possibleInit.Count)];
 
-			GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
-			GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
-		}
+            Vector2 position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
+            GameObject.FindGameObjectWithTag("Player").transform.position = position;
+            Vector3 cameraPosition = new Vector3(position.x, position.y, -10);
+            GameObject.FindGameObjectWithTag("MainCamera").transform.position = cameraPosition;
+        }
 
 		for (int x = 0; x < roomWidth; x++)
 		{

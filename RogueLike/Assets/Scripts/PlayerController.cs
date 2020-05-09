@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : Character
 {
-    private Rigidbody2D rb;
     private Animator anim;
 
     public Transform groundPos;
@@ -152,7 +151,6 @@ public class PlayerController : Character
 
     public void GetHurt(int dmg)
     {
-        print(gameObject + "Dañado");
         hp -= dmg;
         if(hp <= 0)
         {
@@ -199,8 +197,9 @@ public class PlayerController : Character
 
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
-        bullet.transform.SetParent(bulletsHolder);
+        bullet.GetComponent<BulletController>().SetDamage(damage);
         bullet.tag = "PlayerBullet";
+        bullet.transform.SetParent(bulletsHolder);
 
         yield return new WaitForSeconds(fireRate);
 
@@ -217,6 +216,9 @@ public class PlayerController : Character
         if (other.CompareTag("Door"))
         {
             other.GetComponent<DoorController>().Entering();
+            float x = (transform.position.x - transform.position.x % 16) + 8;
+            float y = (transform.position.y - transform.position.y % 16) + 8;
+            GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
         }
     }
 }

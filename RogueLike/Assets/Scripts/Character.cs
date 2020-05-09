@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Character: MonoBehaviour
 {
+    protected Rigidbody2D rb;
+
     protected int hp;
     protected int damage;
 

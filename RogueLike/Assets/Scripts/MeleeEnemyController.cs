@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class MeleeEnemyController : Enemy
 {
-    
+    private NavMeshAgent agent;
+
     private int attackRate;
 
     // Start is called before the first frame update

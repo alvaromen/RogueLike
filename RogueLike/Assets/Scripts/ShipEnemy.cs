@@ -13,9 +13,20 @@ public class ShipEnemy : Enemy
 
     private float fireRate = 1.5f;
 
+    private float distance = 3.0f;
+
+    //Atributes for movement
+    int ampX = 6;
+    int ampY = 4;
+    float wX = 0.03f;
+    float wY = 0.1f;
+    int a = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         damage = 1;
         hp = 3;
         isShooting = false;
@@ -29,6 +40,79 @@ public class ShipEnemy : Enemy
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (!isShooting)
         {
+
+            float dist;
+
+            Vector3 playerPos = player.transform.position;
+            Vector3 pos = transform.position;
+            Vector3 velocity = new Vector3(0, 0);
+
+            if (playerPos.x < pos.x)
+            {
+                dist = pos.x - playerPos.x;
+                if (dist < distance)
+                {
+                    velocity.x += 3;
+                }
+                else
+                {
+                    if (dist > distance)
+                    {
+                        velocity.x -= 3;
+                    }
+                    else velocity.x = wX * ampX * Mathf.Cos(wX * a);
+                }
+            }
+            else
+            {
+                dist = pos.x - playerPos.x;
+                if (dist < distance)
+                {
+                    velocity.x -= 3;
+                }
+                else
+                {
+                    if (dist > distance)
+                    {
+                        velocity.x += 3;
+                    }
+                    else velocity.x = wX * ampX * Mathf.Cos(wX * a);
+                }
+            }
+            if (playerPos.y < pos.y)
+            {
+                dist = pos.y - playerPos.y;
+                if (dist < distance)
+                {
+                    velocity.y += 3;
+                }
+                else
+                {
+                    if (dist > distance)
+                    {
+                        velocity.y -= 3;
+                    }
+                    else velocity.y = wY * ampY * Mathf.Cos(wY * a);
+                }
+            } else
+            {
+                dist = pos.y - playerPos.y;
+                if (dist < distance)
+                {
+                    velocity.y -= 3;
+                }
+                else
+                {
+                    if (dist > distance)
+                    {
+                        velocity.y += 3;
+                    }
+                    else velocity.y = wY * ampY * Mathf.Cos(wY * a);
+                }
+            }
+            a++;
+            rb.velocity = velocity;
+
             isShooting = true;
             StartCoroutine(Shoot(player.transform.position));
         }
@@ -49,8 +133,9 @@ public class ShipEnemy : Enemy
 
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
-        bullet.transform.SetParent(bulletsHolder);
+        bullet.GetComponent<BulletController>().SetDamage(damage);
         bullet.tag = "EnemyBullet";
+        bullet.transform.SetParent(bulletsHolder);
 
         yield return new WaitForSeconds(fireRate);
 

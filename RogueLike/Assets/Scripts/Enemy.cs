@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class Enemy : Character
 {
-    protected NavMeshAgent agent;
 
     protected Room room;
 
@@ -28,11 +27,11 @@ public class Enemy : Character
 
     public void GetHurt(int dmg)
     {
-        hp = dmg;
+        hp -= dmg;
         if (hp <= 0)
         {
-            room.EnemyDown(gameObject);
-            Destroy(this);
+            room.EnemyDown();
+            Destroy(gameObject);
         }
     }
 }
