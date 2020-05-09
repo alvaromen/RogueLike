@@ -1,7 +1,76 @@
 fileFormatVersion: 2
 guid: 1d09cff28614fe84094130bdf90adffd
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -8180122357337283277
+    second: bullet_tomato_0
+  - first:
+      213: 5057587624501077261
+    second: bullet_tomato_1
+  - first:
+      213: 4062509491179501238
+    second: bullet_tomato_2
+  - first:
+      213: 6000502812758189056
+    second: bullet_tomato_3
+  - first:
+      213: -7347746441049645232
+    second: bullet_tomato_4
+  - first:
+      213: -6970218036630277524
+    second: bullet_tomato_5
+  - first:
+      213: 1726432120518910700
+    second: bullet_tomato_6
+  - first:
+      213: 8832221937545826390
+    second: bullet_tomato_7
+  - first:
+      213: -7996274313813252561
+    second: bullet_tomato_8
+  - first:
+      213: -7805236971693626257
+    second: bullet_tomato_9
+  - first:
+      213: 7490046329003714739
+    second: bullet_tomato_10
+  - first:
+      213: -8551934665483174659
+    second: bullet_tomato_11
+  - first:
+      213: 6320808953057799346
+    second: bullet_tomato_12
+  - first:
+      213: -6363986654542825584
+    second: bullet_tomato_13
+  - first:
+      213: 596492953262637599
+    second: bullet_tomato_14
+  - first:
+      213: -2450658917477884045
+    second: bullet_tomato_15
+  - first:
+      213: 6742040590720058304
+    second: bullet_tomato_16
+  - first:
+      213: 2807666474216493514
+    second: bullet_tomato_0
+  - first:
+      213: 3497464582377348779
+    second: bullet_tomato_1
+  - first:
+      213: -642075485261120359
+    second: bullet_tomato_2
+  - first:
+      213: 6253461347938196446
+    second: bullet_tomato_3
+  - first:
+      213: 6499876523175509760
+    second: bullet_tomato_4
+  - first:
+      213: 8644764306766623463
+    second: bullet_tomato_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,7 +100,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,7 +109,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +140,147 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: bullet_tomato_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac1927b58c5d6f620800000000000000
+      internalID: 2807666474216493514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_tomato_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae9c1fd18d798030800000000000000
+      internalID: 3497464582377348779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_tomato_2
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99c360e7fb3e617f0800000000000000
+      internalID: -642075485261120359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_tomato_3
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edbdd74b6f1c8c650800000000000000
+      internalID: 6253461347938196446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_tomato_4
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ff6cf8243343a50800000000000000
+      internalID: 6499876523175509760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_tomato_5
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e2fcc7c55f58f770800000000000000
+      internalID: 8644764306766623463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
