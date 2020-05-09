@@ -34,6 +34,7 @@ public class LevelGenerator : MonoBehaviour
 	public int maxWalkers = 10, numIterations = 10;
 
     public GameObject[] enemiesPrefabs;
+    public GameObject[] turretsPrefabs;
 
     void Start()
 	{
@@ -250,7 +251,7 @@ public class LevelGenerator : MonoBehaviour
 
 		RoomCreator.Conexions nameEnum = (RoomCreator.Conexions)Enum.Parse(typeof(RoomCreator.Conexions), conexions);
         Room room = roomScript.SetupRoom(nameEnum, spawnPos, type);
-        room.SetEnemies(enemiesPrefabs);
+        room.SetEnemies(enemiesPrefabs, turretsPrefabs);
         rooms.Add(room);
 	}
 }

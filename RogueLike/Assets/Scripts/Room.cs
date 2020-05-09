@@ -2,7 +2,7 @@
 using UnityEngine;
 using RoomType = RoomCreator.RoomType;
 
-public class Room {
+public class Room : MonoBehaviour{
 
     private RoomType roomType;
     
@@ -16,6 +16,8 @@ public class Room {
     private Status status;
 
     private GameObject[] enemiesPrefabs;
+    public GameObject[] turretsPrefabs;
+    private List<GameObject> turretsToDestroy = new List<GameObject>();
 
     private List<GameObject> enemies = new List<GameObject>();
 
@@ -38,9 +40,13 @@ public class Room {
         {
             status = Status.visited;
             SpawnEnemies();
+            float i = 0;
             foreach (GameObject door in doors)
             {
                 door.GetComponent<BoxCollider2D>().isTrigger = false;
+                Vector3 pos = new Vector3(door.transform.position.x, door.transform.position.y, 0.8f);
+                turretsToDestroy.Add(Instantiate(turretsPrefabs[Mathf.FloorToInt(i)], pos, Quaternion.identity));
+                i += 0.5f;
             }
         }
     }
@@ -50,9 +56,10 @@ public class Room {
         doors = d;
     }
 
-    public void SetEnemies(GameObject[] prefabs)
+    public void SetEnemies(GameObject[] prefabs, GameObject[] turrets)
     {
         enemiesPrefabs = prefabs;
+        turretsPrefabs = turrets;
     }
 
     private void SpawnEnemies()
@@ -65,7 +72,7 @@ public class Room {
             float ymin = position.y - position.y % 16;
             Vector3 randomPosition = new Vector3(xmin + (int)Random.Range(3, 12), ymin + (int)Random.Range(3, 12), 0f);
             GameObject objectChoice = enemiesPrefabs[Random.Range(0, enemiesPrefabs.Length)]; //choose a random tile from the array of game objects tileArray
-            enemies.Add(Object.Instantiate(objectChoice, randomPosition, Quaternion.identity));
+            enemies.Add(Instantiate(objectChoice, randomPosition, Quaternion.identity));
         }
     }
 
@@ -84,6 +91,10 @@ public class Room {
             foreach(GameObject door in doors)
             {
                 door.GetComponent<BoxCollider2D>().isTrigger = true;
+            }
+
+            foreach(GameObject turret in turretsToDestroy){
+                Destroy(turret);
             }
         }
     }

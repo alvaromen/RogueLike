@@ -347,8 +347,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 42.6
-  orthographic: 0
-  orthographic size: 100
+  orthographic: 1
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -946,6 +946,11 @@ MonoBehaviour:
   numIterations: 15
   enemiesPrefabs:
   - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
+  turretsPrefabs:
+  - {fileID: 7848125723885462350, guid: c4ae3a4967b69704183f9195e6bcdf13, type: 3}
+  - {fileID: 3106835234271805910, guid: 003446b2bb823094384b92c5d9659b38, type: 3}
+  - {fileID: 7599439324112154478, guid: 4984b0a602b4b5a45965ffd896dc7ece, type: 3}
+  - {fileID: 5427290492083701139, guid: 436de4eaf64d27645b24c4909d7c1292, type: 3}
 --- !u!4 &2099509076
 Transform:
   m_ObjectHideFlags: 0

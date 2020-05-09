@@ -188,10 +188,8 @@ public class RoomCreator : MonoBehaviour
                 if (exitTile)
                 {
                     doors.Add(instance);
-                    if(roomType == RoomType.boss){
-                        print("Room boss");
-                        Instantiate(exitBoss, new Vector3(position.x + i, position.y + j, 0.5f), q).transform.SetParent(boardHolder);
-                    }
+                    if(roomType == RoomType.boss)
+                        Instantiate(exitBoss, new Vector3(position.x + i, position.y + j, 0), q).transform.SetParent(boardHolder);
                 }
             }
         }
