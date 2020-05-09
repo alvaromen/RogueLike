@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RangeStarEnemy : MonoBehaviour
+public class RangeStarEnemy : Enemy
 {
-
-    private NavMeshAgent agent;
-
     public GameObject bulletPrefab;
 
-    private int dmg;
-    private int hp;
+    private Room room;
+    
     private int direction; //0 up, 1 down, 2 left, 3 right
+
+    public void SetRoom(Room r)
+    {
+        room = r;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        dmg = 1;
+        damage = 1;
         hp = 3;
         direction = 0;
     }
@@ -132,5 +134,14 @@ public class RangeStarEnemy : MonoBehaviour
         force = new Vector3(10, 0, 0);
         GameObject bullet6 = Instantiate(bulletPrefab, pos, q);
         bullet6.GetComponent<Rigidbody2D>().AddForce(force);
+    }
+
+    public void GetHurt(int dmg)
+    {
+        hp -= dmg;
+        if(hp < 0)
+        {
+
+        }
     }
 }

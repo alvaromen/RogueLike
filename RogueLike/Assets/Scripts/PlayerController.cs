@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
     private Rigidbody2D rb;
     private Animator anim;
@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     private int bulletSpeed;
     private bool isShooting;
     private float fireRate;
-    private float dmg;
-    private float hp;
     private float lastAngle;
 
     private Transform bulletsHolder; //variable to store references to the transform of our Board to keep the hierarchy clean

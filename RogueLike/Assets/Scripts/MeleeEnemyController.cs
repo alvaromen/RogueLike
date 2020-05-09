@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeEnemyController : MonoBehaviour
+public class MeleeEnemyController : Enemy
 {
 
     private NavMeshAgent agent;
-
-    private int dmg;
+    
     private int attackRate;
-    private int hp;
 
     // Start is called before the first frame update
     void Start()
     {
-        dmg = 1;
+        damage = 1;
         attackRate = 1;
         hp = 4;
     }
@@ -39,7 +37,7 @@ public class MeleeEnemyController : MonoBehaviour
     {
         //attack animation
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().GetHurt(dmg);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().GetHurt(damage);
 
         yield return new WaitForSeconds(attackRate);
     }

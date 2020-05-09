@@ -46,8 +46,7 @@ public class RoomCreator : MonoBehaviour
     //dimensions of the room
     public int columns;
     public int rows;
-
-    public Count enemiesCount = new Count(1, 5); //limits of the random number of enemies per room
+    
     //Arrays of prefabs
     public GameObject exit;
     public GameObject[] floorTiles;
@@ -190,32 +189,6 @@ public class RoomCreator : MonoBehaviour
                     doors.Add(instance);
                 }
             }
-        }
-    }
-
-    /**
-    * Returns a random position of the possibles positions in gridPositions
-    */
-    Vector3 RandomPosition()
-    {
-        int randomIndex = Random.Range(0, gridPositions.Count);
-        Vector3 randomPosition = gridPositions[randomIndex];
-        gridPositions.RemoveAt(randomIndex);
-        return randomPosition;
-    }
-
-    /**
-     * Spawns the specified tile in the position chosen
-     */
-    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
-    {
-        int objectCount = Random.Range(minimum, maximum + 1); //controls how many of a given object will be spawned
-
-        for(int i = 0; i < objectCount; i++)
-        {
-            Vector3 randomPosition = RandomPosition();
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)]; //choose a random tile from the array of game objects tileArray
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
     }
 
