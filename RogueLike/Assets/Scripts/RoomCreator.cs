@@ -88,7 +88,7 @@ public class RoomCreator : MonoBehaviour
     /**
      * Sets up the outer wall and the floor of the game board
      */
-    void BoardSetup()
+    void BoardSetup(List<GameObject> doors)
     {
         boardHolder = new GameObject("Board").transform;
         
@@ -122,6 +122,7 @@ public class RoomCreator : MonoBehaviour
             {
                 GameObject toInstantiate = outerTop[Random.Range(0, outerTop.Length)];
                 int n = 0;
+                bool exitTile = false;
                 if (i == 0 || i == (rows - 1) || j == 0 || j == (columns - 1))
                 {
                     if (j == (columns - 1) && (i != 0 && i != (rows - 1)))
@@ -150,20 +151,31 @@ public class RoomCreator : MonoBehaviour
 
                     if (conexions.ToString().Contains("T"))
                         if ((i == (rows / 2 - 1) && j == (columns - 1)) || (i == (rows / 2) && j == (columns - 1)))
+                        {
                             toInstantiate = exit;
+                            exitTile = true;
+                        }
 
                     if (conexions.ToString().Contains("B"))
                         if ((i == (rows / 2 - 1) && j == 0) || (i == (rows / 2) && j == 0))
+                        {
                             toInstantiate = exit;
+                            exitTile = true;
+                        }
 
                     if (conexions.ToString().Contains("L"))
                         if ((i == 0 && j == (columns / 2 - 1)) || (i == 0 && j == (columns / 2)))
+                        {
                             toInstantiate = exit;
+                            exitTile = true;
+                        }
 
                     if (conexions.ToString().Contains("R"))
                         if ((i == (rows - 1) && j == (columns / 2 - 1)) || (i == (rows - 1) && j == (columns / 2)))
+                        {
                             toInstantiate = exit;
-
+                            exitTile = true;
+                        }
                 }
                 else
                 {
@@ -173,6 +185,10 @@ public class RoomCreator : MonoBehaviour
                 Quaternion q = Quaternion.identity;
                 instance = Instantiate(toInstantiate, new Vector3(position.x + i, position.y + j, 1f), q);
                 instance.transform.SetParent(boardHolder);
+                if (exitTile)
+                {
+                    doors.Add(instance);
+                }
             }
         }
     }
@@ -216,14 +232,27 @@ public class RoomCreator : MonoBehaviour
     /**
     * Generates a random room
     */
-    public void SetupRoom(Conexions conexion, Vector2 pos, RoomType type)
+    public Room SetupRoom(Conexions conexion, Vector2 pos, RoomType type)
     {
         conexions = conexion;
         position = pos;
         roomType = type;
         columns = 16;
         rows = 16;
-        BoardSetup();
+        List<GameObject> doors = new List<GameObject>();
+        BoardSetup(doors);
         InitialiseList();
+        Room.Status status = Room.Status.nonvisited;
+        if(roomType == RoomType.initial)
+        {
+            status = Room.Status.cleared;
+        }
+        Room room = new Room(roomType, status, gridPositions);
+        foreach (GameObject door in doors)
+        {
+            door.GetComponent<DoorController>().SetRoom(room);
+        }
+        room.SetDoors(doors);
+        return room;
     }
 }

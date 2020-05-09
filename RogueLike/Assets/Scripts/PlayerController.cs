@@ -207,5 +207,12 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = pos;
     }
-    
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Door"))
+        {
+            other.GetComponent<DoorController>().Entering();
+        }
+    }
 }
