@@ -944,9 +944,6 @@ MonoBehaviour:
   chanceWalkerDestroy: 0.125
   maxWalkers: 4
   numIterations: 15
-  wallObj: {fileID: 8361172563762408077, guid: 8a4720728b13180429b1ed39608a29f0, type: 3}
-  floorObj: {fileID: 5072702484885607002, guid: afb6bb868b6c7f148b99eee42bb82974,
-    type: 3}
   enemiesPrefabs:
   - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
 --- !u!4 &2099509076
@@ -979,6 +976,8 @@ MonoBehaviour:
   columns: 0
   rows: 0
   exit: {fileID: 6709882655553754785, guid: 2cbd07862b00cdb47a7fb47db91d6459, type: 3}
+  exitBoss: {fileID: 5816934133877488983, guid: 8181e292c377f834892419f0962fcca6,
+    type: 3}
   floorTiles:
   - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}
   - {fileID: 6709882655553754785, guid: 607775ec302ac0c44893ba5f9fa3854f, type: 3}

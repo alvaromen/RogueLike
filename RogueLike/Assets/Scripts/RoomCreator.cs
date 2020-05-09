@@ -49,6 +49,7 @@ public class RoomCreator : MonoBehaviour
     
     //Arrays of prefabs
     public GameObject exit;
+    public GameObject exitBoss;
     public GameObject[] floorTiles;
     public GameObject[] outerWallTilesTop;
     public GameObject[] outerWallTilesBot;
@@ -187,6 +188,10 @@ public class RoomCreator : MonoBehaviour
                 if (exitTile)
                 {
                     doors.Add(instance);
+                    if(roomType == RoomType.boss){
+                        print("Room boss");
+                        Instantiate(exitBoss, new Vector3(position.x + i, position.y + j, 0.5f), q).transform.SetParent(boardHolder);
+                    }
                 }
             }
         }

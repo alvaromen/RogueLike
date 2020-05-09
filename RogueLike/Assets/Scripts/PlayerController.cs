@@ -174,17 +174,17 @@ public class PlayerController : Character
         {
             //The quaternion for the prefab is taking into account that the bullet originally is looking to the right
             case "up":
-                q[1] = 90;
+                q = Quaternion.Euler(0, 0, 90);
                 pos.y += 1f; // displace the bullet a little bit to appear above of the player
                 vel.y = bulletSpeed;
                 break;
             case "down":
-                q[1] = 270;
+                q = Quaternion.Euler(0, 0, 270);
                 pos.y += -1f; // displace the bullet a little bit to appear below of the player
                 vel.y = -bulletSpeed;
                 break;
             case "left":
-                q[2] = 180;
+                q = Quaternion.Euler(0, 0, 180);
                 pos.x += -1f; // displace the bullet a little bit to appear at the left of the player
                 vel.x = -bulletSpeed;
                 break;
@@ -195,6 +195,7 @@ public class PlayerController : Character
             default:
                 break;
         }
+        print(q);
 
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
