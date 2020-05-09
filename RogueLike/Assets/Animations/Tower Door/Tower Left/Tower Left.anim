@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: tower_left
+  m_Name: Tower Left
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: afa743865fecc12469147fe36817275b, type: 3}
+      value: {fileID: 21300000, guid: 81a19456e469e3f47bf08cec15a31a9d, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 2f14dda912ade80448aabae6fcfc8445, type: 3}
+      value: {fileID: 21300000, guid: 9195f6f41d7bd224db85f1617cbd1709, type: 3}
     - time: 0.8333333
-      value: {fileID: 21300000, guid: a0df8eff11983e54b91f59bd637d901a, type: 3}
+      value: {fileID: 21300000, guid: e8bda28aa2343f544b7683527b42b3a4, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,9 +44,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: afa743865fecc12469147fe36817275b, type: 3}
-    - {fileID: 21300000, guid: 2f14dda912ade80448aabae6fcfc8445, type: 3}
-    - {fileID: 21300000, guid: a0df8eff11983e54b91f59bd637d901a, type: 3}
+    - {fileID: 21300000, guid: 81a19456e469e3f47bf08cec15a31a9d, type: 3}
+    - {fileID: 21300000, guid: 9195f6f41d7bd224db85f1617cbd1709, type: 3}
+    - {fileID: 21300000, guid: e8bda28aa2343f544b7683527b42b3a4, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
