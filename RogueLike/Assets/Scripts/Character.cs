@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character: MonoBehaviour
+public abstract class Character: MonoBehaviour
 {
     protected int hp;
     protected int damage;
@@ -18,13 +18,8 @@ public class Character: MonoBehaviour
     {
 
     }
-
+    
     public void GetHurt(int dmg)
     {
-        hp = dmg;
-        if(hp <= 0)
-        {
-            Destroy(this);
-        }
     }
 }

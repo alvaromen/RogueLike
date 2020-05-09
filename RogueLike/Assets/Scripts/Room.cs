@@ -32,34 +32,6 @@ public class Room {
         gridPositions = gp;
     }
 
-    /**
-    * Returns a random position of the possibles positions in gridPositions
-    */
-    Vector3 RandomPosition()
-    {
-        int randomIndex = Random.Range(0, gridPositions.Count);
-        Vector3 randomPosition = gridPositions[randomIndex];
-        gridPositions.RemoveAt(randomIndex);
-        return randomPosition;
-    }
-
-    /**
-     * Spawns the specified tile in the position chosen
-     */
-    void LayoutObjectAtRandom(GameObject[] gObject, int minimum, int maximum)
-    {
-        int objectCount = Random.Range(minimum, maximum + 1); //controls how many of a given object will be spawned
-
-        nEnemies = objectCount;
-
-        for (int i = 0; i < objectCount; i++)
-        {
-            Vector3 randomPosition = RandomPosition();
-            GameObject objectChoice = gObject[Random.Range(0, gObject.Length)]; //choose a random tile from the array of game objects tileArray
-            enemies.Add(Object.Instantiate(objectChoice, randomPosition, Quaternion.identity));
-        }
-    }
-
     public void Visit()
     {
         if (status == Status.nonvisited)
@@ -84,7 +56,18 @@ public class Room {
 
     private void SpawnEnemies()
     {
-        LayoutObjectAtRandom(enemiesPrefabs, 2, 7);
+        Debug.Log("AAAAAAAAAAA");
+        int n = Random.Range(2, 5);
+        for (int i = 0; i < n; i++)
+        {
+            Vector3 position = GameObject.FindGameObjectWithTag("Player").transform.position;
+            float xmin = position.x - position.x % 16;
+            float ymin = position.y - position.y % 16;
+            Vector3 randomPosition = new Vector3(xmin + (int)Random.Range(3, 12), ymin + (int)Random.Range(3, 12), 0f);
+            Debug.Log(randomPosition);
+            GameObject objectChoice = enemiesPrefabs[Random.Range(0, enemiesPrefabs.Length)]; //choose a random tile from the array of game objects tileArray
+            enemies.Add(Object.Instantiate(objectChoice, randomPosition, Quaternion.identity));
+        }
     }
 
     public Status GetStatus()

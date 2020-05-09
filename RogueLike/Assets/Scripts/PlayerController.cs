@@ -22,6 +22,9 @@ public class PlayerController : Character
 
     private void Start()
     {
+        hp = 10;
+        damage = 1;
+
         //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         speed = 5;
@@ -195,6 +198,7 @@ public class PlayerController : Character
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
         bullet.transform.SetParent(bulletsHolder);
+        bullet.tag = "PlayerBullet";
 
         yield return new WaitForSeconds(fireRate);
 

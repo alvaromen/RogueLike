@@ -63,7 +63,7 @@ public class RoomCreator : MonoBehaviour
     public GameObject[] bossOuterWallTilesCorner;
 
     private Transform boardHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
-    private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place tiles
+    private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place objects
 
     /**
      * Clears the gridPositions and then generates a new list of possible positions where spawning objects
@@ -72,9 +72,9 @@ public class RoomCreator : MonoBehaviour
     {
         gridPositions.Clear();
 
-        for(int i = 1; i < (columns - 1); i++)
+        for(int i = 1; i < (rows - 1); i++)
         {
-            for(int j = 1; j < (rows - 1); j++)
+            for(int j = 1; j < (columns - 1); j++)
             {
                 gridPositions.Add(new Vector3(position.x + i, position.y + j, 0f));
             }

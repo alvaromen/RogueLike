@@ -7,6 +7,8 @@ public class Enemy : Character
 {
     protected NavMeshAgent agent;
 
+    protected Room room;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,21 @@ public class Enemy : Character
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void SetRoom(Room r)
+    {
+        room = r;
+    }
+
+    public void GetHurt(int dmg)
+    {
+        hp = dmg;
+        if (hp <= 0)
+        {
+            room.EnemyDown(gameObject);
+            Destroy(this);
+        }
     }
 }

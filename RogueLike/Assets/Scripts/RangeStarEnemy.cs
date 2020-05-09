@@ -6,15 +6,10 @@ using UnityEngine.AI;
 public class RangeStarEnemy : Enemy
 {
     public GameObject bulletPrefab;
-
-    private Room room;
     
     private int direction; //0 up, 1 down, 2 left, 3 right
 
-    public void SetRoom(Room r)
-    {
-        room = r;
-    }
+    private Transform bulletsHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
 
     // Start is called before the first frame update
     void Start()
@@ -70,14 +65,16 @@ public class RangeStarEnemy : Enemy
 
     private void Shoot()
     {
+        GameObject[] bullets = new GameObject[8];
+
         //bullet 0: up
         Quaternion q = Quaternion.identity;
         //q[2] = 90;
         Vector3 pos = transform.position;
         pos.y += 0.5f;
         Vector3 force = new Vector3(0, 10, 0);
-        GameObject bullet0 = Instantiate(bulletPrefab, pos, q);
-        bullet0.GetComponent<Rigidbody2D>().AddForce(force);
+        bullets[0] = Instantiate(bulletPrefab, pos, q);
+        bullets[0].GetComponent<Rigidbody2D>().AddForce(force);
 
         //bullet1: up-left
         q = Quaternion.identity;
@@ -86,8 +83,8 @@ public class RangeStarEnemy : Enemy
         pos.x -= 0.5f;
         pos.y += 0.5f;
         force = new Vector3(-10, 10, 0);
-        GameObject bullet1 = Instantiate(bulletPrefab, pos, q);
-        bullet1.GetComponent<Rigidbody2D>().AddForce(force);
+        bullets[1] = Instantiate(bulletPrefab, pos, q);
+        bullets[1].GetComponent<Rigidbody2D>().AddForce(force);
 
         //bullet2: left
         q = Quaternion.identity;
@@ -95,8 +92,8 @@ public class RangeStarEnemy : Enemy
         pos = transform.position;
         pos.x -= 0.5f;
         force = new Vector3(-10, 0, 0);
-        GameObject bullet2 = Instantiate(bulletPrefab, pos, q);
-        bullet2.GetComponent<Rigidbody2D>().AddForce(force);
+        bullets[2] = Instantiate(bulletPrefab, pos, q);
+        bullets[2].GetComponent<Rigidbody2D>().AddForce(force);
 
         //bullet3: down-left
         q = Quaternion.identity;
@@ -105,8 +102,8 @@ public class RangeStarEnemy : Enemy
         pos.x -= 0.5f;
         pos.y -= 0.5f;
         force = new Vector3(-10, -10, 0);
-        GameObject bullet3 = Instantiate(bulletPrefab, pos, q);
-        bullet3.GetComponent<Rigidbody2D>().AddForce(force);
+        bullets[3] = Instantiate(bulletPrefab, pos, q);
+        bullets[3].GetComponent<Rigidbody2D>().AddForce(force);
 
         //bullet4: down
         q = Quaternion.identity;
@@ -114,8 +111,8 @@ public class RangeStarEnemy : Enemy
         pos = transform.position;
         pos.y -= 0.5f;
         force = new Vector3(0, -10, 0);
-        GameObject bullet4 = Instantiate(bulletPrefab, pos, q);
-        bullet4.GetComponent<Rigidbody2D>().AddForce(force);
+        bullets[4] = Instantiate(bulletPrefab, pos, q);
+        bullets[4].GetComponent<Rigidbody2D>().AddForce(force);
 
         //bullet5: down-right
         q = Quaternion.identity;
@@ -124,24 +121,30 @@ public class RangeStarEnemy : Enemy
         pos.x += 0.5f;
         pos.y -= 0.5f;
         force = new Vector3(10, -10, 0);
-        GameObject bullet5 = Instantiate(bulletPrefab, pos, q);
-        bullet5.GetComponent<Rigidbody2D>().AddForce(force);
+        bullets[5] = Instantiate(bulletPrefab, pos, q);
+        bullets[5].GetComponent<Rigidbody2D>().AddForce(force);
 
         //bullet6: right
         q = Quaternion.identity;
         pos = transform.position;
         pos.x += 0.5f;
         force = new Vector3(10, 0, 0);
-        GameObject bullet6 = Instantiate(bulletPrefab, pos, q);
-        bullet6.GetComponent<Rigidbody2D>().AddForce(force);
-    }
+        bullets[6] = Instantiate(bulletPrefab, pos, q);
+        bullets[6].GetComponent<Rigidbody2D>().AddForce(force);
 
-    public void GetHurt(int dmg)
-    {
-        hp -= dmg;
-        if(hp < 0)
+        //bullet7: up-right
+        q = Quaternion.identity;
+        pos = transform.position;
+        pos.x += 0.5f;
+        pos.y += 0.5f;
+        force = new Vector3(10, 10, 0);
+        bullets[7] = Instantiate(bulletPrefab, pos, q);
+        bullets[7].GetComponent<Rigidbody2D>().AddForce(force);
+
+        foreach (GameObject bullet in bullets)
         {
-
+            bullet.transform.SetParent(bulletsHolder);
+            bullet.tag = "EnemyBullet";
         }
     }
 }
