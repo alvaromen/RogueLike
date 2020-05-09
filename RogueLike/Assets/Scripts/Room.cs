@@ -36,6 +36,7 @@ public class Room {
     {
         if (status == Status.nonvisited)
         {
+            status = Status.visited;
             SpawnEnemies();
             foreach (GameObject door in doors)
             {
@@ -56,7 +57,6 @@ public class Room {
 
     private void SpawnEnemies()
     {
-        Debug.Log("AAAAAAAAAAA");
         int n = Random.Range(2, 5);
         for (int i = 0; i < n; i++)
         {
@@ -64,7 +64,6 @@ public class Room {
             float xmin = position.x - position.x % 16;
             float ymin = position.y - position.y % 16;
             Vector3 randomPosition = new Vector3(xmin + (int)Random.Range(3, 12), ymin + (int)Random.Range(3, 12), 0f);
-            Debug.Log(randomPosition);
             GameObject objectChoice = enemiesPrefabs[Random.Range(0, enemiesPrefabs.Length)]; //choose a random tile from the array of game objects tileArray
             enemies.Add(Object.Instantiate(objectChoice, randomPosition, Quaternion.identity));
         }

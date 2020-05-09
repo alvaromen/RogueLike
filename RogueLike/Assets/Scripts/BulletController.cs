@@ -20,7 +20,6 @@ public class BulletController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print("pium pium");
         if (CompareTag("PlayerBullet"))
         {
             if (other.CompareTag("Enemy"))
