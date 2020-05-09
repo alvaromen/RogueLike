@@ -9,6 +9,8 @@ public class LevelGenerator : MonoBehaviour
 {
 	private RoomCreator roomScript;
 
+    private List<Room> rooms = new List<Room>();
+
 	int roomSize = 16;
 	
 	bool[,] grid;
@@ -240,12 +242,14 @@ public class LevelGenerator : MonoBehaviour
 		}
 		return count;
 	}
+
 	void Spawn(float x, float y, string conexions, RoomCreator.RoomType type)
 	{
 		Vector2 spawnPos = new Vector2(x, y);
 
 		RoomCreator.Conexions nameEnum = (RoomCreator.Conexions)Enum.Parse(typeof(RoomCreator.Conexions), conexions);
-		roomScript.SetupRoom(nameEnum, spawnPos, type);
+        Room room = roomScript.SetupRoom(nameEnum, spawnPos, type);
+        rooms.Add(room);
 	}
 }
 
