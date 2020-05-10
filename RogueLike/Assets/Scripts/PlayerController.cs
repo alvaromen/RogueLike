@@ -358,6 +358,8 @@ public class PlayerController : Character
             bullets.Add(bullet);
         }
 
+        audioSource.PlayOneShot(shootAudioClips[Random.Range(0, shootAudioClips.Length)]);
+
         yield return new WaitForSeconds(fireRate);
 
         isShooting = false;
