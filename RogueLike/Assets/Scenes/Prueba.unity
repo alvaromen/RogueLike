@@ -946,6 +946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyBoss: {fileID: 7546228146088165275, guid: 3e2725e70a6fe0d4d83cbabcfec55491, type: 3}
+  boss: {fileID: 7507798845087452017, guid: 39f716074b90dab419918ad3de19ce1d, type: 3}
   chanceWalkerChangeDir: 0.269
   chanceWalkerSpawn: 0.603
   chanceWalkerDestroy: 0.125

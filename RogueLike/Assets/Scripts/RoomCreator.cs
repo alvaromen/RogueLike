@@ -192,7 +192,7 @@ public class RoomCreator : MonoBehaviour
     /**
     * Generates a random room
     */
-    public Room SetupRoom(Conexions conexion, Vector2 pos, RoomType type)
+    public Room SetupRoom(Conexions conexion, Vector2 pos, RoomType type, GameObject boss)
     {
         conexions = conexion;
         position = pos;
@@ -203,15 +203,15 @@ public class RoomCreator : MonoBehaviour
         BoardSetup(doors);
         Room.Status status = Room.Status.nonvisited;
         if(roomType == RoomType.initial)
-        {
             status = Room.Status.cleared;
-        }
-        Room room = new Room(roomType, status, position);
+        Room room = new Room(roomType, status, position, conexions, boss);
         foreach (GameObject door in doors)
         {
             door.GetComponent<DoorController>().SetRoom(room);
         }
         room.SetDoors(doors);
+        if (type == RoomCreator.RoomType.boss)
+            room.SetDoorBoss(exitBoss);
         return room;
     }
 }

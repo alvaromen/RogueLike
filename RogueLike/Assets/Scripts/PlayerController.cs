@@ -222,7 +222,6 @@ public class PlayerController : Character
         audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
         
         if((hp / maxHp) < 0.3){
-            print("cojones");
             audioSource.PlayOneShot(lowHealthClip);
         }
 
