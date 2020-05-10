@@ -10,9 +10,9 @@ public class PlayerController : Character
     public float checkRadius;
     public LayerMask whatIsGround;
     public GameObject bulletPrefab;
-
+    public int points;
     private int speed;
-    private int speedIncrementFactor;
+    public int speedIncrementFactor;
     private int bulletSpeed;
     private bool isShooting;
     private float fireRate;
@@ -38,8 +38,16 @@ public class PlayerController : Character
 
     private bool tripleShoot;
 
+    private PlayerStats healthBar;
+
     private void Start()
     {
+
+        healthBar = GameObject.Find("PlayerStats").GetComponent<PlayerStats>();
+        healthBar.maxHealth = maxHp;
+        healthBar.health = hp;
+        healthBar.Heal(maxHp);
+
         hp = 10.0f;
         damage = 1.0f;
 
@@ -219,6 +227,7 @@ public class PlayerController : Character
     public new void GetHurt(float dmg)
     {
         hp -= dmg;
+        healthBar.TakeDamage(dmg);
         audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
         
         if((hp / maxHp) < 0.3){
@@ -242,6 +251,7 @@ public class PlayerController : Character
             case "Life Powerup(Clone)":
                 audioSource.PlayOneShot(healClip);
                 hp = maxHp;
+                healthBar.Heal(maxHp);
                 break;
             case "Gun Powerup(Clone)":
                 // implementar triple disparo

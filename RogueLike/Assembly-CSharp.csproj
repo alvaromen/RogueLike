@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>C:\Program Files\Unity\Hub\Editor\2019.3.8f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5FB85AE3-D086-CBEB-FEEA-B363B0289BC7}</ProjectGuid>
+    <ProjectGuid>{e35ab85f-86d0-ebcb-feea-b363b0289bc7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -47,14 +45,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2019.3.8f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2019.3.8f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+     <Compile Include="Assets\Hearts\Scripts\HealthBarController.cs" />
+     <Compile Include="Assets\Hearts\Scripts\HealthBarHUDTester.cs" />
+     <Compile Include="Assets\Hearts\Scripts\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\BomberEnemy.cs" />
      <Compile Include="Assets\Scripts\BulletController.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
@@ -64,6 +57,7 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\KeyBossCheck.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MeleeEnemyController.cs" />
      <Compile Include="Assets\Scripts\MinimapRenderer.cs" />
      <Compile Include="Assets\Scripts\MobDrop.cs" />
@@ -75,63 +69,65 @@
      <Compile Include="Assets\Scripts\RoomPos.cs" />
      <Compile Include="Assets\Scripts\RoomViewer.cs" />
      <Compile Include="Assets\Scripts\SpawnPoint.cs" />
+     <Compile Include="Assets\Scripts\TextController.cs" />
      <Compile Include="Assets\Scripts\TurretEnemy.cs" />
- <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.multiplayer-hlapi.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.multiplayer-weaver.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.XR.LegacyInputHelpers">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.SpatialTracking">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.XR.LegacyInputHelpers">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.multiplayer-hlapi.Runtime">
- <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
+     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+     <None Include="Assets\Hearts\readme.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+ <Reference Include="UnityEngine">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -309,6 +305,9 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
  <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Editor.dll</HintPath>
@@ -665,8 +664,86 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Unity.Timeline.Editor.csproj">
+      <Project>{046e1654-f6bd-5df3-4221-9e5331d229b9}</Project>
+      <Name>Unity.Timeline.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.unity.multiplayer-hlapi.Editor.csproj">
+      <Project>{722c834f-c56b-23ba-4f6b-b45ea214efa2}</Project>
+      <Name>com.unity.multiplayer-hlapi.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VSCode.Editor.csproj">
+      <Project>{d6791c0b-c920-1a58-6645-c2f517f5c2d2}</Project>
+      <Name>Unity.VSCode.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
+      <Project>{d1a8aacc-6f85-ccda-717f-3bdea00f5dc3}</Project>
+      <Name>Unity.TextMeshPro.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{766d03b9-cc04-d83c-759b-80cc5502df9b}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Timeline.csproj">
+      <Project>{87cfffad-ffd6-371f-68ae-6f674b2cc4b4}</Project>
+      <Name>Unity.Timeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
+      <Project>{e835859d-7b1e-e77b-275d-b3b8ad9fc314}</Project>
+      <Name>Unity.CollabProxy.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.unity.multiplayer-weaver.Editor.csproj">
+      <Project>{b0dd4849-6bd2-ecd1-dbc0-e8fc0adf423b}</Project>
+      <Name>com.unity.multiplayer-weaver.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.XR.LegacyInputHelpers.csproj">
+      <Project>{f04d639c-e224-22af-3dee-ed5aa3e035ea}</Project>
+      <Name>UnityEngine.XR.LegacyInputHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Rider.Editor.csproj">
+      <Project>{79f4077c-2ea0-498f-8471-bc374ec62678}</Project>
+      <Name>Unity.Rider.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
+      <Project>{0f4cd957-d1c4-bc53-e5af-cf61d42bd6bf}</Project>
+      <Name>Unity.2D.Sprite.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
+      <Project>{60a2d8a4-e89d-05fb-c356-e9b1036f0a5f}</Project>
+      <Name>Unity.2D.Tilemap.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.SpatialTracking.csproj">
+      <Project>{ae971a3f-1c7e-c0b9-a7da-6983302e4db1}</Project>
+      <Name>UnityEditor.SpatialTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.SpatialTracking.csproj">
+      <Project>{22ebb6a7-7ca7-910a-4a88-f16d700cf54a}</Project>
+      <Name>UnityEngine.SpatialTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{c67e2e89-a883-2d2c-9d16-c8b138f626ae}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Analytics.DataPrivacy.csproj">
+      <Project>{4ae75759-df79-cb22-59b2-8c7a2eaaec4b}</Project>
+      <Name>Unity.Analytics.DataPrivacy</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
+      <Project>{396220be-0e33-4fed-3e12-3245324cd938}</Project>
+      <Name>UnityEditor.XR.LegacyInputHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{bc2fce4f-9e30-e452-c288-80114b6f3eb8}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.unity.multiplayer-hlapi.Runtime.csproj">
+      <Project>{19779e2b-b273-6396-62d7-b604ae16ab80}</Project>
+      <Name>com.unity.multiplayer-hlapi.Runtime</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

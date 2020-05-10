@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: c0bc873332d66184b8d3377d5768a935
+  - enabled: 1
     path: Assets/Scenes/Rogue Like.unity
     guid: 72c7a85dc1f8f3549b1f295566a78d07
   m_configObjects: {}
