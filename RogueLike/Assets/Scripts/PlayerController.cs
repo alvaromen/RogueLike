@@ -6,16 +6,13 @@ using Random = UnityEngine.Random;
 
 public class PlayerController : Character
 {
-    public Transform groundPos;
-    public float checkRadius;
-    public LayerMask whatIsGround;
     public GameObject bulletPrefab;
     public int points;
     private int speed;
     public int speedIncrementFactor;
     private int bulletSpeed;
     private bool isShooting;
-    private float fireRate;
+    public float fireRate;
     private float lastAngle;
 
     private Transform bulletsHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
@@ -52,7 +49,7 @@ public class PlayerController : Character
         hp = 10.0f;
         damage = 1.0f;
 
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
 
         //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -271,6 +268,7 @@ public class PlayerController : Character
             case "Gun Powerup(Clone)":
                 // implementar triple disparo
                 audioSource.PlayOneShot(gunPowerupClip);
+
                 if (!tripleShoot)
                     tripleShoot = true;
                 else damage += 1;
@@ -385,7 +383,11 @@ public class PlayerController : Character
             bullets.Add(bullet);
         }
 
-        audioSource.PlayOneShot(shootAudioClips[Random.Range(0, shootAudioClips.Length)]);
+        if(tripleShoot)
+            audioSource.PlayOneShot(shootAudioClips[0]);
+        else
+            audioSource.PlayOneShot(shootAudioClips[1]);
+
 
         yield return new WaitForSeconds(fireRate);
 

@@ -141,5 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f2b10d05871a84cb5841c90ec52a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyExplosion: {fileID: 0}
+  mobDrops: []
+  shootAudioClips: []
+  explosionClips: []
   bulletPrefab: {fileID: 3349514657730179421, guid: f68fd8c070dc0d54eb2570eb0fd498a4,
     type: 3}
+  laserTurret: {fileID: 8300000, guid: 9e99e078fc2d7b34db54b96c8755bccd, type: 3}

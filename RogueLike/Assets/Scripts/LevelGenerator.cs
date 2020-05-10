@@ -47,13 +47,6 @@ public class LevelGenerator : MonoBehaviour
 		SpawnLevel();
 	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			SceneManager.LoadScene(0);
-		}
-	}
 	void Setup()
 	{
 		//find grid size

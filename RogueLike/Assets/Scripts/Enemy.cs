@@ -13,10 +13,9 @@ public class Enemy : Character
     private AudioSource audioSource;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        print("audio source instantiated");
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
     }
 
     public void SetRoom(Room r)
@@ -37,7 +36,8 @@ public class Enemy : Character
             }
             Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
-            // audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
+            print(audioSource);
+            audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
         }
     }
 }

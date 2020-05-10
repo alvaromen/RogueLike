@@ -9,17 +9,14 @@ public class BombController : MonoBehaviour
     float hp;
 
     public GameObject explosion;
+    public AudioClip explosionSfx;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         hp = 3;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
     }
 
     public void SetDamage(float dmg)
@@ -31,6 +28,7 @@ public class BombController : MonoBehaviour
     {
         hp--;
         if (hp <= 0){
+            audioSource.PlayOneShot(explosionSfx);
             Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -40,8 +38,9 @@ public class BombController : MonoBehaviour
     {
         if (tag == "EnemyBomb" && other.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            audioSource.PlayOneShot(explosionSfx);
             Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
             other.gameObject.GetComponent<PlayerController>().GetHurt(damage);
         }
     }

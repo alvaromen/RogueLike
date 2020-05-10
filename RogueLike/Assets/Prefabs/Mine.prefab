@@ -164,5 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d33cd356c03de4ba74e03747b288bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 9070761446126769558, guid: 443760ff1e65b5d4d86a73bc229bd778,
+  explosion: {fileID: 9070761446126769558, guid: ae5ee028489d08f48996c31db46c8b6b,
     type: 3}
+  explosionSfx: {fileID: 8300000, guid: 1a5f3225b7283d848b0b534124b1089a, type: 3}

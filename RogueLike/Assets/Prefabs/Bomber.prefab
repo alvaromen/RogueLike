@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9efce192b4a572a499ff5ed0dfd5c742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyExplosion: {fileID: 9070761446126769558, guid: 443760ff1e65b5d4d86a73bc229bd778,
+  enemyExplosion: {fileID: 9070761446126769558, guid: ae5ee028489d08f48996c31db46c8b6b,
     type: 3}
   mobDrops:
   - {fileID: 1552922700146411380, guid: 3208d7e7487a1834380e75ef586589ee, type: 3}

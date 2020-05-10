@@ -13,10 +13,15 @@ public class TurretEnemy : Enemy
 
     private float fireRate = 5.0f;
 
+    AudioSource audioSource;
+    public AudioClip laserTurret;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
 
         damage = 0.5f;
         isShooting = false;
@@ -56,11 +61,14 @@ public class TurretEnemy : Enemy
 
             Vector3 vel = new Vector3(5 * Mathf.Cos(angle), 5 * Mathf.Sin(angle), 0);
 
+            audioSource.PlayOneShot(laserTurret);
+
             GameObject bullet = Instantiate(bulletPrefab, pos, q);
             bullet.GetComponent<Rigidbody2D>().velocity = vel;
             bullet.GetComponent<BulletController>().SetDamage(damage);
             bullet.tag = "EnemyBullet";
             bullet.transform.SetParent(bulletsHolder);
+
 
             isShooting = false;
         }

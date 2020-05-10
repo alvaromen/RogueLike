@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Rogue Like");
     }
 
+    
+
     public void Quit(){
         Application.Quit();
     }

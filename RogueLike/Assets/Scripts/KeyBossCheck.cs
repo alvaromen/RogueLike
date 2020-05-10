@@ -13,7 +13,7 @@ public class KeyBossCheck : MonoBehaviour
             bool key = collision.collider.GetComponent<PlayerController>().hasBossKey;
 
             if(key){
-                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                AudioSource audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
                 audioSource.PlayOneShot(openDoorClip);
                 Destroy(gameObject);
             }
