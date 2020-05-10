@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
-	private RoomCreator roomScript;
+    public GameObject keyBoss;
+
+    private RoomCreator roomScript;
 
     private Dictionary<Vector2, Room> rooms = new Dictionary<Vector2, Room>();
 
@@ -194,8 +196,6 @@ public class LevelGenerator : MonoBehaviour
 
         if (possibleInit.Count > 0){
 			Vector2 playerRoom = possibleInit[initRoom];
-            rooms[playerRoom].SetStatus(Room.Status.cleared);
-            rooms[playerRoom].SetRoomType(RoomCreator.RoomType.initial);
 
             Vector2 position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
             GameObject.FindGameObjectWithTag("Player").transform.position = position;
@@ -233,10 +233,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 posX = UnityEngine.Random.Range(0, roomWidth * 16);
                 posY = UnityEngine.Random.Range(0, roomHeight * 16);
-            } while (rooms.ContainsKey(new Vector2(posX, posY)));
+            } while (!rooms.ContainsKey(new Vector2(posX, posY)));
         } while(rooms[new Vector2(posX, posY)].GetRoomType() != RoomCreator.RoomType.normal);
 
         rooms[new Vector2(posX, posY)].SetRoomType(RoomCreator.RoomType.keyBoss);
+        rooms[new Vector2(posX, posY)].SetKeyBoss(keyBoss);
 
     }
 	Vector2 RandomDirection()

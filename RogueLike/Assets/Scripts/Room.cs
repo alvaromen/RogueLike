@@ -6,7 +6,7 @@ public class Room : MonoBehaviour{
 
     private RoomType roomType;
 
-    public GameObject keyBoss;
+    private GameObject keyBoss;
     
     public enum Status
     {
@@ -97,6 +97,11 @@ public class Room : MonoBehaviour{
         return roomType;
     }
 
+    public void SetKeyBoss(GameObject kb)
+    {
+        keyBoss = kb;
+    }
+
     public void EnemyDown()
     {
         nEnemies--;
@@ -112,7 +117,8 @@ public class Room : MonoBehaviour{
                 Destroy(turret);
             }
 
-            Instantiate(keyBoss, position, Quaternion.identity);
+            if(roomType == RoomType.keyBoss)
+                Instantiate(keyBoss, position, Quaternion.identity);
         }
     }
 }

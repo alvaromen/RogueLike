@@ -55,8 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DestroyExplosion.cs" />
-     <Compile Include="Assets\MobDrop.cs" />
      <Compile Include="Assets\Scripts\BomberEnemy.cs" />
      <Compile Include="Assets\Scripts\BulletController.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
@@ -67,6 +65,7 @@
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\MeleeEnemyController.cs" />
      <Compile Include="Assets\Scripts\MinimapRenderer.cs" />
+     <Compile Include="Assets\Scripts\MobDrop.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PositionGrid.cs" />
      <Compile Include="Assets\Scripts\RangeStarEnemy.cs" />
