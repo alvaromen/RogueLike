@@ -6,7 +6,7 @@ public class Room : MonoBehaviour{
 
     private RoomType roomType;
 
-    public GameObject keyBoss;
+    private GameObject keyBoss;
     
     public enum Status
     {
@@ -80,6 +80,11 @@ public class Room : MonoBehaviour{
     public void SetStatus(Status s)
     {
         status = s;
+    }
+
+    public void SetKeyBoss(GameObject kb)
+    {
+        keyBoss = kb;
     }
 
     public Status GetStatus()

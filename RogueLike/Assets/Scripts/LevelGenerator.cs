@@ -36,6 +36,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] enemiesPrefabs;
     public GameObject turretsPrefabs;
 
+	public GameObject keyBoss;
+
     void Start()
 	{
 		Setup();
@@ -237,7 +239,7 @@ public class LevelGenerator : MonoBehaviour
         } while(rooms[new Vector2(posX, posY)].GetRoomType() != RoomCreator.RoomType.normal);
 
         rooms[new Vector2(posX, posY)].SetRoomType(RoomCreator.RoomType.keyBoss);
-
+        rooms[new Vector2(posX, posY)].SetKeyBoss(keyBoss);
     }
 	Vector2 RandomDirection()
 	{

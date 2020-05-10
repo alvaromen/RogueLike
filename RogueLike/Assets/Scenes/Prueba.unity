@@ -503,6 +503,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2e32bd55463637b43ad65ef4c8445e1b, type: 3}
   - {fileID: 8300000, guid: abe1af79c7963d9408e0e3fe99c16d1a, type: 3}
   lowHealthClip: {fileID: 8300000, guid: c69761519e889764ea6446b8701e3b12, type: 3}
+  fireRateClip: {fileID: 8300000, guid: 3dee22e739937994983c29d3d87b2732, type: 3}
+  speedClip: {fileID: 8300000, guid: 47238a9c887f6a345af629bdfb1f562c, type: 3}
+  healClip: {fileID: 8300000, guid: 117949958eb2e04499b1fa53bb0e5a11, type: 3}
+  gunPowerupClip: {fileID: 8300000, guid: a38fbc90f1de7dd40ad53dc3c38eaf04, type: 3}
+  bossKeyClip: {fileID: 8300000, guid: 44525afcd0286224098d328875072a13, type: 3}
 --- !u!212 &1462188561
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -948,6 +953,7 @@ MonoBehaviour:
   - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
   turretsPrefabs: {fileID: 7848125723885462350, guid: c4ae3a4967b69704183f9195e6bcdf13,
     type: 3}
+  keyBoss: {fileID: 0}
 --- !u!4 &2099509076
 Transform:
   m_ObjectHideFlags: 0
