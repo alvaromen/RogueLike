@@ -32,7 +32,7 @@ public class RangeStarEnemy : Enemy
     void Update()
     {
         Move();
-        Shoot();
+        Attack();
     }
 
     private void Move()
