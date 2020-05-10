@@ -237,6 +237,7 @@ public class PlayerController : Character
             case "Boss Key(Clone)":
                 // bool key is now true, and should not appear again. We aew able to go into the boss room.
                 audioSource.PlayOneShot(bossKeyClip);
+                hasBossKey = true;
                 break;
             case "Life Powerup(Clone)":
                 audioSource.PlayOneShot(healClip);
