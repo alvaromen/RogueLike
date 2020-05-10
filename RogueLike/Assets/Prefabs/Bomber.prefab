@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1682652948024530851}
   - component: {fileID: 1677802222524867740}
   - component: {fileID: 4335371642275144864}
+  - component: {fileID: 9170375776899178178}
   m_Layer: 0
   m_Name: Bomber
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +125,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4335371642275144864
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +152,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.03125, y: 1.03125}
   m_EdgeRadius: 0
+--- !u!114 &9170375776899178178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241008398461410628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efce192b4a572a499ff5ed0dfd5c742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyExplosion: {fileID: 9070761446126769558, guid: 443760ff1e65b5d4d86a73bc229bd778,
+    type: 3}
+  mobDrops:
+  - {fileID: 1552922700146411380, guid: 3208d7e7487a1834380e75ef586589ee, type: 3}
+  - {fileID: 1330091497816578005, guid: a20727eaf94771f4183bf8c7f64e13cd, type: 3}
+  - {fileID: 2586747658177795159, guid: d4c51f2263bfa0a4286efaeda5adea5a, type: 3}
+  - {fileID: 2586747658177795159, guid: 6497859391aa56e4ca46069c13a2fe4c, type: 3}
+  shootAudioClips: []
+  explosionClips:
+  - {fileID: 8300000, guid: 1dbef2e703ca4c74385b95f031fc750d, type: 3}
+  - {fileID: 8300000, guid: 6c403b77db8014242b7117b9e8e2f4f1, type: 3}
+  - {fileID: 8300000, guid: e9edf2bad3c09c34f805f88ff745ccf7, type: 3}
+  - {fileID: 8300000, guid: cd578189f6e630c48ac933ac9cf8a575, type: 3}
+  - {fileID: 8300000, guid: a3a32b1f93f3e8143abd3671159fde78, type: 3}
+  - {fileID: 8300000, guid: 4b1237aba629c1e46b68602936eef07e, type: 3}
+  - {fileID: 8300000, guid: bb484720a023fb84b9fbafb85818c7f5, type: 3}
+  bombPrefab: {fileID: 1840785784327607487, guid: 3c6c1f47d9b75a94cb58175369e92011,
+    type: 3}

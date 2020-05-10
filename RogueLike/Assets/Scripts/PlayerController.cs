@@ -38,6 +38,8 @@ public class PlayerController : Character
 
     private bool tripleShoot;
 
+    private bool inmortal;
+
     private void Start()
     {
         hp = 10.0f;
@@ -65,6 +67,7 @@ public class PlayerController : Character
 
         tripleShoot = false;
 
+        inmortal = false;
     }
 
     private void Update()
@@ -218,17 +221,31 @@ public class PlayerController : Character
 
     public new void GetHurt(float dmg)
     {
-        hp -= dmg;
-        audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
-        
-        if((hp / maxHp) < 0.3){
-            audioSource.PlayOneShot(lowHealthClip);
+        if (!inmortal)
+        {
+            StartCoroutine(LoseLife(dmg));
         }
-
-        if(hp <= 0)
+        if (hp <= 0)
         {
             //die
         }
+    }
+
+    private IEnumerator LoseLife(float dmg)
+    {
+        inmortal = true;
+
+        hp -= dmg;
+        audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
+
+        if ((hp / maxHp) < 0.3)
+        {
+            audioSource.PlayOneShot(lowHealthClip);
+        }
+
+        yield return new WaitForSeconds(1);
+
+        inmortal = false;
     }
 
     public void GetBoostObject(string boostName){
@@ -245,7 +262,9 @@ public class PlayerController : Character
             case "Gun Powerup(Clone)":
                 // implementar triple disparo
                 audioSource.PlayOneShot(gunPowerupClip);
-                tripleShoot = true;
+                if (!tripleShoot)
+                    tripleShoot = true;
+                else damage += 1;
                 break;
             case "Speed Powerup(Clone)":
                 audioSource.PlayOneShot(speedClip);
@@ -365,5 +384,13 @@ public class PlayerController : Character
     public void setPosition(Vector2 pos)
     {
         transform.position = pos;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            GetHurt(1);
+        }
     }
 }

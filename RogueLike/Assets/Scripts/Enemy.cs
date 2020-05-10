@@ -31,7 +31,7 @@ public class Enemy : Character
         {
             room.EnemyDown();
 
-            if(UnityEngine.Random.Range(0f, 1f) < 0.3f){
+            if(UnityEngine.Random.Range(0f, 1f) < 0.1f){
                 int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
                 Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
             }

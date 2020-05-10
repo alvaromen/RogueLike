@@ -127,11 +127,6 @@ public class Room : MonoBehaviour{
         status = s;
     }
 
-    public void SetKeyBoss(GameObject kb)
-    {
-        keyBoss = kb;
-    }
-
     public Status GetStatus()
     {
         return status;
