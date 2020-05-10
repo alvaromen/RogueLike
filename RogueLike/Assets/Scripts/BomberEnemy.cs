@@ -106,7 +106,6 @@ public class BomberEnemy : Enemy
 
         transform.eulerAngles =  new Vector3(0, 0, a * 360);
         a++;
-        print(a);
     }
 
     private IEnumerator Attack()

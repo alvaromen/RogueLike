@@ -30,8 +30,10 @@ public class BombController : MonoBehaviour
     public void GetHurt()
     {
         hp--;
-        if (hp <= 0)
+        if (hp <= 0){
+            Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
