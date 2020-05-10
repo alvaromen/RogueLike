@@ -21,8 +21,8 @@ public class RangeStarEnemy : Enemy
     {
         rb = GetComponent<Rigidbody2D>();
 
-        damage = 1;
-        hp = 3;
+        damage = 1.0f;
+        hp = 3.0f;
         direction = (int)Random.Range(0, 3.99f);
         isShooting = false;
         fireRate = 3f;
@@ -69,6 +69,8 @@ public class RangeStarEnemy : Enemy
 
     private IEnumerator Shoot()
     {
+        yield return new WaitForSeconds(fireRate);
+
         GameObject[] bullets = new GameObject[8];
 
         //bullet 0: up
@@ -151,8 +153,6 @@ public class RangeStarEnemy : Enemy
             bullet.tag = "EnemyBullet";
             bullet.transform.SetParent(bulletsHolder);
         }
-
-        yield return new WaitForSeconds(fireRate);
 
         isShooting = false;
     }

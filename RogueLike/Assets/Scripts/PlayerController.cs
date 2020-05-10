@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : Character
 {
-    private Animator anim;
-
     public Transform groundPos;
     public float checkRadius;
     public LayerMask whatIsGround;
@@ -23,10 +22,16 @@ public class PlayerController : Character
     public AudioClip lowHealthClip;
     private AudioSource audioSource;
 
+    private float lastX;
+    private float lastY;
+    private bool movingX;
+    private bool movingY;
+    private bool visitada;
+
     private void Start()
     {
-        hp = 10;
-        damage = 1;
+        hp = 10.0f;
+        damage = 1.0f;
 
         audioSource = gameObject.AddComponent<AudioSource>();
 
@@ -39,6 +44,13 @@ public class PlayerController : Character
         fireRate = 0.5f;
 
         bulletsHolder = new GameObject("PlayerBullets").transform;
+
+        lastX = transform.position.x - transform.position.x % 16;
+        lastY = transform.position.y - transform.position.y % 16;
+
+        movingX = false;
+        movingY = false;
+        visitada = true;
     }
 
     private void Update()
@@ -143,6 +155,46 @@ public class PlayerController : Character
                 StartCoroutine(Shoot("right"));
             }
         }
+
+        float currentX = transform.position.x - transform.position.x % 16;
+        float currentY = transform.position.y - transform.position.y % 16;
+
+        if (currentX != lastX || currentY != lastY)
+        {
+            float x = (transform.position.x - transform.position.x % 16) + 8;
+            float y = (transform.position.y - transform.position.y % 16) + 8;
+            GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
+            if(currentX != lastX)
+            {
+                movingX = true;
+                lastX = currentX;
+            }
+            if (currentY != lastY)
+            {
+                movingY = true;
+                lastY = currentY;
+            }
+            visitada = false;
+        }
+
+        if (!visitada)
+        {
+            if (movingX)
+            {
+                if (transform.position.x % 16 > 4 && transform.position.x % 16 < 12)
+                {
+                    VisitRoom();
+                    movingX = false;
+                }
+            }
+            if(movingY){
+                if (transform.position.y % 16 > 4 && transform.position.y % 16 < 12)
+                {
+                    VisitRoom();
+                    movingY = false;
+                }
+            }
+        }
     }
 
     public new void GetHurt(int dmg)
@@ -214,19 +266,5 @@ public class PlayerController : Character
     public void setPosition(Vector2 pos)
     {
         transform.position = pos;
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Door"))
-        {
-            other.GetComponent<DoorController>().Entering();
-
-            float xOffset = -0.5f;
-            float yOffset = -0f;
-            float x = ((transform.position.x - transform.position.x % 16) + 8) + xOffset;
-            float y = ((transform.position.y - transform.position.y % 16) + 8) + yOffset;
-            GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
-        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    int damage;
+    float damage;
     public GameObject explosionPrefab;
     bool isBeingDestroyed = false;
 
@@ -31,7 +31,7 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void SetDamage(int dmg)
+    public void SetDamage(float dmg)
     {
         damage = dmg;
     }

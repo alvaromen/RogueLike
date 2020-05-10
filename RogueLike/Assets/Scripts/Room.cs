@@ -64,7 +64,7 @@ public class Room : MonoBehaviour{
 
     private void SpawnEnemies()
     {
-        nEnemies = Random.Range(2, 5);
+        nEnemies = Random.Range(2, 4);
         for (int i = 0; i < nEnemies; i++)
         {
             Vector3 position = GameObject.FindGameObjectWithTag("Player").transform.position;

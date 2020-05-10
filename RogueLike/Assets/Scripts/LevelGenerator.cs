@@ -9,7 +9,7 @@ public class LevelGenerator : MonoBehaviour
 {
 	private RoomCreator roomScript;
 
-    private List<Room> rooms = new List<Room>();
+    private Dictionary<Vector2, Room> rooms = new Dictionary<Vector2, Room>();
 
 	int roomSize = 16;
 	
@@ -254,8 +254,14 @@ public class LevelGenerator : MonoBehaviour
 		RoomCreator.Conexions nameEnum = (RoomCreator.Conexions)Enum.Parse(typeof(RoomCreator.Conexions), conexions);
         Room room = roomScript.SetupRoom(nameEnum, spawnPos, type);
         room.SetEnemies(enemiesPrefabs, turretsPrefabs);
-        rooms.Add(room);
+        rooms.Add(spawnPos, room);
 	}
+
+    public void VisitRoom(Vector2 position)
+    {
+        Room room = rooms[position];
+        room.Visit();
+    }
 }
 
 
