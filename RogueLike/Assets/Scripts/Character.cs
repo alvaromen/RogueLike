@@ -7,9 +7,9 @@ public abstract class Character: MonoBehaviour
     protected Rigidbody2D rb;
 
     
-    protected int maxHp = 10;
-    protected int hp;
-    protected int damage;
+    protected float maxHp = 10;
+    protected float hp;
+    protected float damage;
 
     // Start is called before the first frame update
     void Start()

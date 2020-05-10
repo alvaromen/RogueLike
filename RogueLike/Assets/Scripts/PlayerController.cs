@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : Character
 {
@@ -197,7 +198,12 @@ public class PlayerController : Character
         }
     }
 
-    public new void GetHurt(int dmg)
+    private void VisitRoom()
+    {
+        GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>().VisitRoom(new Vector2(lastX, lastY));
+    }
+
+    public new void GetHurt(float dmg)
     {
         hp -= dmg;
         audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
