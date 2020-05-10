@@ -6,8 +6,8 @@ public abstract class Character: MonoBehaviour
 {
     protected Rigidbody2D rb;
 
-    protected int hp;
-    protected int damage;
+    protected float hp;
+    protected float damage;
 
     // Start is called before the first frame update
     void Start()

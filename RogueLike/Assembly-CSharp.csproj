@@ -71,8 +71,8 @@
      <Compile Include="Assets\Scripts\RoomCreator.cs" />
      <Compile Include="Assets\Scripts\RoomPos.cs" />
      <Compile Include="Assets\Scripts\RoomViewer.cs" />
-     <Compile Include="Assets\Scripts\ShipEnemy.cs" />
      <Compile Include="Assets\Scripts\SpawnPoint.cs" />
+     <Compile Include="Assets\Scripts\TurretEnemy.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/susej/Repositorios/RogueLike/RogueLike/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

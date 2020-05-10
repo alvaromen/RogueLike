@@ -26,7 +26,7 @@ public class Enemy : Character
         room = r;
     }
 
-    public void GetHurt(int dmg)
+    public void GetHurt(float dmg)
     {
         hp -= dmg;
         if (hp <= 0)

@@ -12,9 +12,9 @@ public class MeleeEnemyController : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        damage = 1;
+        damage = 1.0f;
         attackRate = 1;
-        hp = 4;
+        hp = 4.0f;
     }
 
     // Update is called once per frame

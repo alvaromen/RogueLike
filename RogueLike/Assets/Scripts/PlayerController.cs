@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : Character
 {
-    private Animator anim;
-
     public Transform groundPos;
     public float checkRadius;
     public LayerMask whatIsGround;
@@ -19,12 +18,17 @@ public class PlayerController : Character
 
     private Transform bulletsHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
 
+    private float lastX;
+    private float lastY;
+    private bool movingX;
+    private bool movingY;
+    private bool visitada;
+
     private void Start()
     {
-        hp = 10;
-        damage = 1;
+        hp = 10.0f;
+        damage = 1.0f;
 
-        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         speed = 5;
         bulletSpeed = 10;
@@ -33,6 +37,13 @@ public class PlayerController : Character
         fireRate = 0.5f;
 
         bulletsHolder = new GameObject("PlayerBullets").transform;
+
+        lastX = transform.position.x - transform.position.x % 16;
+        lastY = transform.position.y - transform.position.y % 16;
+
+        movingX = false;
+        movingY = false;
+        visitada = true;
     }
 
     private void Update()
@@ -42,16 +53,7 @@ public class PlayerController : Character
 
 
         rb.velocity = new Vector2(moveInputX * speed, moveInputY * speed);
-        /*
-        if (moveInputX != 0 || moveInputY != 0)
-        {
-            anim.SetBool("run", true);
-        }
-        else
-        {
-            anim.SetBool("run", false);
-        }
-        */
+
         if (!isShooting)
         {
             if (moveInputY > 0)
@@ -147,9 +149,55 @@ public class PlayerController : Character
                 StartCoroutine(Shoot("right"));
             }
         }
+
+        float currentX = transform.position.x - transform.position.x % 16;
+        float currentY = transform.position.y - transform.position.y % 16;
+
+        if (currentX != lastX || currentY != lastY)
+        {
+            float x = (transform.position.x - transform.position.x % 16) + 8;
+            float y = (transform.position.y - transform.position.y % 16) + 8;
+            GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
+            if(currentX != lastX)
+            {
+                movingX = true;
+                lastX = currentX;
+            }
+            if (currentY != lastY)
+            {
+                movingY = true;
+                lastY = currentY;
+            }
+            visitada = false;
+        }
+
+        if (!visitada)
+        {
+            if (movingX)
+            {
+                if (transform.position.x % 16 > 4 && transform.position.x % 16 < 12)
+                {
+                    VisitRoom();
+                    movingX = false;
+                }
+            }
+            if(movingY){
+                if (transform.position.y % 16 > 4 && transform.position.y % 16 < 12)
+                {
+                    VisitRoom();
+                    movingY = false;
+                }
+            }
+        }
     }
 
-    public void GetHurt(int dmg)
+    private void VisitRoom()
+    {
+
+        GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>().VisitRoom(new Vector2(lastX, lastY));
+    }
+
+    public void GetHurt(float dmg)
     {
         hp -= dmg;
         if(hp <= 0)
@@ -208,19 +256,5 @@ public class PlayerController : Character
     public void setPosition(Vector2 pos)
     {
         transform.position = pos;
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Door"))
-        {
-            other.GetComponent<DoorController>().Entering();
-
-            float xOffset = -0.5f;
-            float yOffset = -0f;
-            float x = ((transform.position.x - transform.position.x % 16) + 8) + xOffset;
-            float y = ((transform.position.y - transform.position.y % 16) + 8) + yOffset;
-            GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
-        }
     }
 }

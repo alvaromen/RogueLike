@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1856353426946048510}
   - component: {fileID: 4499528982155214858}
   - component: {fileID: 869601423435033774}
+  - component: {fileID: 687563674925957347}
   m_Layer: 0
   m_Name: Tower Down
   m_TagString: Untagged
@@ -128,3 +129,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.6666666}
   m_EdgeRadius: 0
+--- !u!114 &687563674925957347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848125723885462350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f2b10d05871a84cb5841c90ec52a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 3349514657730179421, guid: f68fd8c070dc0d54eb2570eb0fd498a4,
+    type: 3}
