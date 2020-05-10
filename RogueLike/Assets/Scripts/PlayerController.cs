@@ -193,7 +193,6 @@ public class PlayerController : Character
             default:
                 break;
         }
-        print(q);
 
         GameObject bullet = Instantiate(bulletPrefab, pos, q);
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
@@ -216,8 +215,11 @@ public class PlayerController : Character
         if (other.CompareTag("Door"))
         {
             other.GetComponent<DoorController>().Entering();
-            float x = (transform.position.x - transform.position.x % 16) + 8;
-            float y = (transform.position.y - transform.position.y % 16) + 8;
+
+            float xOffset = -0.5f;
+            float yOffset = -0f;
+            float x = ((transform.position.x - transform.position.x % 16) + 8) + xOffset;
+            float y = ((transform.position.y - transform.position.y % 16) + 8) + yOffset;
             GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
         }
     }

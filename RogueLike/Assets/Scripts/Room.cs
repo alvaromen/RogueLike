@@ -64,7 +64,6 @@ public class Room : MonoBehaviour{
 
     private void SpawnEnemies()
     {
-        Debug.Log("AAAAAAA");
         nEnemies = Random.Range(2, 5);
         for (int i = 0; i < nEnemies; i++)
         {

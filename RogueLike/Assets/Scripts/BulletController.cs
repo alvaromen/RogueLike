@@ -5,18 +5,8 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     int damage;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject explosionPrefab;
+    bool isBeingDestroyed = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -34,7 +24,9 @@ public class BulletController : MonoBehaviour
                 other.GetComponent<PlayerController>().GetHurt(damage);
             }
         }
+
         if (!(tag.Contains("Bullet") && other.tag.Contains("Bullet"))){
+            GameObject explosionRef = Instantiate(explosionPrefab, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
