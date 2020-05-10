@@ -242,6 +242,7 @@ public class PlayerController : Character
             case "Gun Powerup(Clone)":
                 // implementar triple disparo
                 audioSource.PlayOneShot(gunPowerupClip);
+                tripleShoot = true;
                 break;
             case "Speed Powerup(Clone)":
                 audioSource.PlayOneShot(speedClip);
