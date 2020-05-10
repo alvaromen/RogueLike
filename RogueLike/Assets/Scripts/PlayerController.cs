@@ -12,6 +12,7 @@ public class PlayerController : Character
     public GameObject bulletPrefab;
 
     private int speed;
+    private int speedIncrementFactor;
     private int bulletSpeed;
     private bool isShooting;
     private float fireRate;
@@ -26,6 +27,7 @@ public class PlayerController : Character
     public AudioClip healClip;
     public AudioClip gunPowerupClip;
     public AudioClip bossKeyClip;
+    public bool hasBossKey;
     private AudioSource audioSource;
 
     private float lastX;
@@ -46,6 +48,7 @@ public class PlayerController : Character
         //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         speed = 5;
+        speedIncrementFactor = 1;
         bulletSpeed = 10;
 
         isShooting = false;
@@ -69,7 +72,7 @@ public class PlayerController : Character
         float moveInputX = Input.GetAxisRaw("Horizontal");
         float moveInputY = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = new Vector2(moveInputX * speed, moveInputY * speed);
+        rb.velocity = new Vector2(moveInputX * speed * speedIncrementFactor, moveInputY * speed * speedIncrementFactor);
 
         if (!isShooting)
         {
@@ -246,11 +249,11 @@ public class PlayerController : Character
                 break;
             case "Speed Powerup(Clone)":
                 audioSource.PlayOneShot(speedClip);
-                speed *= 2; 
+                speedIncrementFactor = Mathf.Clamp(speedIncrementFactor *= 2, 0, 4); 
                 break;
             case "Fire Ratio Powerup(Clone)":
                 audioSource.PlayOneShot(fireRateClip);
-                fireRate /= 2;
+                fireRate = (fireRate /= 2f) > 0.1f ? (fireRate /= 2f) : 0.1f;
                 break;
         }
 

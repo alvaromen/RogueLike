@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2927342486005769277}
   - component: {fileID: 2753377107133106314}
   - component: {fileID: 3358784006232632749}
+  - component: {fileID: -9116484104176937841}
   m_Layer: 0
   m_Name: Boss Door
   m_TagString: Untagged
@@ -128,3 +129,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-9116484104176937841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5816934133877488983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79407103eebf8f4783938280ff32032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorClip: {fileID: 8300000, guid: 1babb9c5ea8dc924fac5d50602b5417d, type: 3}

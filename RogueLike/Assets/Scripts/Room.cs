@@ -118,7 +118,7 @@ public class Room : MonoBehaviour{
             }
 
             if(roomType == RoomType.keyBoss)
-                Instantiate(keyBoss, position, Quaternion.identity);
+                Instantiate(keyBoss, position + Vector2.one * 8, Quaternion.identity);
         }
     }
 }

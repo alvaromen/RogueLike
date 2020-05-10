@@ -944,6 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6a65f681d846c42b5d0afe266fb2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyBoss: {fileID: 7546228146088165275, guid: 3e2725e70a6fe0d4d83cbabcfec55491, type: 3}
   chanceWalkerChangeDir: 0.269
   chanceWalkerSpawn: 0.603
   chanceWalkerDestroy: 0.125
@@ -953,7 +954,6 @@ MonoBehaviour:
   - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
   turretsPrefabs: {fileID: 7848125723885462350, guid: c4ae3a4967b69704183f9195e6bcdf13,
     type: 3}
-  keyBoss: {fileID: 0}
 --- !u!4 &2099509076
 Transform:
   m_ObjectHideFlags: 0
