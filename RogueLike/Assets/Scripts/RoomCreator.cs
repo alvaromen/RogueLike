@@ -13,6 +13,7 @@ public class RoomCreator : MonoBehaviour
     {
         initial,
         normal,
+        keyBoss,
         boss
     }
 
@@ -64,23 +65,6 @@ public class RoomCreator : MonoBehaviour
     public GameObject[] bossOuterWallTilesCorner;
 
     private Transform boardHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
-    private List<Vector3> gridPositions = new List<Vector3>(); //list of possible locations to place objects
-
-    /**
-     * Clears the gridPositions and then generates a new list of possible positions where spawning objects
-     */
-    void InitialiseList()
-    {
-        gridPositions.Clear();
-
-        for(int i = 1; i < (rows - 1); i++)
-        {
-            for(int j = 1; j < (columns - 1); j++)
-            {
-                gridPositions.Add(new Vector3(position.x + i, position.y + j, 0f));
-            }
-        }
-    }
 
     /**
      * Sets up the outer wall and the floor of the game board
@@ -217,13 +201,12 @@ public class RoomCreator : MonoBehaviour
         rows = 16;
         List<GameObject> doors = new List<GameObject>();
         BoardSetup(doors);
-        InitialiseList();
         Room.Status status = Room.Status.nonvisited;
         if(roomType == RoomType.initial)
         {
             status = Room.Status.cleared;
         }
-        Room room = new Room(roomType, status, gridPositions);
+        Room room = new Room(roomType, status, position);
         foreach (GameObject door in doors)
         {
             door.GetComponent<DoorController>().SetRoom(room);

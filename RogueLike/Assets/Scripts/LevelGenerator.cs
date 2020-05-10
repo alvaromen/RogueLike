@@ -190,9 +190,12 @@ public class LevelGenerator : MonoBehaviour
 	void SpawnLevel()
 	{
 		int bossRoom = (int)UnityEngine.Random.Range(0, possibleBoss.Count);
+        int initRoom = (int)UnityEngine.Random.Range(0, possibleInit.Count);
 
-		if(possibleInit.Count > 0){
-			Vector2 playerRoom = possibleInit[(int)UnityEngine.Random.Range(0, possibleInit.Count)];
+        if (possibleInit.Count > 0){
+			Vector2 playerRoom = possibleInit[initRoom];
+            rooms[playerRoom].SetStatus(Room.Status.cleared);
+            rooms[playerRoom].SetRoomType(RoomCreator.RoomType.initial);
 
             Vector2 position = new Vector2(playerRoom.x * roomSize, playerRoom.y * roomSize) + Vector2.one * 8;
             GameObject.FindGameObjectWithTag("Player").transform.position = position;
@@ -212,11 +215,30 @@ public class LevelGenerator : MonoBehaviour
 						type = RoomCreator.RoomType.boss;
 					}
 
-					Spawn(x * roomSize, y * roomSize, names[x, y], type);
+                    if (possibleInit.Count > 0 && possibleInit[initRoom] == new Vector2(x, y))
+                    {
+                        type = RoomCreator.RoomType.initial;
+                    }
+
+                    Spawn(x * roomSize, y * roomSize, names[x, y], type);
 				}
 			}
 		}
-	}
+
+        float posX;
+        float posY;
+        do
+        {
+            do
+            {
+                posX = UnityEngine.Random.Range(0, roomWidth * 16);
+                posY = UnityEngine.Random.Range(0, roomHeight * 16);
+            } while (rooms.ContainsKey(new Vector2(posX, posY)));
+        } while(rooms[new Vector2(posX, posY)].GetRoomType() != RoomCreator.RoomType.normal);
+
+        rooms[new Vector2(posX, posY)].SetRoomType(RoomCreator.RoomType.keyBoss);
+
+    }
 	Vector2 RandomDirection()
 	{
 		//pick UnityEngine.Random int between 0 and 3

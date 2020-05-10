@@ -57,6 +57,7 @@
   <ItemGroup>
      <Compile Include="Assets\DestroyExplosion.cs" />
      <Compile Include="Assets\MobDrop.cs" />
+     <Compile Include="Assets\Scripts\BomberEnemy.cs" />
      <Compile Include="Assets\Scripts\BulletController.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
