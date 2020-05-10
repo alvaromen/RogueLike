@@ -7,6 +7,7 @@ public class Enemy : Character
 {
 
     protected Room room;
+    public GameObject enemyExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class Enemy : Character
         if (hp <= 0)
         {
             room.EnemyDown();
+            Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
