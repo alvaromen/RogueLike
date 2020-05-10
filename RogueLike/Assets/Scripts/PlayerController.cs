@@ -18,11 +18,17 @@ public class PlayerController : Character
     private float lastAngle;
 
     private Transform bulletsHolder; //variable to store references to the transform of our Board to keep the hierarchy clean
+    public AudioClip[] shootAudioClips;
+    public AudioClip[] dmgAudioClips;
+    public AudioClip lowHealthClip;
+    private AudioSource audioSource;
 
     private void Start()
     {
         hp = 10;
         damage = 1;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
 
         //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -40,18 +46,8 @@ public class PlayerController : Character
         float moveInputX = Input.GetAxisRaw("Horizontal");
         float moveInputY = Input.GetAxisRaw("Vertical");
 
-
         rb.velocity = new Vector2(moveInputX * speed, moveInputY * speed);
-        /*
-        if (moveInputX != 0 || moveInputY != 0)
-        {
-            anim.SetBool("run", true);
-        }
-        else
-        {
-            anim.SetBool("run", false);
-        }
-        */
+
         if (!isShooting)
         {
             if (moveInputY > 0)
@@ -149,9 +145,15 @@ public class PlayerController : Character
         }
     }
 
-    public void GetHurt(int dmg)
+    public new void GetHurt(int dmg)
     {
         hp -= dmg;
+        audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
+        
+        // if((hp / maxHp) < 0.3){
+        //     audioSource.PlayOneShot(lowHealthClip);
+        // }
+
         if(hp <= 0)
         {
             //die
@@ -199,6 +201,10 @@ public class PlayerController : Character
         bullet.GetComponent<BulletController>().SetDamage(damage);
         bullet.tag = "PlayerBullet";
         bullet.transform.SetParent(bulletsHolder);
+        int randIndex = Random.Range(0, shootAudioClips.Length);
+        
+        audioSource.PlayOneShot(shootAudioClips[randIndex]);
+
 
         yield return new WaitForSeconds(fireRate);
 

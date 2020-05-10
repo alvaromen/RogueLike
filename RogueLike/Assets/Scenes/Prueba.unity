@@ -487,6 +487,22 @@ MonoBehaviour:
     m_Bits: 0
   bulletPrefab: {fileID: 9008818741504036813, guid: db5c236db687978468e5d71b69b905d2,
     type: 3}
+  shootAudioClips:
+  - {fileID: 8300000, guid: 991b8c5609723c140b08d08b08f284f6, type: 3}
+  - {fileID: 8300000, guid: 8424ad116f3b7f54a9e5e5680101522b, type: 3}
+  - {fileID: 8300000, guid: ed44daf2210808a40a3e70c64851a953, type: 3}
+  dmgAudioClips:
+  - {fileID: 8300000, guid: e7f94c96fd76169488ae7cb5e5dda2e8, type: 3}
+  - {fileID: 8300000, guid: 718ffb315a8cb6f41ab45f76a5994070, type: 3}
+  - {fileID: 8300000, guid: 532e32414a654ba4dac4a2777a660dd6, type: 3}
+  - {fileID: 8300000, guid: 8191a142b4f35554ea8ce85ef9bef061, type: 3}
+  - {fileID: 8300000, guid: d085c7ca478d25344aaade5734e8efe4, type: 3}
+  - {fileID: 8300000, guid: 4420a13bfa5ea6d4fb7bd5b7fcb14b1f, type: 3}
+  - {fileID: 8300000, guid: bdf996f4a01b2bf4a9f78d109932484a, type: 3}
+  - {fileID: 8300000, guid: 51990854a307dcb40a8d9eae1d55c67a, type: 3}
+  - {fileID: 8300000, guid: 2e32bd55463637b43ad65ef4c8445e1b, type: 3}
+  - {fileID: 8300000, guid: abe1af79c7963d9408e0e3fe99c16d1a, type: 3}
+  lowHealthClip: {fileID: 8300000, guid: c69761519e889764ea6446b8701e3b12, type: 3}
 --- !u!212 &1462188561
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -930,11 +946,8 @@ MonoBehaviour:
   numIterations: 15
   enemiesPrefabs:
   - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
-  turretsPrefabs:
-  - {fileID: 7848125723885462350, guid: c4ae3a4967b69704183f9195e6bcdf13, type: 3}
-  - {fileID: 3106835234271805910, guid: 003446b2bb823094384b92c5d9659b38, type: 3}
-  - {fileID: 7599439324112154478, guid: 4984b0a602b4b5a45965ffd896dc7ece, type: 3}
-  - {fileID: 5427290492083701139, guid: 436de4eaf64d27645b24c4909d7c1292, type: 3}
+  turretsPrefabs: {fileID: 7848125723885462350, guid: c4ae3a4967b69704183f9195e6bcdf13,
+    type: 3}
 --- !u!4 &2099509076
 Transform:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class LevelGenerator : MonoBehaviour
 	public int maxWalkers = 10, numIterations = 10;
 
     public GameObject[] enemiesPrefabs;
-    public GameObject[] turretsPrefabs;
+    public GameObject turretsPrefabs;
 
     void Start()
 	{

@@ -16,7 +16,7 @@ public class Room : MonoBehaviour{
     private Status status;
 
     private GameObject[] enemiesPrefabs;
-    public GameObject[] turretsPrefabs;
+    public GameObject turretPrefab;
     private List<GameObject> turretsToDestroy = new List<GameObject>();
 
     private List<GameObject> enemies = new List<GameObject>();
@@ -45,7 +45,7 @@ public class Room : MonoBehaviour{
             {
                 door.GetComponent<BoxCollider2D>().isTrigger = false;
                 Vector3 pos = new Vector3(door.transform.position.x, door.transform.position.y, 0.8f);
-                turretsToDestroy.Add(Instantiate(turretsPrefabs[Mathf.FloorToInt(i)], pos, Quaternion.identity));
+                turretsToDestroy.Add(Instantiate(turretPrefab, pos, Quaternion.identity));
                 i += 0.5f;
             }
         }
@@ -56,10 +56,10 @@ public class Room : MonoBehaviour{
         doors = d;
     }
 
-    public void SetEnemies(GameObject[] prefabs, GameObject[] turrets)
+    public void SetEnemies(GameObject[] prefabs, GameObject turrets)
     {
         enemiesPrefabs = prefabs;
-        turretsPrefabs = turrets;
+        turretPrefab = turrets;
     }
 
     private void SpawnEnemies()

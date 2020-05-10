@@ -6,6 +6,8 @@ public abstract class Character: MonoBehaviour
 {
     protected Rigidbody2D rb;
 
+    
+    protected int maxHp = 10;
     protected int hp;
     protected int damage;
 

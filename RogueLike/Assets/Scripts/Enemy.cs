@@ -5,20 +5,18 @@ using UnityEngine.AI;
 
 public class Enemy : Character
 {
-
     protected Room room;
     public GameObject enemyExplosion;
+    public GameObject[] mobDrops;
+    public AudioClip[] shootAudioClips;
+    public AudioClip[] explosionClips;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        audioSource = gameObject.AddComponent<AudioSource>();
+        print("audio source instantiated");
     }
 
     public void SetRoom(Room r)
@@ -32,8 +30,16 @@ public class Enemy : Character
         if (hp <= 0)
         {
             room.EnemyDown();
+
+            if(UnityEngine.Random.Range(0f, 1f) < 0.3f){
+                int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
+                Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
+            }
             Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
+            // audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
+            print(audioSource);
+            print(explosionClips[Random.Range(0, explosionClips.Length)]);
         }
     }
 }

@@ -11,7 +11,7 @@ public class DestroyExplosion : MonoBehaviour
     }
 
     private IEnumerator DestroyExplosionPrefab(){
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
 }
