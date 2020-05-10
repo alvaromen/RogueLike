@@ -34,6 +34,8 @@ public class PlayerController : Character
     private bool movingY;
     private bool visitada;
 
+    private bool tripleShoot;
+
     private void Start()
     {
         hp = 10.0f;
@@ -57,6 +59,9 @@ public class PlayerController : Character
         movingX = false;
         movingY = false;
         visitada = true;
+
+        tripleShoot = false;
+
     }
 
     private void Update()
@@ -255,46 +260,98 @@ public class PlayerController : Character
      */
     private IEnumerator Shoot(string key)
     {
-
-        Quaternion q = Quaternion.identity;
-        Vector3 pos = transform.position;
-        Vector3 vel = new Vector3(0, 0, 0);
+        List<Quaternion> q = new List<Quaternion>();
+        List<Vector3> pos = new List<Vector3>();
+        List<Vector3> vel = new List<Vector3>();
+        List<GameObject> bullets = new List<GameObject>();
 
         switch (key)
         {
             //The quaternion for the prefab is taking into account that the bullet originally is looking to the right
             case "up":
-                q = Quaternion.Euler(0, 0, 90);
-                pos.y += 1f; // displace the bullet a little bit to appear above of the player
-                vel.y = bulletSpeed;
+                q.Add(Quaternion.Euler(0, 0, 90));
+                pos.Add(new Vector3(0, 1, 0));
+                vel.Add(new Vector3(0, bulletSpeed, 0));
+                if (tripleShoot)
+                {
+                    //up-left
+                    q.Add(Quaternion.Euler(0, 0, 135));
+                    pos.Add(new Vector3(-1, 1, 0));
+                    vel.Add(new Vector3(-bulletSpeed, bulletSpeed, 0));
+
+                    //up-right
+                    q.Add(Quaternion.Euler(0, 0, 45));
+                    pos.Add(new Vector3(1, 1, 0));
+                    vel.Add(new Vector3(bulletSpeed, bulletSpeed, 0));
+                }
                 break;
             case "down":
-                q = Quaternion.Euler(0, 0, 270);
-                pos.y += -1f; // displace the bullet a little bit to appear below of the player
-                vel.y = -bulletSpeed;
+                q.Add(Quaternion.Euler(0, 0, 270));
+                pos.Add(new Vector3(0, -1, 0));
+                vel.Add(new Vector3(0, -bulletSpeed, 0));
+                if (tripleShoot)
+                {
+                    //down-left
+                    q.Add(Quaternion.Euler(0, 0, 235));
+                    pos.Add(new Vector3(-1, -1, 0));
+                    vel.Add(new Vector3(-bulletSpeed, -bulletSpeed, 0));
+
+                    //down-right
+                    q.Add(Quaternion.Euler(0, 0, 315));
+                    pos.Add(new Vector3(1, -1, 0));
+                    vel.Add(new Vector3(bulletSpeed, -bulletSpeed, 0));
+                }
                 break;
             case "left":
-                q = Quaternion.Euler(0, 0, 180);
-                pos.x += -1f; // displace the bullet a little bit to appear at the left of the player
-                vel.x = -bulletSpeed;
+                q.Add(Quaternion.Euler(0, 0, 180));
+                pos.Add(new Vector3(-1, 0, 0));
+                vel.Add(new Vector3(-bulletSpeed, 0, 0));
+                if (tripleShoot)
+                {
+                    //up-left
+                    q.Add(Quaternion.Euler(0, 0, 135));
+                    pos.Add(new Vector3(-1, 1, 0));
+                    vel.Add(new Vector3(-bulletSpeed, bulletSpeed, 0));
+
+                    //down-left
+                    q.Add(Quaternion.Euler(0, 0, 235));
+                    pos.Add(new Vector3(-1, -1, 0));
+                    vel.Add(new Vector3(-bulletSpeed, -bulletSpeed, 0));
+                }
                 break;
             case "right":
-                pos.x += 1f; // displace the bullet a little bit to appear at the right of the player
-                vel.x = bulletSpeed;
+                q.Add(Quaternion.identity);
+                pos.Add(new Vector3(1, 0, 0));
+                vel.Add(new Vector3(bulletSpeed, 0, 0)); if (tripleShoot)
+                {
+                    //up-right
+                    q.Add(Quaternion.Euler(0, 0, 45));
+                    pos.Add(new Vector3(1, 1, 0));
+                    vel.Add(new Vector3(bulletSpeed, bulletSpeed, 0));
+
+                    //down-right
+                    q.Add(Quaternion.Euler(0, 0, 315));
+                    pos.Add(new Vector3(1, -1, 0));
+                    vel.Add(new Vector3(bulletSpeed, -bulletSpeed, 0));
+                }
                 break;
             default:
                 break;
         }
 
-        GameObject bullet = Instantiate(bulletPrefab, pos, q);
-        bullet.GetComponent<Rigidbody2D>().velocity = vel;
-        bullet.GetComponent<BulletController>().SetDamage(damage);
-        bullet.tag = "PlayerBullet";
-        bullet.transform.SetParent(bulletsHolder);
-        int randIndex = Random.Range(0, shootAudioClips.Length);
-        
-        audioSource.PlayOneShot(shootAudioClips[randIndex]);
+        int n = 1;
+        if (tripleShoot)
+            n = 3;
 
+        for(int i = 0; i < n; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, transform.position + pos[i], q[i]);
+            bullet.GetComponent<Rigidbody2D>().velocity = vel[i];
+            bullet.GetComponent<BulletController>().SetDamage(damage);
+            bullet.tag = "PlayerBullet";
+            bullet.transform.SetParent(bulletsHolder);
+            bullets.Add(bullet);
+        }
 
         yield return new WaitForSeconds(fireRate);
 

@@ -37,123 +37,157 @@ public class RangeStarEnemy : Enemy
             isShooting = true;
             StartCoroutine(Shoot());
         }
-        if (Random.value < 0.25)
+        Vector3 velocity = new Vector3(0, 0, 0);
+
+        int newDirection;
+        bool repetir;
+
+        if (Random.value < 0.001)
+            do {
+                newDirection = (int)Random.Range(0, 3.99f);
+                if ((direction == newDirection) || (direction == 0 && newDirection == 1) || (direction == 1 && newDirection == 0) || (direction == 2 && newDirection == 3) || (direction == 3 && newDirection == 2))
+                    repetir = true;
+                else
+                {
+                    direction = newDirection;
+                    repetir = false;
+                }
+            } while (repetir);
+
+        if (transform.position.x % 16 < 3) //if it is too close to the left margin, dont go left
+            if (direction == 2) direction = (int) Random.Range(0, 1.99f);
+            else direction = 3;
+        else if (transform.position.x % 16 > 13) //if it is too close to the right margin, dont go right
+            if (direction == 3) direction = (int) Random.Range(0, 1.99f);
+            else direction = 2;
+
+        if (transform.position.y % 16 < 3) //if it is too close to the up margin, dont go up
+            if (direction == 1) direction = (int)Random.Range(2, 3.99f);
+            else direction = 0;
+        else if (transform.position.y % 16 > 13) //if it is too close to the right margin, dont go down
+            if (direction == 0) direction = (int)Random.Range(2, 3.99f);
+            else direction = 1;
+
+        switch (direction)
         {
-            Vector3 velocity = new Vector3(0, 0, 0);
+            case 0: //up
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                velocity.y += 3;
+                break;
 
-            switch (direction)
-            {
-                case 0: //up
-                    velocity.y += 3;
-                    break;
-                case 1: //down
-                    velocity.y -= 3;
-                    break;
-                case 2: //left
-                    velocity.x -= 3;
-                    break;
-                case 3: //right
-                    velocity.x += 3;
-                    break;
-                default:
-                    break;
-            }
-            rb.velocity = velocity;
+            case 1: //down
+                transform.eulerAngles = new Vector3(0, 0, 180);
+                velocity.y -= 3;
+                break;
 
-            if(Random.value < 0.1)
-            {
-                direction = (int) Random.Range(0, 3.99f);
-            }
+            case 2: //left
+                transform.eulerAngles = new Vector3(0, 0, 90);
+                velocity.x -= 3;
+                break;
+
+            case 3: //right
+                transform.eulerAngles = new Vector3(0, 0, -90);
+                velocity.x += 3;
+                break;
+
+            default:
+                direction = (int)Random.Range(0, 3.99f);
+                break;
         }
+
+        if(Random.value < 0.001)
+        {
+            velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        }
+
+        rb.velocity = velocity;
+
     }
 
     private IEnumerator Shoot()
     {
         yield return new WaitForSeconds(fireRate);
 
-        GameObject[] bullets = new GameObject[8];
+        List<Quaternion> q = new List<Quaternion>();
+        List<Vector3> pos = new List<Vector3>();
+        List<Vector3> vel = new List<Vector3>();
+        List<GameObject> bullets = new List<GameObject>();
 
         //bullet 0: up
-        Quaternion q = Quaternion.identity;
-        //q[2] = 90;
-        Vector3 pos = transform.position;
-        pos.y += 1f;
-        Vector3 velocity = new Vector3(0, 5, 0);
-        bullets[0] = Instantiate(bulletPrefab, pos, q);
-        bullets[0].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(0, 1, 0));
+        vel.Add(new Vector3(0, 5, 0));
 
         //bullet1: up-left
-        q = Quaternion.identity;
-        //q[2] = 135;
-        pos = transform.position;
-        pos.x -= 1f;
-        pos.y += 1f;
-        velocity = new Vector3(-5, 5, 0);
-        bullets[1] = Instantiate(bulletPrefab, pos, q);
-        bullets[1].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(-1, 1, 0));
+        vel.Add(new Vector3(-5, 5, 0));
 
         //bullet2: left
-        q = Quaternion.identity;
-        //q[1] = 180;
-        pos = transform.position;
-        pos.x -= 1f;
-        velocity = new Vector3(-5, 0, 0);
-        bullets[2] = Instantiate(bulletPrefab, pos, q);
-        bullets[2].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(-1, 1, 0));
+        vel.Add(new Vector3(-5, 0, 0));
 
         //bullet3: down-left
-        q = Quaternion.identity;
-        //q[2] = 225;
-        pos = transform.position;
-        pos.x -= 1f;
-        pos.y -= 1f;
-        velocity = new Vector3(-5, -5, 0);
-        bullets[3] = Instantiate(bulletPrefab, pos, q);
-        bullets[3].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(-1, -1, 0));
+        vel.Add(new Vector3(-5, -5, 0));
 
         //bullet4: down
-        q = Quaternion.identity;
-        //q[2] = 270;
-        pos = transform.position;
-        pos.y -= 1f;
-        velocity = new Vector3(0, -5, 0);
-        bullets[4] = Instantiate(bulletPrefab, pos, q);
-        bullets[4].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(0, -1, 0));
+        vel.Add(new Vector3(0, -5, 0));
 
         //bullet5: down-right
-        q = Quaternion.identity;
-        //q[2] = 315;
-        pos = transform.position;
-        pos.x += 1f;
-        pos.y -= 1f;
-        velocity = new Vector3(5, -5, 0);
-        bullets[5] = Instantiate(bulletPrefab, pos, q);
-        bullets[5].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(1, -1, 0));
+        vel.Add(new Vector3(5, -5, 0));
 
         //bullet6: right
-        q = Quaternion.identity;
-        pos = transform.position;
-        pos.x += 1f;
-        velocity = new Vector3(5, 0, 0);
-        bullets[6] = Instantiate(bulletPrefab, pos, q);
-        bullets[6].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(1, 0, 0));
+        vel.Add(new Vector3(5, 0, 0));
 
         //bullet7: up-right
-        q = Quaternion.identity;
-        pos = transform.position;
-        pos.x += 1f;
-        pos.y += 1f;
-        velocity = new Vector3(5, 5, 0);
-        bullets[7] = Instantiate(bulletPrefab, pos, q);
-        bullets[7].GetComponent<Rigidbody2D>().velocity = velocity;
+        q.Add(Quaternion.identity);
+        pos.Add(new Vector3(1, 1, 0));
+        vel.Add(new Vector3(5, 5, 0));
 
-        foreach (GameObject bullet in bullets)
+        for (int i = 0; i < 8; i++)
         {
+            GameObject bullet = Instantiate(bulletPrefab, transform.position + pos[i], q[i]);
+            bullet.GetComponent<Rigidbody2D>().velocity = vel[i];
             bullet.GetComponent<BulletController>().SetDamage(damage);
             bullet.tag = "EnemyBullet";
             bullet.transform.SetParent(bulletsHolder);
+            bullets.Add(bullet);
         }
 
         isShooting = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            switch (direction)
+            {
+                case 0:
+                    direction = (int)Random.Range(2f, 3.99f);
+                    break;
+                case 1:
+                    direction = (int)Random.Range(2f, 3.99f);
+                    break;
+                case 2:
+                    direction = (int)Random.Range(0f, 1.99f);
+                    break;
+                case 3:
+                    direction = (int)Random.Range(0f, 1.99f);
+                    break;
+                default:
+                    direction = (int)Random.Range(0f, 3.99f);
+                    break;
+            }
+        }
     }
 }
