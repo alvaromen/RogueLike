@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class RangeStarEnemy : Enemy
 {
-    private NavMeshAgent agent;
-
     public GameObject bulletPrefab;
 
     private int direction; //0 up, 1 down, 2 left, 3 right
@@ -33,17 +31,20 @@ public class RangeStarEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (!isShooting) {
-            isShooting = true;
-            StartCoroutine(Shoot());
-        }
+        Move();
+        Shoot();
+    }
+
+    private void Move()
+    {
         Vector3 velocity = new Vector3(0, 0, 0);
 
         int newDirection;
         bool repetir;
 
         if (Random.value < 0.001)
-            do {
+            do
+            {
                 newDirection = (int)Random.Range(0, 3.99f);
                 if ((direction == newDirection) || (direction == 0 && newDirection == 1) || (direction == 1 && newDirection == 0) || (direction == 2 && newDirection == 3) || (direction == 3 && newDirection == 2))
                     repetir = true;
@@ -55,10 +56,10 @@ public class RangeStarEnemy : Enemy
             } while (repetir);
 
         if (transform.position.x % 16 < 3) //if it is too close to the left margin, dont go left
-            if (direction == 2) direction = (int) Random.Range(0, 1.99f);
+            if (direction == 2) direction = (int)Random.Range(0, 1.99f);
             else direction = 3;
         else if (transform.position.x % 16 > 13) //if it is too close to the right margin, dont go right
-            if (direction == 3) direction = (int) Random.Range(0, 1.99f);
+            if (direction == 3) direction = (int)Random.Range(0, 1.99f);
             else direction = 2;
 
         if (transform.position.y % 16 < 3) //if it is too close to the up margin, dont go up
@@ -95,13 +96,22 @@ public class RangeStarEnemy : Enemy
                 break;
         }
 
-        if(Random.value < 0.001)
+        if (Random.value < 0.001)
         {
             velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
 
         rb.velocity = velocity;
 
+    }
+
+    private void Attack()
+    {
+        if (!isShooting)
+        {
+            isShooting = true;
+            StartCoroutine(Shoot());
+        }
     }
 
     private IEnumerator Shoot()

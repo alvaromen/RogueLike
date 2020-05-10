@@ -15,6 +15,12 @@ public class BulletController : MonoBehaviour
             if (other.CompareTag("Enemy"))
             {
                 other.GetComponent<Enemy>().GetHurt(damage);
+            } else
+            {
+                if (other.CompareTag("EnemyBomb"))
+                {
+                    other.GetComponent<BombController>().GetHurt();
+                }
             }
         }
         else if (CompareTag("EnemyBullet"))

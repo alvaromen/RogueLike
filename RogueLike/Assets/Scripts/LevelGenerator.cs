@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class LevelGenerator : MonoBehaviour
 {
     public GameObject keyBoss;
+    public GameObject boss;
 
     private RoomCreator roomScript;
 
@@ -239,6 +240,7 @@ public class LevelGenerator : MonoBehaviour
         rooms[new Vector2(posX, posY)].SetRoomType(RoomCreator.RoomType.keyBoss);
         rooms[new Vector2(posX, posY)].SetKeyBoss(keyBoss);
     }
+
 	Vector2 RandomDirection()
 	{
 		//pick UnityEngine.Random int between 0 and 3
@@ -274,7 +276,7 @@ public class LevelGenerator : MonoBehaviour
 		Vector2 spawnPos = new Vector2(x, y);
 
 		RoomCreator.Conexions nameEnum = (RoomCreator.Conexions)Enum.Parse(typeof(RoomCreator.Conexions), conexions);
-        Room room = roomScript.SetupRoom(nameEnum, spawnPos, type);
+        Room room = roomScript.SetupRoom(nameEnum, spawnPos, type, boss);
         room.SetEnemies(enemiesPrefabs, turretsPrefabs);
         rooms.Add(spawnPos, room);
 	}
