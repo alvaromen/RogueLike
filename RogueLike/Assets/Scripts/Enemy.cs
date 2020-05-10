@@ -38,8 +38,6 @@ public class Enemy : Character
             Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
             // audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
-            print(audioSource);
-            print(explosionClips[Random.Range(0, explosionClips.Length)]);
         }
     }
 }

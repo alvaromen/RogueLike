@@ -170,6 +170,7 @@ MonoBehaviour:
   - {fileID: 1330091497816578005, guid: a20727eaf94771f4183bf8c7f64e13cd, type: 3}
   - {fileID: 1552922700146411380, guid: 3208d7e7487a1834380e75ef586589ee, type: 3}
   - {fileID: 7546228146088165275, guid: 3e2725e70a6fe0d4d83cbabcfec55491, type: 3}
+  - {fileID: 2586747658177795159, guid: d4c51f2263bfa0a4286efaeda5adea5a, type: 3}
   shootAudioClips:
   - {fileID: 8300000, guid: 991b8c5609723c140b08d08b08f284f6, type: 3}
   - {fileID: 8300000, guid: 8424ad116f3b7f54a9e5e5680101522b, type: 3}

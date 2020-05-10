@@ -6,9 +6,8 @@ public class MobDrop : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
-            //apply whatever boost we provide
+            other.gameObject.GetComponent<PlayerController>().GetBoostObject(gameObject.name);
             Destroy(gameObject);
-            print("touched player");
         }
 
     }

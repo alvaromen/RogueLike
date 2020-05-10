@@ -21,6 +21,11 @@ public class PlayerController : Character
     public AudioClip[] shootAudioClips;
     public AudioClip[] dmgAudioClips;
     public AudioClip lowHealthClip;
+    public AudioClip fireRateClip;
+    public AudioClip speedClip;
+    public AudioClip healClip;
+    public AudioClip gunPowerupClip;
+    public AudioClip bossKeyClip;
     private AudioSource audioSource;
 
     private float lastX;
@@ -208,14 +213,41 @@ public class PlayerController : Character
         hp -= dmg;
         audioSource.PlayOneShot(dmgAudioClips[Random.Range(0, dmgAudioClips.Length)]);
         
-        // if((hp / maxHp) < 0.3){
-        //     audioSource.PlayOneShot(lowHealthClip);
-        // }
+        if((hp / maxHp) < 0.3){
+            print("cojones");
+            audioSource.PlayOneShot(lowHealthClip);
+        }
 
         if(hp <= 0)
         {
             //die
         }
+    }
+
+    public void GetBoostObject(string boostName){
+        switch(boostName){
+            case "Boss Key(Clone)":
+                // bool key is now true, and should not appear again. We aew able to go into the boss room.
+                audioSource.PlayOneShot(bossKeyClip);
+                break;
+            case "Life Powerup(Clone)":
+                audioSource.PlayOneShot(healClip);
+                hp = maxHp;
+                break;
+            case "Gun Powerup(Clone)":
+                // implementar triple disparo
+                audioSource.PlayOneShot(gunPowerupClip);
+                break;
+            case "Speed Powerup(Clone)":
+                audioSource.PlayOneShot(speedClip);
+                speed *= 2; 
+                break;
+            case "Fire Ratio Powerup(Clone)":
+                audioSource.PlayOneShot(fireRateClip);
+                fireRate /= 2;
+                break;
+        }
+
     }
 
     /**
