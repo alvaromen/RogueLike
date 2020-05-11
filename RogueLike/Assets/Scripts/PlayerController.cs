@@ -79,65 +79,12 @@ public class PlayerController : Character
 
     private void Update()
     {
-        float moveInputX = Input.GetAxisRaw("Horizontal");
-        float moveInputY = Input.GetAxisRaw("Vertical");
+        Move();
+        Attack();
+    }
 
-        rb.velocity = new Vector2(moveInputX * speed * speedIncrementFactor, moveInputY * speed * speedIncrementFactor);
-
-        if (!isShooting)
-        {
-            if (moveInputY > 0)
-            {
-                if (moveInputX == 0)
-                {
-                    transform.eulerAngles = new Vector3(0, 0, 0);
-                    lastAngle = 0;
-                } else if(moveInputX > 0)
-                {
-                    transform.eulerAngles = new Vector3(0, 0, 315);
-                    lastAngle = 315;
-                } else
-                {
-                    transform.eulerAngles = new Vector3(0, 0, 45);
-                    lastAngle = 45;
-                }
-            } else
-            {
-                if(moveInputY < 0)
-                {
-                    if (moveInputX == 0)
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 180);
-                        lastAngle = 180;
-                    }
-                    else if (moveInputX > 0)
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 225);
-                        lastAngle = 225;
-                    }
-                    else
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 135);
-                        lastAngle = 135;
-                    }
-                } else
-                {
-                    if(moveInputX == 0)
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, lastAngle);
-                    } else if (moveInputX > 0)
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 270);
-                        lastAngle = 270;
-                    }
-                    else
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 90);
-                        lastAngle = 90;
-                    }
-                }
-            }
-        }
+    private void Attack()
+    {
 
         if (Input.GetKey("up"))
         {
@@ -149,34 +96,43 @@ public class PlayerController : Character
                 StartCoroutine(Shoot("up"));
             }
         }
-        if (Input.GetKey("down"))
+        else
         {
-            if (!isShooting)
+            if (Input.GetKey("down"))
             {
-                transform.eulerAngles = new Vector3(0, 0, 180);
-                lastAngle = 180;
-                isShooting = true;
-                StartCoroutine(Shoot("down"));
+                if (!isShooting)
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 180);
+                    lastAngle = 180;
+                    isShooting = true;
+                    StartCoroutine(Shoot("down"));
+                }
             }
-        }
-        if (Input.GetKey("left"))
-        {
-            if (!isShooting)
+            else
             {
-                transform.eulerAngles = new Vector3(0, 0, 90);
-                lastAngle = 90;
-                isShooting = true;
-                StartCoroutine(Shoot("left"));
-            }
-        }
-        if (Input.GetKey("right"))
-        {
-            if (!isShooting)
-            {
-                transform.eulerAngles = new Vector3(0, 0, -90);
-                lastAngle = -90;
-                isShooting = true;
-                StartCoroutine(Shoot("right"));
+                if (Input.GetKey("left"))
+                {
+                    if (!isShooting)
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 90);
+                        lastAngle = 90;
+                        isShooting = true;
+                        StartCoroutine(Shoot("left"));
+                    }
+                }
+                else
+                {
+                    if (Input.GetKey("right"))
+                    {
+                        if (!isShooting)
+                        {
+                            transform.eulerAngles = new Vector3(0, 0, -90);
+                            lastAngle = -90;
+                            isShooting = true;
+                            StartCoroutine(Shoot("right"));
+                        }
+                    }
+                }
             }
         }
 
@@ -188,7 +144,7 @@ public class PlayerController : Character
             float x = (transform.position.x - transform.position.x % 16) + 8;
             float y = (transform.position.y - transform.position.y % 16) + 8;
             GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(x, y, -10);
-            if(currentX != lastX)
+            if (currentX != lastX)
             {
                 movingX = true;
                 lastX = currentX;
@@ -211,11 +167,80 @@ public class PlayerController : Character
                     movingX = false;
                 }
             }
-            if(movingY){
+            if (movingY)
+            {
                 if (transform.position.y % 16 > 4 && transform.position.y % 16 < 12)
                 {
                     VisitRoom();
                     movingY = false;
+                }
+            }
+        }
+    }
+
+    private void Move()
+    {
+        float moveInputX = Input.GetAxisRaw("Horizontal");
+        float moveInputY = Input.GetAxisRaw("Vertical");
+
+        rb.velocity = new Vector2(moveInputX * speed * speedIncrementFactor, moveInputY * speed * speedIncrementFactor);
+
+        if (!isShooting)
+        {
+            if (moveInputY > 0)
+            {
+                if (moveInputX == 0)
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    lastAngle = 0;
+                }
+                else if (moveInputX > 0)
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 315);
+                    lastAngle = 315;
+                }
+                else
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 45);
+                    lastAngle = 45;
+                }
+            }
+            else
+            {
+                if (moveInputY < 0)
+                {
+                    if (moveInputX == 0)
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 180);
+                        lastAngle = 180;
+                    }
+                    else if (moveInputX > 0)
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 225);
+                        lastAngle = 225;
+                    }
+                    else
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 135);
+                        lastAngle = 135;
+                    }
+                }
+                else
+                {
+                    if (moveInputX == 0)
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, lastAngle);
+                    }
+                    else if (moveInputX > 0)
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 270);
+                        lastAngle = 270;
+                    }
+                    else
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 90);
+                        lastAngle = 90;
+                    }
                 }
             }
         }
@@ -405,11 +430,17 @@ public class PlayerController : Character
         transform.position = pos;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.collider.CompareTag("Enemy"))
         {
             GetHurt(1);
+        } else
+        {
+            if (collision.collider.CompareTag("Boss"))
+            {
+                GetHurt(2);
+            }
         }
     }
     

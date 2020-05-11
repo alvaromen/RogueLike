@@ -100,12 +100,12 @@ public class BomberEnemy : Enemy
                     direction = (int)Random.Range(0, 3.99f);
                     break;
             }
+
+            transform.eulerAngles = new Vector3(0, 0, a * 360);
+            a += 0.3f;
         }
 
         rb.velocity = velocity;
-
-        transform.eulerAngles =  new Vector3(0, 0, a * 360);
-        a++;
     }
 
     private IEnumerator Attack()

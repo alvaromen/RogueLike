@@ -41,7 +41,7 @@ public class Enemy : Character
                     int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
                     Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
                 }
-            	GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().AddPoints(50);
+            	GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().AddPoints(100);
                 Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
                 Destroy(gameObject);
                 audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);

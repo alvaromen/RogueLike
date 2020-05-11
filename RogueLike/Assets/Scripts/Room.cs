@@ -10,9 +10,11 @@ public class Room : MonoBehaviour{
     private RoomType roomType;
 
     private GameObject keyBoss;
-    private GameObject boss;
+    private GameObject bossPrefab;
     private GameObject bossDoor;
-    
+    private GameObject bossEnemy;
+
+
     public enum Status
     {
         nonvisited,
@@ -40,7 +42,7 @@ public class Room : MonoBehaviour{
         status = s;
         position = p;
         conexions = c;
-        boss = b;
+        bossPrefab = b;
         if(roomType == RoomType.boss)
         {
             Vector3 pos = p;
@@ -49,22 +51,22 @@ public class Room : MonoBehaviour{
             switch (c)
             {
                 case Conexions.T:
-                    pos = new Vector3(p.x + 7.5f, p.y + 5, 0);
+                    pos = new Vector3(p.x + 7.5f, p.y + 4, 0);
                     quaternion = Quaternion.identity;
                     direction = 0;
                     break;
                 case Conexions.B:
-                    pos = new Vector3(p.x + 7.5f, p.y + 11, 0);
+                    pos = new Vector3(p.x + 7.5f, p.y + 12, 0);
                     quaternion = Quaternion.Euler(new Vector3(0, 0, 180));
                     direction = 1;
                     break;
                 case Conexions.L:
-                    pos = new Vector3(p.x + 11, p.y + 7.5f, 0);
+                    pos = new Vector3(p.x + 12, p.y + 7.5f, 0);
                     quaternion = Quaternion.Euler(new Vector3(0, 0, 90));
                     direction = 2;
                     break;
                 case Conexions.R:
-                    pos = new Vector3(p.x + 5, p.y + 7.5f, 0);
+                    pos = new Vector3(p.x + 4, p.y + 7.5f, 0);
                     quaternion = Quaternion.Euler(new Vector3(0, 0, 270));
                     direction = 3;
                     break;
@@ -72,7 +74,7 @@ public class Room : MonoBehaviour{
                     break;
             }
 
-            GameObject bossEnemy = Instantiate(boss, pos, quaternion);
+            bossEnemy = Instantiate(bossPrefab, pos, quaternion);
             bossEnemy.GetComponent<BossEnemy>().SetDirection(direction);
             bossEnemy.GetComponent<BossEnemy>().SetRoom(this);
             nEnemies = 1;
@@ -85,13 +87,11 @@ public class Room : MonoBehaviour{
         {
             status = Status.visited;
             SpawnEnemies();
-            float i = 0;
             foreach (GameObject door in doors)
             {
                 door.GetComponent<BoxCollider2D>().isTrigger = false;
                 Vector3 pos = new Vector3(door.transform.position.x, door.transform.position.y, 0.8f);
                 turretsToDestroy.Add(Instantiate(turretPrefab, pos, Quaternion.identity));
-                i += 0.5f;
             }
         }
     }
@@ -122,11 +122,7 @@ public class Room : MonoBehaviour{
             }
         } else if (roomType == RoomType.boss)
         {
-            foreach (GameObject door in doors)
-            {
-                Vector3 pos = new Vector3(door.transform.position.x, door.transform.position.y, 0.8f);
-                Instantiate(bossDoor, pos, Quaternion.identity);
-            }
+            bossEnemy.GetComponent<BossEnemy>().Activate();
         }
     }
 
