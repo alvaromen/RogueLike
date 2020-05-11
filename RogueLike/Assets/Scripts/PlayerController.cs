@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : Character
 {
@@ -37,9 +39,11 @@ public class PlayerController : Character
 
     private PlayerStats healthBar;
     private bool inmortal;
+    public GameObject winText;
 
     private void Start()
     {
+        winText.SetActive(false);
 
         healthBar = GameObject.Find("PlayerStats").GetComponent<PlayerStats>();
         healthBar.maxHealth = maxHp;
@@ -51,7 +55,6 @@ public class PlayerController : Character
 
         audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
 
-        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         speed = 5;
         speedIncrementFactor = 1;
@@ -231,7 +234,10 @@ public class PlayerController : Character
         }
         if (hp <= 0)
         {
-            //die
+            winText.SetActive(true);
+            winText.GetComponent<Text>().text = "RIP. Has obtenido " + points + " puntos.";
+            Invoke("ReloadGame", 5f);
+            gameObject.SetActive(false);
         }
     }
 
@@ -405,6 +411,11 @@ public class PlayerController : Character
         {
             GetHurt(1);
         }
+    }
+    
+    void ReloadGame(){
+        print("sadf");
+        SceneManager.LoadScene("Menu");
     }
 
     public void AddPoints(int p)

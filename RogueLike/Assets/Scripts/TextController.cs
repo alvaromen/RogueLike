@@ -16,14 +16,16 @@ public class TextController : MonoBehaviour
 
 
     void Update(){
-        points.text = "POINTS: " + player.GetComponent<PlayerController>().points;
-        
-        bool key = player.GetComponent<PlayerController>().hasBossKey;
-        string keyS = key ? "Yes" : "No";
-        hasKey.text = "KEY: " + keyS;
-        
-        speed.text = "Speed Boost: " + player.GetComponent<PlayerController>().speedIncrementFactor + "x";
-        fireRate.text = "Fire Speed Boost: " + (0.5f / player.GetComponent<PlayerController>().fireRate) + "x";
+        if(player){
+            points.text = "POINTS: " + player.GetComponent<PlayerController>().points;
+            
+            bool key = player.GetComponent<PlayerController>().hasBossKey;
+            string keyS = key ? "Yes" : "No";
+            hasKey.text = "KEY: " + keyS;
+            
+            speed.text = "Speed Boost: " + player.GetComponent<PlayerController>().speedIncrementFactor + "x";
+            fireRate.text = "Fire Speed Boost: " + (0.5f / player.GetComponent<PlayerController>().fireRate) + "x";
+        }
     }
 
 

@@ -15,12 +15,16 @@ public class PositionGrid : MonoBehaviour
     }
 
     private void LateUpdate(){
-        Vector2 player = GameObject.FindGameObjectWithTag("Player").transform.position;
-        int xGrid = Mathf.FloorToInt(player.x) / 16;
-        int yGrid = Mathf.FloorToInt(player.y) / 16;
+        if(GameObject.FindGameObjectWithTag("Player") != null){
+            Vector2 player = GameObject.FindGameObjectWithTag("Player").transform.position;
+            if(player != null){
+                int xGrid = Mathf.FloorToInt(player.x) / 16;
+                int yGrid = Mathf.FloorToInt(player.y) / 16;
 
 
-        transform.position = new Vector2(xGrid, yGrid) * (steps + 2);
+                transform.position = new Vector2(xGrid, yGrid) * (steps + 2);
+            }
+        }
 
     }
 

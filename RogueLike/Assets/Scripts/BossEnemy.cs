@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossEnemy : Enemy
 {
@@ -18,6 +19,8 @@ public class BossEnemy : Enemy
 
     private int direction;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +37,8 @@ public class BossEnemy : Enemy
         doingBulletAttack = false;
 
         doingBombAttack = false;
+
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -126,4 +131,27 @@ public class BossEnemy : Enemy
     {
         direction = d;
     }
+
+    public new void GetHurt(float dmg)
+    {
+        hp -= dmg;
+        if (hp <= 0)
+        {
+            room.EnemyDown();
+
+            if(UnityEngine.Random.Range(0f, 1f) < 0.2f){
+                int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
+                Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
+            }
+            Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
+            Invoke("ReloadGame", 3f);
+        }
+    }
+
+    void ReloadGame(){
+        SceneManager.LoadScene("Rogue Like");
+    }
+
 }
