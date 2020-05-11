@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4828671261577558152}
   - component: {fileID: 8683189671241849878}
   - component: {fileID: 5437956395161539225}
+  - component: {fileID: 2751256654818938768}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -151,3 +152,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2751256654818938768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507798845087452017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bf0d2f713b70242b5a537a5c881747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyExplosion: {fileID: 9070761446126769558, guid: 443760ff1e65b5d4d86a73bc229bd778,
+    type: 3}
+  mobDrops: []
+  shootAudioClips:
+  - {fileID: 8300000, guid: 991b8c5609723c140b08d08b08f284f6, type: 3}
+  explosionClips: []
+  bulletPrefab: {fileID: 9116916179048070181, guid: ff161c675441f4149b1a7f5da380309a,
+    type: 3}
+  bombPrefab: {fileID: 1840785784327607487, guid: 3c6c1f47d9b75a94cb58175369e92011,
+    type: 3}

@@ -45,29 +45,35 @@ public class Room : MonoBehaviour{
         {
             Vector3 pos = p;
             Quaternion quaternion = Quaternion.identity;
+            int direction = 0;
             switch (c)
             {
                 case Conexions.T:
                     pos = new Vector3(p.x + 7.5f, p.y + 5, 0);
                     quaternion = Quaternion.identity;
+                    direction = 0;
                     break;
                 case Conexions.B:
                     pos = new Vector3(p.x + 7.5f, p.y + 11, 0);
                     quaternion = Quaternion.Euler(new Vector3(0, 0, 180));
+                    direction = 1;
                     break;
                 case Conexions.L:
                     pos = new Vector3(p.x + 11, p.y + 7.5f, 0);
                     quaternion = Quaternion.Euler(new Vector3(0, 0, 90));
+                    direction = 2;
                     break;
                 case Conexions.R:
                     pos = new Vector3(p.x + 5, p.y + 7.5f, 0);
                     quaternion = Quaternion.Euler(new Vector3(0, 0, 270));
+                    direction = 3;
                     break;
                 default:
                     break;
             }
 
-            Instantiate(boss, pos, quaternion);
+            GameObject bossEnemy = Instantiate(boss, pos, quaternion);
+            bossEnemy.GetComponent<BossEnemy>().SetDirection(direction);
         }
     }
 
@@ -103,7 +109,7 @@ public class Room : MonoBehaviour{
     {
         if (roomType == RoomType.normal || roomType == RoomType.keyBoss)
         {
-            nEnemies = Random.Range(2, 4);
+            nEnemies = Random.Range(3, 5);
             for (int i = 0; i < nEnemies; i++)
             {
                 Vector3 randomPosition = new Vector3(position.x + (int)Random.Range(3, 12), position.y + (int)Random.Range(3, 12), 0f);
@@ -117,7 +123,7 @@ public class Room : MonoBehaviour{
             foreach (GameObject door in doors)
             {
                 Vector3 pos = new Vector3(door.transform.position.x, door.transform.position.y, 0.8f);
-                Instantiate(keyBoss, pos, Quaternion.identity);
+                Instantiate(bossDoor, pos, Quaternion.identity);
             }
         }
     }

@@ -205,10 +205,6 @@ public class RoomCreator : MonoBehaviour
         if(roomType == RoomType.initial)
             status = Room.Status.cleared;
         Room room = new Room(roomType, status, position, conexions, boss);
-        foreach (GameObject door in doors)
-        {
-            door.GetComponent<DoorController>().SetRoom(room);
-        }
         room.SetDoors(doors);
         if (type == RoomCreator.RoomType.boss)
             room.SetDoorBoss(exitBoss);

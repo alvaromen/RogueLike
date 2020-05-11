@@ -223,7 +223,7 @@ public class PlayerController : Character
         GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>().VisitRoom(new Vector2(lastX, lastY));
     }
 
-    public new void GetHurt(float dmg)
+    public void GetHurt(float dmg)
     {
         if (!inmortal)
         {
@@ -282,7 +282,7 @@ public class PlayerController : Character
                 fireRate = (fireRate /= 2f) > 0.1f ? (fireRate /= 2f) : 0.1f;
                 break;
         }
-
+        AddPoints(500);
     }
 
     /**
@@ -394,7 +394,7 @@ public class PlayerController : Character
         isShooting = false;
     }
 
-    public void setPosition(Vector2 pos)
+    public void SetPosition(Vector2 pos)
     {
         transform.position = pos;
     }
@@ -405,5 +405,10 @@ public class PlayerController : Character
         {
             GetHurt(1);
         }
+    }
+
+    public void AddPoints(int p)
+    {
+        points += p;
     }
 }
