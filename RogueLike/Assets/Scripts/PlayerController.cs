@@ -161,7 +161,7 @@ public class PlayerController : Character
         {
             if (movingX)
             {
-                if (transform.position.x % 16 > 4 && transform.position.x % 16 < 12)
+                if (transform.position.x % 16 > 3 && transform.position.x % 16 < 13)
                 {
                     VisitRoom();
                     movingX = false;
@@ -169,7 +169,7 @@ public class PlayerController : Character
             }
             if (movingY)
             {
-                if (transform.position.y % 16 > 4 && transform.position.y % 16 < 12)
+                if (transform.position.y % 16 > 3 && transform.position.y % 16 < 13)
                 {
                     VisitRoom();
                     movingY = false;

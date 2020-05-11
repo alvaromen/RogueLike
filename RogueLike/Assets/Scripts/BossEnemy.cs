@@ -9,13 +9,13 @@ public class BossEnemy : Enemy
 
     private Transform bulletsHolder;
     private float fireRate;
-    private float bulletsFrequency;
+    private float attackFrequency;
     private bool isShooting;
     private bool bulletAttack;
     private bool doingBulletAttack;
     private int nBullets;
     private bool doingBombAttack;
-    private int nBombs;
+    private float bombDamage;
 
     private int direction;
 
@@ -34,13 +34,14 @@ public class BossEnemy : Enemy
         damage = 2;
 
         fireRate = 0.1f;
-        bulletsFrequency = 3;
+        attackFrequency = 5;
         nBullets = 0;
 
         bulletAttack = false;
         doingBulletAttack = false;
 
         doingBombAttack = false;
+        bombDamage = 3;
 
         activated = false;
 
@@ -81,6 +82,13 @@ public class BossEnemy : Enemy
                         StartCoroutine(GenerateBullet());
                     }
                 }
+            }
+        } else
+        {
+            if (!doingBombAttack)
+            {
+                doingBombAttack = true;
+                StartCoroutine(BombAttack());
             }
         }
     }
@@ -128,10 +136,8 @@ public class BossEnemy : Enemy
 
     private IEnumerator ChargingBulletAttack()
     {
-        doingBombAttack = false;
 
-        yield return new WaitForSeconds(bulletsFrequency);
-        doingBombAttack = false;
+        yield return new WaitForSeconds(attackFrequency);
         nBullets = 0;
         bulletAttack = false;
         doingBulletAttack = false;
@@ -181,6 +187,45 @@ public class BossEnemy : Enemy
         yield return new WaitForSeconds(fireRate);
 
         isShooting = false;
+    }
+
+    private IEnumerator BombAttack()
+    {
+        Vector3 center = GetComponent<SpriteRenderer>().bounds.center;
+        Vector3 extent = GetComponent<SpriteRenderer>().bounds.extents;
+        Vector3 position = transform.position;
+        Vector3 velocity = new Vector3(0, 0, 0);
+
+        switch (direction)
+        {
+            case 0: //up
+                position = new Vector3(center.x, center.y + extent.y + 0.5f, 0);
+                break;
+            case 1: //down
+                position = new Vector3(center.x, center.y - extent.y - 0.5f, 0);
+                break;
+            case 2: //left
+                position = new Vector3(center.x - extent.x - 0.5f, center.y, 0);
+                break;
+            case 3: //right
+                position = new Vector3(center.x + extent.x + 0.5f, center.y, 0);
+                break;
+            default:
+                break;
+        }
+        
+        GameObject bomb = Instantiate(bombPrefab, position, Quaternion.identity);
+        bomb.tag = "EnemyBomb";
+        Vector3 destination = GameObject.FindGameObjectWithTag("Player").transform.position;
+        velocity = destination - position;
+        velocity.Normalize();
+        velocity = velocity * 5;
+        bomb.GetComponent<BombBossController>().SetParameters(destination, velocity);
+        bomb.GetComponent<BombBossController>().SetDamage(bombDamage);
+
+        yield return new WaitForSeconds(attackFrequency / 3);
+
+        doingBombAttack = false;
     }
 
     public void SetDirection(int d)

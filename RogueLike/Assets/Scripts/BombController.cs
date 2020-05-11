@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BombController : MonoBehaviour
 {
-    float damage;
+    protected float damage;
 
-    float hp;
+    protected float hp;
 
     public GameObject explosion;
     public AudioClip explosionSfx;
-    AudioSource audioSource;
+    protected AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
