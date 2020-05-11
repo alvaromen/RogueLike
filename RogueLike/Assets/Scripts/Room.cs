@@ -74,6 +74,8 @@ public class Room : MonoBehaviour{
 
             GameObject bossEnemy = Instantiate(boss, pos, quaternion);
             bossEnemy.GetComponent<BossEnemy>().SetDirection(direction);
+            bossEnemy.GetComponent<BossEnemy>().SetRoom(this);
+            nEnemies = 1;
         }
     }
 

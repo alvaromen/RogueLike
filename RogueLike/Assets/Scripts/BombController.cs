@@ -28,6 +28,7 @@ public class BombController : MonoBehaviour
     {
         hp--;
         if (hp <= 0){
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().AddPoints(50);
             audioSource.PlayOneShot(explosionSfx);
             Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);

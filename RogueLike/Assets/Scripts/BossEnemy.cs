@@ -138,11 +138,7 @@ public class BossEnemy : Enemy
         if (hp <= 0)
         {
             room.EnemyDown();
-
-            if(UnityEngine.Random.Range(0f, 1f) < 0.2f){
-                int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
-                Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
-            }
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().AddPoints(5000);
             Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
             audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
