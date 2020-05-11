@@ -327,6 +327,80 @@ MonoBehaviour:
   m_Text: 'new text
 
 '
+--- !u!1 &248739382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 248739383}
+  - component: {fileID: 248739385}
+  - component: {fileID: 248739384}
+  m_Layer: 5
+  m_Name: Key Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &248739383
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248739382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 553998890}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 482.3, y: 98.4}
+  m_SizeDelta: {x: 26.2, y: 26.2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &248739384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248739382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -2225971519748952925, guid: 69054d1e49a86ba44b77f44f4b489bec,
+    type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &248739385
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248739382}
+  m_CullTransparentMesh: 0
 --- !u!1 &284275362
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +653,7 @@ RectTransform:
   - {fileID: 284275363}
   - {fileID: 1576549414}
   - {fileID: 1150092741}
+  - {fileID: 248739383}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1643,6 +1718,7 @@ MonoBehaviour:
   speed: {fileID: 284275365}
   fireRate: {fileID: 1576549412}
   player: {fileID: 1462188559}
+  keySprite: {fileID: 0}
 --- !u!4 &1955189972
 Transform:
   m_ObjectHideFlags: 0
@@ -1759,7 +1835,7 @@ MonoBehaviour:
   chanceWalkerSpawn: 0.603
   chanceWalkerDestroy: 0.125
   maxWalkers: 4
-  numIterations: 15
+  numIterations: 8
   enemiesPrefabs:
   - {fileID: 260901276667902976, guid: 1ef3f8163eaaa654b9dd3c8e2b7ed922, type: 3}
   - {fileID: 1241008398461410628, guid: f5ddc487e00aae4439e2f3239b26d877, type: 3}
