@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2751256654818938768}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,7 +169,14 @@ MonoBehaviour:
   mobDrops: []
   shootAudioClips:
   - {fileID: 8300000, guid: 991b8c5609723c140b08d08b08f284f6, type: 3}
-  explosionClips: []
+  explosionClips:
+  - {fileID: 8300000, guid: 1dbef2e703ca4c74385b95f031fc750d, type: 3}
+  - {fileID: 8300000, guid: 6c403b77db8014242b7117b9e8e2f4f1, type: 3}
+  - {fileID: 8300000, guid: e9edf2bad3c09c34f805f88ff745ccf7, type: 3}
+  - {fileID: 8300000, guid: cd578189f6e630c48ac933ac9cf8a575, type: 3}
+  - {fileID: 8300000, guid: a3a32b1f93f3e8143abd3671159fde78, type: 3}
+  - {fileID: 8300000, guid: 4b1237aba629c1e46b68602936eef07e, type: 3}
+  - {fileID: 8300000, guid: bb484720a023fb84b9fbafb85818c7f5, type: 3}
   bulletPrefab: {fileID: 9116916179048070181, guid: ff161c675441f4149b1a7f5da380309a,
     type: 3}
   bombPrefab: {fileID: 1840785784327607487, guid: 3c6c1f47d9b75a94cb58175369e92011,

@@ -26,7 +26,7 @@ public class BossEnemy : Enemy
     {
         bulletsHolder = new GameObject("BossBullets").transform;
 
-        hp = 100;
+        hp = 10;
         damage = 2;
 
         fireRate = 0.25f;

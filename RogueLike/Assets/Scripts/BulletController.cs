@@ -12,7 +12,7 @@ public class BulletController : MonoBehaviour
     {
         if (CompareTag("PlayerBullet"))
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
             {
                 other.GetComponent<Enemy>().GetHurt(damage);
             } else

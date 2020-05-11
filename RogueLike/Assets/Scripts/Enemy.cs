@@ -28,15 +28,23 @@ public class Enemy : Character
         hp -= dmg;
         if (hp <= 0)
         {
-            room.EnemyDown();
+            if(tag == "Boss"){
+                Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
+                Invoke("ReloadGame", 3f);
+                gameObject.SetActive(false);
+                for(int i=0; i < 10; i++)
+                    audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
+            }else{
+                room.EnemyDown();
 
-            if(UnityEngine.Random.Range(0f, 1f) < 0.2f){
-                int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
-                Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
+                if(UnityEngine.Random.Range(0f, 1f) < 0.2f){
+                    int randIndex = UnityEngine.Random.Range(0, mobDrops.Length);
+                    Instantiate(mobDrops[randIndex], gameObject.transform.position, Quaternion.identity);
+                }
+                Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
+                Destroy(gameObject);
+                audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
             }
-            Instantiate(enemyExplosion, gameObject.transform.position, Quaternion.identity);
-            Destroy(gameObject);
-            audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
         }
     }
 }
